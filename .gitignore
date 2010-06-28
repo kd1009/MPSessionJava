@@ -1,0 +1,37 @@
+# ---- Mac/Win messy files
+
+.DS_Store
+Thumbs.db
+
+# ---- Temporary files
+
+*~
+\#*#
+
+# ---- Byte-compiled Java
+
+*.class
+
+# ---- Log files
+
+*.log
+
+# ---- Files not needed
+
+sessionj/tests/**/*
+sessionj/tests/*
+sessionj/.hg/**/*
+sessionj/.hg/*
+sessionj/bin/*
+
+
+# ---- Netbeans / Eclipse project files
+
+sessionj/lib/*
+manifest.mf
+
+# ---- Tex compilation files
+
+*.aux
+*.dvi
+*.pdf
