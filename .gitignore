@@ -24,12 +24,6 @@ sessionj/.hg/**/*
 sessionj/.hg/*
 sessionj/bin/*
 
-
-# ---- Netbeans / Eclipse project files
-
-sessionj/lib/*
-manifest.mf
-
 # ---- Tex compilation files
 
 *.aux
