@@ -132,6 +132,9 @@ import sessionj.SJConstants;
         keywords.put(SJConstants.SJ_KEYWORD_TYPECASE, new Integer(sym.SJ_TYPECASE));
         keywords.put(SJConstants.SJ_KEYWORD_WHEN, new Integer(sym.SJ_WHEN));
         // YAR
+        
+        //KACPER:
+        keywords.put(SJConstants.SJ_KEYWORD_MP_PROTOCOL, new Integer(sym.SJ_MP_PROTOCOL));
     }
 
     public String file() {
@@ -399,11 +402,11 @@ OctalEscape = \\ [0-7]
     ">>="  { return op(sym.RSHIFTEQ);   }
     ">>>=" { return op(sym.URSHIFTEQ);  }
 
-		// RAY // Declare our own operator tokens. (Also do for all session type syntax?)
+	// RAY // Declare our own operator tokens. (Also do for all session type syntax?)
     "#" { return op(sym.SJ_RECURSE_LABEL);  }
-		"@" { return op(sym.SJ_PROTOCOL_REF); }
-		//"^" { return op(sym.SJ_PROTOCOL_DUAL); } // Already XOR.		
-		// YAR
+	"@" { return op(sym.SJ_PROTOCOL_REF); }
+	//"^" { return op(sym.SJ_PROTOCOL_DUAL); } // Already XOR.		
+	// YAR
     
     /* 3.10.1 Integer Literals */
     {OctalNumeral} [lL]          { return long_lit(chop(), 8); }

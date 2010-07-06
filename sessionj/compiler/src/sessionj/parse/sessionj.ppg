@@ -45,6 +45,10 @@ parser Grm extends polyglot.parse.Grm {:
     			SJConstants.SJ_ABSTRACT_CHANNEL_TYPE = ts.typeForName(SJConstants.SJ_ABSTRACT_CHANNEL_CLASS);
     			SJConstants.SJ_CHANNEL_SOCKET_HACK_TYPE = ts.typeForName(SJConstants.SJ_CHANNEL_SOCKET_HACK_CLASS);
     			SJConstants.SJ_SELECTOR_INTERFACE_TYPE = ts.typeForName(SJConstants.SJ_SELECTOR_INTERFACE);
+    			
+    			//KACPER:
+    			//SJConstants.SJ_MP_PROTOCOL_TYPE = ts.typeForName(SJConstants.SJ_MP_PROTOCOL_CLASS);
+    
     		}
     		catch (SemanticException se) 
     		{		
@@ -69,6 +73,9 @@ parser Grm extends polyglot.parse.Grm {:
 terminal Token SJ_NOALIAS;
 
 terminal Token SJ_PROTOCOL;
+
+//KACPER:
+terminal Token SJ_MP_PROTOCOL;
 
 terminal Token SJ_CBEGIN;
 terminal Token SJ_SBEGIN;

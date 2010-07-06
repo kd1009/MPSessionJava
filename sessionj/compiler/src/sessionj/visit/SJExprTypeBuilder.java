@@ -42,6 +42,7 @@ public class SJExprTypeBuilder extends ContextVisitor
 	public SJExprTypeBuilder(Job job, TypeSystem ts, NodeFactory nf)
 	{
 		super(job, ts, nf);
+		System.out.println("SJExprTypeBuilder created.");
 	}
 
 	protected Node leaveCall(Node parent, Node old, Node n, NodeVisitor v) throws SemanticException

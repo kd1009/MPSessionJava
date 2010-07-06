@@ -19,6 +19,9 @@ public class SJConstants
 	
 	public static final String SJ_KEYWORD_PROTOCOL = "protocol";
 	
+	//KACPER
+	public static final String SJ_KEYWORD_MP_PROTOCOL = "mp_protocol";
+
 	public static final String SJ_KEYWORD_CBEGIN = "cbegin";
 	public static final String SJ_KEYWORD_SBEGIN = "sbegin";
 	
@@ -137,6 +140,10 @@ public class SJConstants
 	
 	//Initialised by the parser (first pass).
 	public static Type SJ_PROTOCOL_TYPE;
+	
+	//KACPER
+	public static Type SJ_MP_PROTOCOL_TYPE;
+	
     public static Type SJ_ABSTRACT_CHANNEL_TYPE;
 	public static Type SJ_CHANNEL_TYPE;
 	public static Type SJ_SOCKET_INTERFACE_TYPE;
