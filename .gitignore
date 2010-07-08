@@ -18,14 +18,11 @@ Thumbs.db
 
 # ---- Files not needed
 
-sessionj/tests/**/*
-sessionj/tests/*
 sessionj/.hg/**/*
 sessionj/.hg/*
 sessionj/bin/*
 
 # ---- Tex compilation files
-
 *.aux
 *.dvi
 *.pdf
