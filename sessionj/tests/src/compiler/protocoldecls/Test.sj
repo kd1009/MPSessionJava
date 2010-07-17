@@ -12,13 +12,20 @@ public class Test
 {			
 	public static void main(String[] args) throws Exception
 	{		
-		final noalias protocol p1 { cbegin.?(!(int).!(String)) }
-		final noalias protocol p2 { cbegin.@(A.pa) }
-		final noalias protocol p3{ ^(B.pb).!(Integer) }
+		//final noalias protocol p1 { cbegin.?(!(int).!(String)) }
+		//final noalias protocol p2 { cbegin.@(A.pa) }
+		//final noalias protocol p3{ ^(B.pb).!(Integer) }
 	}
 }
 
 class A
 {
-	public static final noalias protocol pa { ?(!(int).!(String)) }
+	//public static final noalias protocol pa { ?(!(int).!(String)) }
+}
+
+class MP
+{ 
+	public static final noalias global_protocol kacper1 { |a,b|:?(int).|a,b|:?(int) }
+	public static final noalias global_protocol kacper2 { |a,b|:?(int).|a,b|:?(int) , |b,a|:?(int) }
+	public static final noalias protocol kacper3 {?(int).!<int>}
 }

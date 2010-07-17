@@ -47,7 +47,7 @@ parser Grm extends polyglot.parse.Grm {:
     			SJConstants.SJ_SELECTOR_INTERFACE_TYPE = ts.typeForName(SJConstants.SJ_SELECTOR_INTERFACE);
     			
     			//KACPER:
-    			//SJConstants.SJ_MP_PROTOCOL_TYPE = ts.typeForName(SJConstants.SJ_MP_PROTOCOL_CLASS);
+    			SJConstants.SJ_GLOB_PROTOCOL_TYPE = ts.typeForName(SJConstants.SJ_GLOB_PROTOCOL_CLASS);
     
     		}
     		catch (SemanticException se) 
@@ -75,7 +75,7 @@ terminal Token SJ_NOALIAS;
 terminal Token SJ_PROTOCOL;
 
 //KACPER:
-terminal Token SJ_MP_PROTOCOL;
+terminal Token SJ_GLOB_PROTOCOL;
 
 terminal Token SJ_CBEGIN;
 terminal Token SJ_SBEGIN;
@@ -114,6 +114,14 @@ terminal Token SJ_SPAWN;
 terminal Token SJ_RECURSE_LABEL;
 terminal Token SJ_PROTOCOL_REF;
 
+//KACPER:
+non terminal SJTypeNode sj_glob_session_type;
+non terminal SJTypeNode sj_glob_session_type_body;
+non terminal SJTypeNode sj_glob_session_type_element;
+non terminal SJTypeNode sj_glob_session_type_element_prefix;
+non terminal SJTypeNode sj_glob_session_set_type;
+non terminal List sj_glob_session_set_type_body;
+
 non terminal SJTypeNode sj_session_type;
 non terminal SJCBeginNode sj_session_type_cbegin;
 non terminal SJSBeginNode sj_session_type_sbegin;
@@ -129,6 +137,8 @@ non terminal SJTypeNode sj_session_set_type;
 
 non terminal SJFieldProtocolDecl sj_field_protocol_declaration;
 non terminal SJLocalProtocolDecl sj_protocol_declaration_statement;
+//KACPER:
+non terminal SJGlobProtocolDecl sj_glob_protocol_declaration;
 
 non terminal SJAmbiguousTry sj_try_statement;
 
@@ -212,7 +222,36 @@ extend class_member_declaration ::= // List of ClassMember.
         l.add(a);
 		RESULT = l;
 	:}
+|	sj_glob_protocol_declaration:a
+	{:
+		List l = new TypedList(new LinkedList(), ClassMember.class, false);
+		l.add(a); 
+		RESULT = l;
+	:}
 ;
+
+/*****************************************************************************************************************************/ 
+//KACPER
+//extend class_type ::=
+//	sj_glob_protocol_declaration:a
+//	{: 
+//		RESULT = a;
+//	:}
+//;
+
+sj_glob_protocol_declaration ::=
+	modifiers_opt:a SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
+	{:
+		//RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
+	:}
+|	modifiers_opt:a SJ_NOALIAS SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
+	{:
+		///RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
+	:}
+;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 sj_field_protocol_declaration ::= // Implicitly final and noalias (set by node factory), other modifiers optional.
 	modifiers_opt:a SJ_PROTOCOL IDENTIFIER:n sj_session_type:t 
@@ -250,10 +289,66 @@ sj_session_type ::= // begin prefixes actually enforced syntactically (although 
 |   sj_session_set_type:a   {: RESULT = a; :}
 ;
 
+/*********************************************************************************************************************************************/
+//KACPER:
+sj_glob_session_type ::=
+	sj_glob_session_type_body:a {: RESULT = a; :}
+|	sj_glob_session_set_type:a {: RESULT = a; :}
+;
+
+sj_glob_session_type_body ::= 
+	sj_glob_session_type_element:a
+	{:
+		RESULT = a;
+	:}
+|	sj_glob_session_type_element:a DOT sj_glob_session_type_body:b
+	{:
+		RESULT = a.child(b);
+	:}
+;
+
+sj_glob_session_type_element ::=
+	sj_glob_session_type_element_prefix:a COLON sj_session_type_element:b
+	{:
+		//RESULT = parser.nf.SJGlobSessionElementNode(................);
+	:}
+;
+
+sj_glob_session_type_element_prefix ::=
+	OR name:a COMMA name:b OR
+	{:
+		//RESULT = parser.nf.SJGlobSessionElementPrefixNode(................);
+	:}
+;
+
+sj_glob_session_set_type ::=  
+	LBRACE:l sj_glob_session_set_type_body:b RBRACE:r
+    {:
+		//RESULT = new SJGlobSetTypeNode_c(parser.pos(l,r), b);
+    :}
+;
+
+sj_glob_session_set_type_body ::=
+    sj_glob_session_type:t
+    {:
+        List l = new LinkedList();
+        l.add(t);
+        RESULT = l;
+    :}
+|   sj_glob_session_set_type_body:l COMMA sj_glob_session_type:t
+    {:
+        l.add(t);
+        RESULT = l;
+    :}
+;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 sj_session_set_type ::=  LBRACE:l sj_session_set_type_body:b RBRACE:r
     {:
         RESULT = new SJSetTypeNode_c(parser.pos(l,r), b);
     :};
+
 sj_session_set_type_body ::=
     sj_session_type:t
     {:

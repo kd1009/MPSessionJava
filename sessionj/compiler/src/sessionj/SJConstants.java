@@ -20,7 +20,7 @@ public class SJConstants
 	public static final String SJ_KEYWORD_PROTOCOL = "protocol";
 	
 	//KACPER
-	public static final String SJ_KEYWORD_MP_PROTOCOL = "mp_protocol";
+	public static final String SJ_KEYWORD_GLOB_PROTOCOL = "global_protocol";
 
 	public static final String SJ_KEYWORD_CBEGIN = "cbegin";
 	public static final String SJ_KEYWORD_SBEGIN = "sbegin";
@@ -142,7 +142,7 @@ public class SJConstants
 	public static Type SJ_PROTOCOL_TYPE;
 	
 	//KACPER
-	public static Type SJ_MP_PROTOCOL_TYPE;
+	public static Type SJ_GLOB_PROTOCOL_TYPE;
 	
     public static Type SJ_ABSTRACT_CHANNEL_TYPE;
 	public static Type SJ_CHANNEL_TYPE;
@@ -156,6 +156,7 @@ public class SJConstants
 	public static Type SJ_SELECTOR_INTERFACE_TYPE;
 	
 	public static final String SJ_PROTOCOL_CLASS = "sessionj.runtime.SJProtocol";
+	public static final String SJ_GLOB_PROTOCOL_CLASS = "sessionj.runtime.SJGlobProtocol";
 	public static final String SJ_CHANNEL_CLASS = "sessionj.runtime.net.SJService";
 	public static final String SJ_ABSTRACT_CHANNEL_CLASS = "sessionj.runtime.net.SJChannel";
 	public static final String SJ_SOCKET_INTERFACE = "sessionj.runtime.net.SJSocket";
@@ -165,6 +166,7 @@ public class SJConstants
 	public static final String SJ_RUNTIME_CLASS = "sessionj.runtime.net.SJRuntime"; 
 	public static final String SJ_THREAD_CLASS = "sessionj.runtime.SJThread";
 	public static final String SJ_SELECTOR_INTERFACE = "sessionj.runtime.net.SJSelector";
+	
 	
 	//public static final String SJ_LABEL_CLASS = "sessionj.util.SJLabel";
 	public static final String SJ_LABEL_CLASS = "java.lang.String";

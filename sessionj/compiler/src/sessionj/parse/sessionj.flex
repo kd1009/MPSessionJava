@@ -134,7 +134,7 @@ import sessionj.SJConstants;
         // YAR
         
         //KACPER:
-        keywords.put(SJConstants.SJ_KEYWORD_MP_PROTOCOL, new Integer(sym.SJ_MP_PROTOCOL));
+        keywords.put(SJConstants.SJ_KEYWORD_GLOB_PROTOCOL, new Integer(sym.SJ_GLOB_PROTOCOL));
     }
 
     public String file() {
