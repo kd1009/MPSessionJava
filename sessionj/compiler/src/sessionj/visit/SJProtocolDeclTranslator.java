@@ -30,7 +30,6 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 	public SJProtocolDeclTranslator(Job job, TypeSystem ts, NodeFactory nf)
 	{
 		super(job, ts, nf);
-		System.out.println("SJProtocolDeclTranslator created.");
 		
 		try
 		{
@@ -53,9 +52,7 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 	}
 
 	private SJProtocolDecl translateSJProtocolDecl(SJProtocolDecl pd) throws SemanticException
-	{
-		System.out.println(pd);
-		
+	{	
 		Position pos = pd.position();
 
 		QQ qq = new QQ(sjts.extensionInfo(), pos);
@@ -77,8 +74,6 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		{
 			pd = ((SJLocalProtocolDecl) pd).init(n);
 		}
-		
-		System.out.println(pd);
 		
 		return pd;
 	}

@@ -27,7 +27,6 @@ public class SJVariableParser extends ContextVisitor
 	public SJVariableParser(Job job, TypeSystem ts, NodeFactory nf)
 	{
 		super(job, ts, nf);
-		System.out.println("SJVariableParser created.");
 	}
 
 	protected Node leaveCall(Node old, Node n, NodeVisitor v) throws SemanticException

@@ -65,7 +65,6 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
 	public SJSessionTypeChecker(Job job, TypeSystem ts, NodeFactory nf)
 	{
 		super(job, ts, nf);
-		System.out.println("SJSessionTypeChecker created.");
 	}
 
 	// This will be called on the visitor cloned by the parent ContextVisitor enter routine. 

@@ -43,7 +43,6 @@ public class SJProtocolDeclTypeBuilder extends ContextVisitor
 	public SJProtocolDeclTypeBuilder(Job job, TypeSystem ts, NodeFactory nf)
 	{
 		super(job, ts, nf);
-		System.out.println("SJProtocolDeclTypeBuilder created.");
 	}
 
 	protected NodeVisitor enterCall(Node parent, Node n) throws SemanticException
