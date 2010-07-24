@@ -331,7 +331,7 @@ sj_glob_session_type_element_prefix ::=
 sj_glob_session_set_type ::=  
 	LBRACE:l sj_glob_session_set_type_body:b RBRACE:r
     {:
-		//RESULT = new SJGlobSetTypeNode_c(parser.pos(l,r), b);
+		RESULT = new SJSetTypeNode_c(parser.pos(l,r), b);
     :}
 ;
 

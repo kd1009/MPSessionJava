@@ -8,7 +8,7 @@ public class SJGlobSendNode_c extends SJSendNode_c implements SJGlobSendNode
 {
 	private TypeNode prefix;
 	
-	public SJGlobSendNode_c (Position pos, TypeNode prefix, TypeNode messageType)
+	public SJGlobSendNode_c (Position pos, TypeNode messageType, TypeNode prefix)
 	{
 		super(pos, messageType);
 		this.prefix = prefix; 
