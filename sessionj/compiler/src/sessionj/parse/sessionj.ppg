@@ -233,7 +233,7 @@ extend class_member_declaration ::= // List of ClassMember.
 /*****************************************************************************************************************************/ 
 //KACPER
 //extend class_type ::=
-//	sj_glob_protocol_declaration:a
+//	sj_glob_protocol_type:a
 //	{: 
 //		RESULT = a;
 //	:}
@@ -246,7 +246,7 @@ sj_glob_protocol_declaration ::=
 	:}
 |	modifiers_opt:a SJ_NOALIAS SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
 	{:
-		///RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
+		//RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
 	:}
 ;
 
@@ -310,14 +310,21 @@ sj_glob_session_type_body ::=
 sj_glob_session_type_element ::=
 	sj_glob_session_type_element_prefix:a COLON sj_session_type_element:b
 	{:
-		//RESULT = parser.nf.SJGlobSessionElementNode(................);
+		if (b instanceof SJSendNode) 
+		{
+			//RESULT = parser.nf.SJGlobSendNode(parser.pos(a,b), ;
+		}
+		else if (b instanceof SJReceiveNode)
+		{	
+			//RESULT = parser.nf.SJGlobReceiveNode(..............);
+		}
 	:}
 ;
 
 sj_glob_session_type_element_prefix ::=
-	OR name:a COMMA name:b OR
+	OR:l IDENTIFIER:a COMMA IDENTIFIER:b OR:r
 	{:
-		//RESULT = parser.nf.SJGlobSessionElementPrefixNode(................);
+		RESULT = parser.nf.SJGlobElementPrefixNode (parser.pos(l,r), new SJLabel(a.getIdentifier()), new SJLabel(b.getIdentifier()));
 	:}
 ;
 

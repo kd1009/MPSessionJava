@@ -30,6 +30,8 @@ public interface SJTypeSystem extends TypeSystem
     //SJSetType SJSetType(List<SJSessionType_c> members);
 	SJSetType SJSetType(List<SJSessionType> members);
 	
+	SJGlobElementPrefixType SJGlobElementPrefixType();
+	
 	SJParsedClassType SJParsedClassType(LazyClassInitializer init, Source fromSource);
 	SJFieldInstance SJFieldInstance(FieldInstance fi, boolean isNoAlias, boolean isFinal);
 	SJConstructorInstance SJConstructorInstance(ConstructorInstance ci);

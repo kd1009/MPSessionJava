@@ -7,6 +7,7 @@ import polyglot.frontend.ExtensionInfo;
 import polyglot.types.Flags;
 import polyglot.util.Position;
 import polyglot.parse.Name;
+import polyglot.lex.Identifier;
 import sessionj.ast.chanops.SJRequest;
 import sessionj.ast.createops.SJChannelCreate;
 import sessionj.ast.createops.SJSelectorCreate;
@@ -65,6 +66,8 @@ public interface SJNodeFactory extends NodeFactory
 	SJRecurseNode SJRecurseNode(Position pos, SJLabel lab);
 	SJProtocolRefNode SJProtocolRefNode(Position pos, Receiver target);
 	SJProtocolDualNode SJProtocolDualNode(Position pos, Receiver target);
+	
+	SJGlobElementPrefixNode SJGlobElementPrefixNode(Position pos, SJLabel a, SJLabel b);
 	
 	/*SJOutbranchNode SJOutbranchNode(Position pos, List<SJBranchCaseNode> branchCases, boolean isDependentlyTyped);
 	SJInbranchNode SJInbranchNode(Position pos, List<SJBranchCaseNode> branchCases, boolean isDependentlyTyped);*/

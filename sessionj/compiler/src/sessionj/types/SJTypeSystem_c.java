@@ -13,6 +13,12 @@ import java.util.Set;
 
 public class SJTypeSystem_c extends TypeSystem_c implements SJTypeSystem 
 {
+	public SJGlobElementPrefixType SJGlobElementPrefixType()
+	{
+		return new SJGlobElementPrefixType_c(this);
+	}
+	
+	
 	public SJCBeginType SJCBeginType()
 	{
 		return new SJCBeginType_c(this);

@@ -588,4 +588,13 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 
         return NewArray(pos, base, dims, 0, null);
     }
+
+
+
+/*********************************************************************************************************************/
+
+	public SJGlobElementPrefixNode SJGlobElementPrefixNode(Position pos, SJLabel a, SJLabel b)
+	{
+		return new SJGlobElementPrefixNode_c(pos, a, b);	
+	}
 }
