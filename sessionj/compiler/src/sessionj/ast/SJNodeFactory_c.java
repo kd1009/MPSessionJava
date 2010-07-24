@@ -597,4 +597,9 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 	{
 		return new SJGlobElementPrefixNode_c(pos, a, b);	
 	}
+	
+	public SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, TypeNode prefixType)
+	{
+		return new SJGlobSendNode_c(pos, messageType, prefixType);
+	}
 }

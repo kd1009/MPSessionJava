@@ -56,6 +56,7 @@ public interface SJNodeFactory extends NodeFactory
 	SJCBeginNode SJCBeginNode(Position pos);
 	SJSBeginNode SJSBeginNode(Position pos);
 	SJSendNode SJSendNode(Position pos, TypeNode messageType);
+	SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, TypeNode prefixType);
 	SJReceiveNode SJReceiveNode(Position pos, TypeNode messageType);
 	SJOutbranchNode SJOutbranchNode(Position pos, List<SJBranchCaseNode> branchCases);
 	SJInbranchNode SJInbranchNode(Position pos, List<SJBranchCaseNode> branchCases);

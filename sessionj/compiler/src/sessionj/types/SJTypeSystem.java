@@ -14,6 +14,8 @@ public interface SJTypeSystem extends TypeSystem
 	SJCBeginType SJCBeginType();
 	SJSBeginType SJSBeginType();
 	SJSendType SJSendType(Type messageType) throws SemanticException;
+	SJGlobSendType SJGlobSendType(Type messageType, Type prefixType) throws SemanticException;
+	
 	SJReceiveType SJReceiveType(Type messageType) throws SemanticException;
 	SJOutbranchType SJOutbranchType(); // FIXME: finish refactoring these branch types.
 	SJOutbranchType SJOutbranchType(boolean isDependentlyTyped);
