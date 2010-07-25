@@ -312,7 +312,7 @@ sj_glob_session_type_element ::=
 	{:
 		if (b instanceof SJSendNode) 
 		{
-			RESULT = parser.nf.SJGlobSendNode(parser.pos(a,b), b.messageType(), a);
+			RESULT = parser.nf.SJGlobSendNode(parser.pos(a,b), ((SJSendNode) b).messageType(), a);
 		}
 		else if (b instanceof SJReceiveNode)
 		{	
