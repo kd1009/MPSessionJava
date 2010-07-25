@@ -8,6 +8,7 @@ import java.util.*;
 import sessionj.runtime.*;
 import sessionj.runtime.net.*;
 
+/*
 public class Test 
 {			
 	public static void main(String[] args) throws Exception
@@ -22,6 +23,7 @@ class A
 {
 	//public static final noalias protocol pa { ?(!(int).!(String)) }
 }
+*/
 
 class MP
 { 
