@@ -280,11 +280,13 @@
        @param symbol.class  The name to be passed to CUP with -symbols.
    -->
     <target name="ppg-parser" depends="ppg-parser-deps" unless="ppg.parser.up-to-date">
-        <java classname="ppg.PPG" fork="true" dir="${parser.dir}" output="${parser.dir}/${cup.file}" failonerror="true">
+        <echo message="If PPG fails, error is in: ${parser.dir}/${cup.file}"/>
+    	<java classname="ppg.PPG" fork="true" dir="${parser.dir}" 
+    		output="${parser.dir}/${cup.file}" failonerror="true"> <!-- resultproperty="ppg.returncode"> -->
             <classpath refid="standard.classpath" />
             <arg value="${ppg.file}" />
         </java>
-        <antcall target="cup-parser" />
+    	<antcall target="cup-parser" />
     </target>
 
     <!-- Set the property ppg.parser.up-to-date if the parser is in fact
