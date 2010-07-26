@@ -125,6 +125,7 @@ public class SJConstants
 	public static final String SJ_STRING_INWHILE_CLOSE = "]*";
 	public static final String SJ_STRING_RECURSION_OPEN = "[";
 	public static final String SJ_STRING_RECURSION_CLOSE = "]";
+	public static final String SJ_STRING_GLOB_PREFIX_DELIMITER = "|";
 	public static final String SJ_STRING_REC = SJ_KEYWORD_REC;
 	public static final String SJ_STRING_RECURSE_PREFIX = "#";
 	public static final String SJ_STRING_PROTOCOL_REF_PREFIX = "@";
