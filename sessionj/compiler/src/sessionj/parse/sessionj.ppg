@@ -313,7 +313,7 @@ sj_glob_session_type_element ::=
 		}
 		else if (b instanceof SJReceiveNode)
 		{	
-			//RESULT = parser.nf.SJGlobReceiveNode(..............);
+			//RESULT = parser.nf.SJGlobReceiveNode(parser.pos(a,b), b.messageType(), a);
 		}
 	:}
 ;
