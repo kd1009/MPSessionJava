@@ -25,9 +25,10 @@ class A
 }
 */
 
+global_protocol kacper1 { |a,b|:!<int>.|a,b|:!<int> }
+
 class MP
 { 
-	public static final noalias global_protocol kacper1 { |a,b|:!<int>.|a,b|:!<int> }
 	public static final noalias global_protocol kacper2 { |a,b|:!<int>.|a,b|:!<int> , |b,a|:!<int> }
 	public static final noalias protocol kacper3 {?(int).!<int>}
 }
