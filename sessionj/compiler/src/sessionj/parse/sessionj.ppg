@@ -129,6 +129,7 @@ non terminal SJTypeNode sj_channel_type;
 non terminal SJTypeNode sj_server_type;
 non terminal SJTypeNode sj_session_type_body;
 non terminal SJTypeNode sj_session_type_element;
+non terminal SJMessageCommunicationNode sj_communication_type_elem;
 non terminal List sj_branch_cases;
 non terminal SJBranchCaseNode sj_branch_case;
 non terminal TypeNode sj_message_type;
@@ -222,31 +223,25 @@ extend class_member_declaration ::= // List of ClassMember.
         l.add(a);
 		RESULT = l;
 	:}
-|	sj_glob_protocol_declaration:a
-	{:
-		List l = new TypedList(new LinkedList(), ClassMember.class, false);
-		l.add(a); 
-		RESULT = l;
-	:}
 ;
 
 /*****************************************************************************************************************************/ 
 //KACPER
-//extend class_type ::=
-//	sj_glob_protocol_type:a
-//	{: 
-//		RESULT = a;
-//	:}
-//;
+extend type_declaration ::=
+	sj_glob_protocol_declaration:a
+	{:
+		RESULT = a;
+	:}
+;
 
 sj_glob_protocol_declaration ::=
 	modifiers_opt:a SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
 	{:
-		//RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
+		RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
 	:}
 |	modifiers_opt:a SJ_NOALIAS SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
 	{:
-		//RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
+		RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
 	:}
 ;
 
@@ -274,6 +269,8 @@ extend statement ::= // A single Stmt (unlike regular local variable declaration
 sj_protocol_declaration_statement ::= // Implicitly final and noalias (set by node factory).
 	optional_final_noalias SJ_PROTOCOL:a IDENTIFIER:n sj_session_type:t
 	{: 
+		System.out.println("getIdentifier: ");
+		System.out.println("getIdentifier: " + n.getIdentifier());
 		RESULT = parser.nf.SJLocalProtocolDecl(parser.pos(a, t), parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
 	:}
 ;
@@ -308,11 +305,11 @@ sj_glob_session_type_body ::=
 ;
 
 sj_glob_session_type_element ::=
-	sj_glob_session_type_element_prefix:a COLON sj_session_type_element:b
+	sj_glob_session_type_element_prefix:a sj_communication_type_elem:b
 	{:
 		if (b instanceof SJSendNode) 
 		{
-			RESULT = parser.nf.SJGlobSendNode(parser.pos(a,b), ((SJSendNode) b).messageType(), a);
+			RESULT = parser.nf.SJGlobSendNode(parser.pos(a,b), b.messageType(), a);
 		}
 		else if (b instanceof SJReceiveNode)
 		{	
@@ -407,7 +404,7 @@ sj_session_type_body ::=
 	:}
 ;
 
-sj_session_type_element ::=
+sj_communication_type_elem ::=
 	//Cannot use LPAREN/RPAREN, conflicts with session type cast.
 	NOT:a LT sj_message_type:b GT:c
 	{: 
@@ -417,6 +414,10 @@ sj_session_type_element ::=
 	{:
 		RESULT = parser.nf.SJReceiveNode(parser.pos(a, c), b);
 	:}
+;
+
+sj_session_type_element ::=
+	sj_communication_type_elem:e {: RESULT = e; :}
 | NOT:a LBRACE sj_branch_cases:b RBRACE:c
 	{:
 		RESULT = parser.nf.SJOutbranchNode(parser.pos(a, c), b);
