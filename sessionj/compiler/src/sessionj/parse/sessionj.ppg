@@ -321,7 +321,7 @@ sj_glob_session_type_element ::=
 sj_glob_session_type_element_prefix ::=
 	OR:l IDENTIFIER:a COMMA IDENTIFIER:b OR:r
 	{:
-		RESULT = parser.nf.SJGlobElementPrefixNode (parser.pos(l,r), new SJLabel(a.getIdentifier()), new SJLabel(b.getIdentifier()));
+		RESULT = parser.nf.SJGlobElementPrefixNode (parser.pos(l,r), parser.nf.Id(parser.pos(a), a.getIdentifier()), parser.nf.Id(parser.pos(b), b.getIdentifier()));
 	:}
 ;
 

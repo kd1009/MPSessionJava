@@ -1,16 +1,16 @@
 package sessionj.ast.typenodes;
 
+import polyglot.ast.Id;
 import polyglot.util.Position;
 import polyglot.visit.ContextVisitor;
-import sessionj.util.SJLabel;
 import sessionj.types.SJTypeSystem;
 
 public class SJGlobElementPrefixNode_c extends SJTypeNode_c implements SJGlobElementPrefixNode
 {
-	private SJLabel principal;
-	private SJLabel partner;
+	private Id principal;
+	private Id partner;
 	
-	public SJGlobElementPrefixNode_c (Position pos, SJLabel a, SJLabel b)
+	public SJGlobElementPrefixNode_c (Position pos, Id a, Id b)
 	{
 		super(pos);
 		principal = a;
@@ -20,19 +20,19 @@ public class SJGlobElementPrefixNode_c extends SJTypeNode_c implements SJGlobEle
 	// Duplicated from corresponding SJSessionType implementations. But may be needed before types have been built.
 	public String nodeToString()
 	{
-		return new String("|" + principal.toString() + "," + partner.toString() + "|");
+		return new String("|" + principal.id() + "," + partner.id() + "|");
 	}
 
     public SJTypeNode disambiguateSJTypeNode(ContextVisitor cv, SJTypeSystem sjts) {
         return type(sjts.SJGlobElementPrefixType());
     }
     
-    public SJLabel getPrincipal()
+    public Id getPrincipal()
     {
     	return principal;
     }
 	
-    public SJLabel getPartner()
+    public Id getPartner()
     {
     	return partner;
     }
