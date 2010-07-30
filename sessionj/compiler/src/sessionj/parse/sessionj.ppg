@@ -118,7 +118,7 @@ terminal Token SJ_PROTOCOL_REF;
 non terminal SJTypeNode sj_glob_session_type;
 non terminal SJTypeNode sj_glob_session_type_body;
 non terminal SJTypeNode sj_glob_session_type_element;
-non terminal SJTypeNode sj_glob_session_type_element_prefix;
+non terminal SJGlobElementPrefixNode sj_glob_session_type_element_prefix;
 non terminal SJTypeNode sj_glob_session_set_type;
 non terminal List sj_glob_session_set_type_body;
 

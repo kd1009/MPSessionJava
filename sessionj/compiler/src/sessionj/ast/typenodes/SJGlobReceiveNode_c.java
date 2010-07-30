@@ -10,13 +10,14 @@ import polyglot.frontend.Job;
 import static sessionj.SJConstants.*;
 import sessionj.types.SJTypeSystem;
 import sessionj.types.sesstypes.SJMessageCommunicationType;
+import sessionj.ast.SJGlobalTypeNode;
 import sessionj.util.SJCompilerUtils;
 
-public class SJGlobReceiveNode_c extends SJReceiveNode_c implements SJGlobReceiveNode
+public class SJGlobReceiveNode_c extends SJReceiveNode_c implements SJGlobReceiveNode//, SJGlobalTypeNode
 {
-	private TypeNode prefix;
+	private SJGlobElementPrefixNode prefix;
 	
-	public SJGlobReceiveNode_c (Position pos, TypeNode messageType, TypeNode prefixType)
+	public SJGlobReceiveNode_c (Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
 	{
 		super(pos, messageType);
 		this.prefix = prefixType;
@@ -27,4 +28,9 @@ public class SJGlobReceiveNode_c extends SJReceiveNode_c implements SJGlobReceiv
 		String message = messageType().toString(); // toString enough for messageType? or need to manually get full name?
 		return prefix.toString() + SJ_STRING_RECEIVE_OPEN + message + SJ_STRING_RECEIVE_CLOSE;
 	}
+    
+    public SJGlobElementPrefixNode getPrefix() 
+    {
+    	return this.prefix;
+    }
 }

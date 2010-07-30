@@ -10,6 +10,7 @@ import polyglot.util.*;
 import polyglot.visit.*;
 
 import sessionj.ast.*;
+import sessionj.ast.typenodes.*;
 import sessionj.ast.protocoldecls.*;
 import sessionj.types.SJTypeSystem;
 import sessionj.types.typeobjects.*;
@@ -46,8 +47,8 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		if (n instanceof SJProtocolDecl)
 		{
 			n = translateSJProtocolDecl((SJProtocolDecl) n);
-		}
-		
+		} 
+
 		return n;
 	}
 
@@ -76,5 +77,28 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		}
 		
 		return pd;
+	}
+
+	private Node translateGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
+	{		
+		System.out.println("abc" + sjts.forName("compiler.protocoldecls.kacper1").getClass());
+		System.out.println("bla bla");
+		Position pos = pd.position();
+
+		QQ qq = new QQ(sjts.extensionInfo(), pos);
+		List<Object> mapping = new LinkedList<Object>();
+		
+		String translation = "class %s { \n";
+		mapping.add(pd.name());
+
+		// loop
+		translation += "public Participant %s = null;"; 
+		mapping.add("ptest");
+		
+		translation += "}";
+		
+		System.out.println(mapping);
+		Node n = qq.parseDecl(translation, mapping);
+		return buildAndCheckTypes(this, n);		
 	}
 }

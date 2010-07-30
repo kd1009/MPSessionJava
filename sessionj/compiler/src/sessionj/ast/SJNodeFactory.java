@@ -18,6 +18,7 @@ import sessionj.ast.noalias.SJNoAliasArrayTypeNode;
 import sessionj.ast.noalias.SJNoAliasCanonicalTypeNode;
 import sessionj.ast.protocoldecls.SJFieldProtocolDecl;
 import sessionj.ast.protocoldecls.SJLocalProtocolDecl;
+import sessionj.ast.protocoldecls.SJGlobProtocolDecl;
 import sessionj.ast.selectorops.*;
 import sessionj.ast.servops.SJAccept;
 import sessionj.ast.sesscasts.SJAmbiguousCast;
@@ -52,12 +53,14 @@ public interface SJNodeFactory extends NodeFactory
 	
 	SJFieldProtocolDecl SJFieldProtocolDecl(Position pos, Flags flags, Id name, SJTypeNode tn);
 	SJLocalProtocolDecl SJLocalProtocolDecl(Position pos, Id name, SJTypeNode tn);
+	SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJTypeNode tn);
 	
 	SJCBeginNode SJCBeginNode(Position pos);
 	SJSBeginNode SJSBeginNode(Position pos);
 	SJSendNode SJSendNode(Position pos, TypeNode messageType);
-	SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, TypeNode prefixType);
+	SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType);
 	SJReceiveNode SJReceiveNode(Position pos, TypeNode messageType);
+	SJGlobReceiveNode SJGlobReceiveNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType);
 	SJOutbranchNode SJOutbranchNode(Position pos, List<SJBranchCaseNode> branchCases);
 	SJInbranchNode SJInbranchNode(Position pos, List<SJBranchCaseNode> branchCases);
 	SJBranchCaseNode SJBranchCaseNode(Position pos, SJLabel lab, SJTypeNode body);
@@ -68,7 +71,7 @@ public interface SJNodeFactory extends NodeFactory
 	SJProtocolRefNode SJProtocolRefNode(Position pos, Receiver target);
 	SJProtocolDualNode SJProtocolDualNode(Position pos, Receiver target);
 	
-	SJGlobElementPrefixNode SJGlobElementPrefixNode(Position pos, SJLabel a, SJLabel b);
+	SJGlobElementPrefixNode SJGlobElementPrefixNode(Position pos, Id a, Id b);
 	
 	/*SJOutbranchNode SJOutbranchNode(Position pos, List<SJBranchCaseNode> branchCases, boolean isDependentlyTyped);
 	SJInbranchNode SJInbranchNode(Position pos, List<SJBranchCaseNode> branchCases, boolean isDependentlyTyped);*/

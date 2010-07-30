@@ -10,11 +10,11 @@ import sessionj.ast.typenodes.SJTypeNode;
 public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolDecl 
 {	
 	private SJTypeNode glob_session;
-	
+
 	public SJGlobProtocolDecl_c (Position pos, Flags flags, Id name, SJTypeNode glob_session) 
 	{
 		super(pos, flags, name, null, new LinkedList<Object>(), new ClassBody_c(glob_session.position(), new LinkedList<Object>()));
-		
+		System.out.println("name: " + name);
 		this.glob_session = glob_session;
 	}
 	
@@ -28,5 +28,5 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		this.glob_session = tn;
 		
 		return this;
-	}	
+	}
 }
