@@ -53,7 +53,7 @@ public interface SJNodeFactory extends NodeFactory
 	
 	SJFieldProtocolDecl SJFieldProtocolDecl(Position pos, Flags flags, Id name, SJTypeNode tn);
 	SJLocalProtocolDecl SJLocalProtocolDecl(Position pos, Id name, SJTypeNode tn);
-	SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJTypeNode tn);
+	SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJGlobTypeNode tn);
 	
 	SJCBeginNode SJCBeginNode(Position pos);
 	SJSBeginNode SJSBeginNode(Position pos);

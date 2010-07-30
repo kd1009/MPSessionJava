@@ -1,6 +1,6 @@
 package sessionj.ast.typenodes;
 
-public interface SJGlobReceiveNode extends SJReceiveNode
+public interface SJGlobReceiveNode extends SJReceiveNode, SJGlobTypeNode
 {
-	//public SJGlobElementPrefixNode getPrefix();
+
 }

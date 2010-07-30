@@ -2,10 +2,9 @@ package sessionj.ast.typenodes;
 
 import polyglot.util.Position;
 import polyglot.ast.TypeNode;
-import sessionj.ast.SJGlobalTypeNode;
 import static sessionj.SJConstants.*;
 
-public class SJGlobSendNode_c extends SJSendNode_c implements SJGlobSendNode//, SJGlobalTypeNode
+public class SJGlobSendNode_c extends SJSendNode_c implements SJGlobSendNode, SJGlobTypeNode
 {
 	private SJGlobElementPrefixNode prefix;
 	

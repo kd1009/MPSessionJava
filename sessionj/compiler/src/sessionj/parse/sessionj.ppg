@@ -115,12 +115,12 @@ terminal Token SJ_RECURSE_LABEL;
 terminal Token SJ_PROTOCOL_REF;
 
 //KACPER:
-non terminal SJTypeNode sj_glob_session_type;
-non terminal SJTypeNode sj_glob_session_type_body;
-non terminal SJTypeNode sj_glob_session_type_element;
+non terminal SJGlobTypeNode sj_glob_session_type;
+non terminal SJGlobTypeNode sj_glob_session_type_body;
+non terminal SJGlobTypeNode sj_glob_session_type_element;
 non terminal SJGlobElementPrefixNode sj_glob_session_type_element_prefix;
-non terminal SJTypeNode sj_glob_session_set_type;
-non terminal List sj_glob_session_set_type_body;
+//non terminal SJGlobTypeNode sj_glob_session_set_type;
+//non terminal List sj_glob_session_set_type_body;
 
 non terminal SJTypeNode sj_session_type;
 non terminal SJCBeginNode sj_session_type_cbegin;
@@ -235,9 +235,9 @@ extend type_declaration ::=
 ;
 
 sj_glob_protocol_declaration ::=
-	modifiers_opt:a SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
+	modifiers_opt:a SJ_GLOB_PROTOCOL IDENTIFIER:n LBRACE sj_glob_session_type:t RBRACE:r
 	{:
-		RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, t), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
+		RESULT = parser.nf.SJGlobProtocolDecl(parser.pos(a, r), a, parser.nf.Id(parser.pos(n), n.getIdentifier()), t);
 	:}
 |	modifiers_opt:a SJ_NOALIAS SJ_GLOB_PROTOCOL IDENTIFIER:n sj_glob_session_type:t
 	{:
@@ -290,17 +290,17 @@ sj_session_type ::= // begin prefixes actually enforced syntactically (although 
 //KACPER:
 sj_glob_session_type ::=
 	sj_glob_session_type_body:a {: RESULT = a; :}
-|	sj_glob_session_set_type:a {: RESULT = a; :}
+//|	sj_glob_session_set_type:a {: RESULT = a; :}
 ;
 
 sj_glob_session_type_body ::= 
 	sj_glob_session_type_element:a
 	{:
-		RESULT = a;
+		RESULT = (SJGlobTypeNode) a;
 	:}
 |	sj_glob_session_type_element:a DOT sj_glob_session_type_body:b
 	{:
-		RESULT = a.child(b);
+		RESULT = (SJGlobTypeNode) a.child(b);
 	:}
 ;
 
@@ -313,7 +313,7 @@ sj_glob_session_type_element ::=
 		}
 		else if (b instanceof SJReceiveNode)
 		{	
-			//RESULT = parser.nf.SJGlobReceiveNode(parser.pos(a,b), b.messageType(), a);
+			RESULT = parser.nf.SJGlobReceiveNode(parser.pos(a,b), b.messageType(), a);
 		}
 	:}
 ;
@@ -324,13 +324,14 @@ sj_glob_session_type_element_prefix ::=
 		RESULT = parser.nf.SJGlobElementPrefixNode (parser.pos(l,r), parser.nf.Id(parser.pos(a), a.getIdentifier()), parser.nf.Id(parser.pos(b), b.getIdentifier()));
 	:}
 ;
-
+/*
 sj_glob_session_set_type ::=  
 	LBRACE:l sj_glob_session_set_type_body:b RBRACE:r
     {:
 		RESULT = new SJSetTypeNode_c(parser.pos(l,r), b);
     :}
 ;
+
 
 sj_glob_session_set_type_body ::=
     sj_glob_session_type:t
@@ -345,6 +346,7 @@ sj_glob_session_set_type_body ::=
         RESULT = l;
     :}
 ;
+*/
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

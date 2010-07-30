@@ -608,7 +608,7 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 		return new SJGlobReceiveNode_c(pos, messageType, prefixType);
 	}
 	
-	public SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJTypeNode tn)
+	public SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJGlobTypeNode tn)
 	{
 		return new SJGlobProtocolDecl_c(pos,flags, name, tn);
 	}

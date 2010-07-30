@@ -10,10 +10,9 @@ import polyglot.frontend.Job;
 import static sessionj.SJConstants.*;
 import sessionj.types.SJTypeSystem;
 import sessionj.types.sesstypes.SJMessageCommunicationType;
-import sessionj.ast.SJGlobalTypeNode;
 import sessionj.util.SJCompilerUtils;
 
-public class SJGlobReceiveNode_c extends SJReceiveNode_c implements SJGlobReceiveNode//, SJGlobalTypeNode
+public class SJGlobReceiveNode_c extends SJReceiveNode_c implements SJGlobReceiveNode, SJGlobTypeNode
 {
 	private SJGlobElementPrefixNode prefix;
 	

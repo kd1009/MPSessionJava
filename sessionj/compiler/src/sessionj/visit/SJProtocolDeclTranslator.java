@@ -48,6 +48,11 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		{
 			n = translateSJProtocolDecl((SJProtocolDecl) n);
 		} 
+		
+		else if (n instanceof SJGlobProtocolDecl)
+		{
+			n = translateSJGlobProtocolDecl((SJGlobProtocolDecl) n);
+		}  
 
 		return n;
 	}
@@ -79,26 +84,25 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		return pd;
 	}
 
-	private Node translateGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
-	{		
-		System.out.println("abc" + sjts.forName("compiler.protocoldecls.kacper1").getClass());
-		System.out.println("bla bla");
+	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
+	{			
 		Position pos = pd.position();
 
 		QQ qq = new QQ(sjts.extensionInfo(), pos);
 		List<Object> mapping = new LinkedList<Object>();
 		
-		String translation = "class %s { \n";
-		mapping.add(pd.name());
+		String translation = "public class %s { ";
+		mapping.add(pd.globProtocolName());
 
-		// loop
-		translation += "public Participant %s = null;"; 
-		mapping.add("ptest");
+		for(int count = 0; count <5 ; count++ ){
+		translation += "public boolean %s = false;"; 
+		mapping.add("Agency" + count);
+		}
 		
 		translation += "}";
 		
-		System.out.println(mapping);
 		Node n = qq.parseDecl(translation, mapping);
+		
 		return buildAndCheckTypes(this, n);		
 	}
 }
