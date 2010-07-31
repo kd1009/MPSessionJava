@@ -85,7 +85,7 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 	}
 
 	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
-	{			
+	{	
 		Position pos = pd.position();
 
 		QQ qq = new QQ(sjts.extensionInfo(), pos);
@@ -100,9 +100,8 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		}
 		
 		translation += "}";
-		
 		Node n = qq.parseDecl(translation, mapping);
 		
-		return buildAndCheckTypes(this, n);		
+		return buildAndCheckTypes(this, n);	
 	}
 }

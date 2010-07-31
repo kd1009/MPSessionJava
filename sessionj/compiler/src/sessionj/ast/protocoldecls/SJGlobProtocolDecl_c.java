@@ -9,28 +9,23 @@ import polyglot.util.Position;
 import sessionj.ast.typenodes.SJGlobTypeNode;
 import sessionj.ast.typenodes.SJGlobElementPrefixNode;
 
-
-
 public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolDecl 
 {	
 	private SJGlobTypeNode glob_session;
 	private Id protocol_name;
+	private List participants;
 
 	public SJGlobProtocolDecl_c (Position pos, Flags flags, Id name, SJGlobTypeNode glob_session) 
 	{	
-		super(pos, flags, name.id(name.id()+"AUTO"), null, new LinkedList<Object>(), new ClassBody_c(glob_session.position(), new LinkedList<Object>()));
-		System.out.println("name: " + this.name);
+		super(pos, flags, name.id(name.id()+"AUTO"), null, new LinkedList<Object>(), new ClassBody_c(pos, new LinkedList<Object>()));
 		this.glob_session = glob_session;
 		this.protocol_name = name;
+		this.participants = createParticipantList(glob_session);
+
+		System.out.println("Compiler class name: " + this.name);
+		System.out.println("Actual Protocol Name: " + this.protocol_name);
+		System.out.println("Protocol Participants: " + this.participants);
 		
-		System.out.println("Protocol Name: " + protocol_name);
-		
-		//return this;
-		
-//		SJGlobElementPrefixNode temp = glob_session.getPrefix();
-//		System.out.println(glob_session.getPrefix().toString());
-//		System.out.println(((SJGlobTypeNode)glob_session.child()).getPrefix().toString());
-//		System.out.println(((SJGlobTypeNode)((SJGlobTypeNode)glob_session.child()).child()).getPrefix().toString());
 	}
 	
 	public SJGlobTypeNode sessionType()
@@ -49,4 +44,37 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 	{
 		return protocol_name.id();
 	}
+	
+	private List createParticipantList(SJGlobTypeNode glob_session) 
+	{
+
+		List participants = new LinkedList<String>();
+		
+		//add the participants from the parent element of the session type
+		participants.add(glob_session.getPrefix().getPrincipal().toString());
+		participants.add(glob_session.getPrefix().getPartner().toString());
+		
+		//check children elements for participants not yet listed and add if necessary
+		SJGlobTypeNode child = (SJGlobTypeNode) glob_session.child();
+		while(child != null) {
+			
+			if(!(participants.contains(child.getPrefix().getPrincipal().toString())))
+			{
+				participants.add(child.getPrefix().getPrincipal().toString());
+			}
+			if(!(participants.contains((child.getPrefix().getPartner().toString()))))
+			{
+				participants.add(child.getPrefix().getPartner().toString());
+			}
+			child = (SJGlobTypeNode) child.child();
+		}
+		
+		return participants;
+	}
+	
+	public List getParticipantList() 
+	{
+		return this.participants;
+	}
+	
 }
