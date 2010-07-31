@@ -13,7 +13,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 {	
 	private SJGlobTypeNode glob_session;
 	private Id protocol_name;
-	private List participants;
+	private LinkedList<String> participants;
 
 	public SJGlobProtocolDecl_c (Position pos, Flags flags, Id name, SJGlobTypeNode glob_session) 
 	{	
@@ -45,10 +45,10 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		return protocol_name.id();
 	}
 	
-	private List createParticipantList(SJGlobTypeNode glob_session) 
+	private LinkedList<String> createParticipantList(SJGlobTypeNode glob_session) 
 	{
 
-		List participants = new LinkedList<String>();
+		LinkedList<String> participants = new LinkedList<String>();
 		
 		//add the participants from the parent element of the session type
 		participants.add(glob_session.getPrefix().getPrincipal().toString());
@@ -72,7 +72,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		return participants;
 	}
 	
-	public List getParticipantList() 
+	public LinkedList<String> getParticipantList() 
 	{
 		return this.participants;
 	}

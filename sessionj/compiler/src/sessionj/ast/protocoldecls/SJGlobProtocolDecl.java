@@ -10,5 +10,5 @@ public interface SJGlobProtocolDecl extends ClassDecl
 {
 	//public SJGlobalTypeNode sessionType();
 	public String globProtocolName();
-	public List getParticipantList();
+	public LinkedList<String> getParticipantList();
 }

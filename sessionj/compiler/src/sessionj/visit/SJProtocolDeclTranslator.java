@@ -91,12 +91,13 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		QQ qq = new QQ(sjts.extensionInfo(), pos);
 		List<Object> mapping = new LinkedList<Object>();
 		
-		String translation = "public class %s { ";
+		String translation = "public class %s extends SJGlobProtocol { ";
 		mapping.add(pd.globProtocolName());
 
-		for(int count = 0; count <5 ; count++ ){
+		
+		for(String part : pd.getParticipantList() ){
 		translation += "public boolean %s = false;"; 
-		mapping.add("Agency" + count);
+		mapping.add(part);
 		}
 		
 		translation += "}";
