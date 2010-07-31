@@ -85,24 +85,65 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 	}
 
 	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
-	{	
+	{
 		Position pos = pd.position();
-
-		QQ qq = new QQ(sjts.extensionInfo(), pos);
-		List<Object> mapping = new LinkedList<Object>();
-		
-		String translation = "public class %s extends SJGlobProtocol { ";
-		mapping.add(pd.globProtocolName());
-
-		
-		for(String part : pd.getParticipantList() ){
-		translation += "public boolean %s = false;"; 
-		mapping.add(part);
+		LinkedList<ClassMember> members = new LinkedList<ClassMember>();
+			
+		for (Id id: pd.getParticipantList())
+		{
+			ClassMember mb = new FieldDecl_c(pos, pd.flags(), new CanonicalTypeNode_c(pos, SJ_GLOB_PROTOCOL_TYPE), id, new NullLit_c(pos));
+			members.add(mb);
 		}
+			
+		ClassBody bd = new ClassBody_c(pos, members);
+			
+		System.out.println("Body: " + bd);
+		System.out.println("MemberList: " + bd.members());
+			
+		return pd.body(bd);
 		
-		translation += "}";
-		Node n = qq.parseDecl(translation, mapping);
 		
-		return buildAndCheckTypes(this, n);	
+//		Position pos = pd.position();
+//
+//		QQ qq = new QQ(sjts.extensionInfo(), pos);
+//		List<Object> mapping = new LinkedList<Object>();
+//		
+//		String translation = "public java.lang.String %s = \"hello\";";
+//		mapping.add(pd.getParticipantList().getFirst());
+//		
+//		ClassMember n = (ClassMember) qq.parseMember(translation, mapping);
+//		n = (ClassMember) buildAndCheckTypes(this, n);
+//		
+//		pd = (SJGlobProtocolDecl) (((SJGlobProtocolDecl) pd).body(pd.body().addMember(n)));
+//		
+//		return buildAndCheckTypes(this, pd);
+		
+//		System.out.println(pd.body().members());
+//
+//		Position pos = pd.position();
+//
+//		QQ qq = new QQ(sjts.extensionInfo(), pos);
+//		List<Object> mapping = new LinkedList<Object>();
+//		
+//		String translation = "public class %s extends SJGlobProtocol { ";
+//		mapping.add(pd.globProtocolName());
+//
+//		
+//		for(String part : pd.getParticipantList() ){
+//		translation += "public boolean %s = false;"; 
+//		mapping.add(part);
+//		}
+//		
+//		translation += "}";
+//		Node n = qq.parseDecl(translation, mapping);
+//		
+//		ClassBody newBody = ((ClassDecl) n).body().members(pd.body().members());
+//		
+//		n = ((ClassDecl)n).body(newBody);
+//		
+//		System.out.println(((ClassDecl)n).body().members());
+//		
+//		return buildAndCheckTypes(this, n);	
+		
 	}
 }
