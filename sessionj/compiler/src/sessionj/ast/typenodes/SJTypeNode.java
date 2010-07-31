@@ -20,6 +20,9 @@ public interface SJTypeNode extends TypeNode
 	SJTypeNode child();
 	SJTypeNode child(SJTypeNode child);
 
+	SJGlobTypeNode globChild();
+	SJGlobTypeNode globChild(SJTypeNode child);
+	
 	//public SJTypeNode leaf();
 	
 	SJSessionType type();

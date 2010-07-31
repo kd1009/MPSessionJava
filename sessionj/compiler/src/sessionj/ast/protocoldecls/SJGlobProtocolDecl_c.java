@@ -55,7 +55,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		participants.add(glob_session.getPrefix().getPartner().toString());
 		
 		//check children elements for participants not yet listed and add if necessary
-		SJGlobTypeNode child = (SJGlobTypeNode) glob_session.child();
+		SJGlobTypeNode child = glob_session.globChild();
 		while(child != null) {
 			
 			if(!(participants.contains(child.getPrefix().getPrincipal().toString())))
@@ -66,7 +66,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 			{
 				participants.add(child.getPrefix().getPartner().toString());
 			}
-			child = (SJGlobTypeNode) child.child();
+			child = child.globChild();
 		}
 		
 		return participants;

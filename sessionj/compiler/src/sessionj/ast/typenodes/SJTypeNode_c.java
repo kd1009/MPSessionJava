@@ -31,6 +31,18 @@ public abstract class SJTypeNode_c extends TypeNode_c implements SJTypeNode
 		return this;
 	}
 	
+	public SJGlobTypeNode globChild()
+	{
+		return (SJGlobTypeNode) child;
+	}
+
+	public SJGlobTypeNode globChild(SJTypeNode child)
+	{
+		this.child = child;
+
+		return (SJGlobTypeNode) this;
+	}
+	
 	public SJSessionType type()
 	{
 		SJSessionType st = (SJSessionType) super.type();

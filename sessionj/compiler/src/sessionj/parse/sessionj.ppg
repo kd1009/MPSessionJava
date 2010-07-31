@@ -296,11 +296,11 @@ sj_glob_session_type ::=
 sj_glob_session_type_body ::= 
 	sj_glob_session_type_element:a
 	{:
-		RESULT = (SJGlobTypeNode) a;
+		RESULT = a;
 	:}
 |	sj_glob_session_type_element:a DOT sj_glob_session_type_body:b
 	{:
-		RESULT = (SJGlobTypeNode) a.child(b);
+		RESULT = a.globChild(b);
 	:}
 ;
 
