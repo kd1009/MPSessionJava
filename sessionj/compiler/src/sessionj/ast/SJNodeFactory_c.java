@@ -610,6 +610,6 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 	
 	public SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJGlobTypeNode tn)
 	{
-		return new SJGlobProtocolDecl_c(pos,flags, name, tn);
+		return new SJGlobProtocolDecl_c(pos,flags, name, CanonicalTypeNode(pos, SJ_GLOB_SESSION_TYPE), tn);
 	}
 }

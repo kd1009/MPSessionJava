@@ -15,15 +15,14 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 	private SJGlobTypeNode glob_session;
 	private LinkedList<Id> participants;
 
-	public SJGlobProtocolDecl_c (Position pos, Flags flags, Id name, SJGlobTypeNode glob_session) 
+	public SJGlobProtocolDecl_c (Position pos, Flags flags, Id name, TypeNode superClass, SJGlobTypeNode glob_session) 
 	{	
-		super(pos, flags, name, null, new LinkedList<Object>(), new ClassBody_c(pos, new LinkedList<Object>()));
+		super(pos, flags, name, superClass, new LinkedList<Object>(), new ClassBody_c(pos, new LinkedList<Object>()));
 		this.glob_session = glob_session;
 		this.participants = createParticipantList(glob_session);
 
 		System.out.println("Protocol class name: " + this.name);
-		System.out.println("Protocol Participants: " + this.participants);
-		
+		System.out.println("Protocol Participants: " + this.participants);		
 	}
 	
 	public SJGlobTypeNode sessionType()

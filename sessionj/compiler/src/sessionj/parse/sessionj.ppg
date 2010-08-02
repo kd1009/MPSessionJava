@@ -47,7 +47,8 @@ parser Grm extends polyglot.parse.Grm {:
     			SJConstants.SJ_SELECTOR_INTERFACE_TYPE = ts.typeForName(SJConstants.SJ_SELECTOR_INTERFACE);
     			
     			//KACPER:
-    			SJConstants.SJ_GLOB_PROTOCOL_TYPE = ts.typeForName(SJConstants.SJ_GLOB_PROTOCOL_CLASS);
+    			SJConstants.SJ_GLOB_SESSION_TYPE = ts.typeForName(SJConstants.SJ_GLOB_SESSION_CLASS);
+    			SJConstants.SJ_GLOB_PARTICIPANT_TYPE = ts.typeForName(SJConstants.SJ_GLOB_PARTICIPANT_CLASS);
     
     		}
     		catch (SemanticException se) 

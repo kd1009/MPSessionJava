@@ -143,7 +143,8 @@ public class SJConstants
 	public static Type SJ_PROTOCOL_TYPE;
 	
 	//KACPER
-	public static Type SJ_GLOB_PROTOCOL_TYPE;
+	public static Type SJ_GLOB_SESSION_TYPE;
+	public static Type SJ_GLOB_PARTICIPANT_TYPE;
 	
     public static Type SJ_ABSTRACT_CHANNEL_TYPE;
 	public static Type SJ_CHANNEL_TYPE;
@@ -157,7 +158,8 @@ public class SJConstants
 	public static Type SJ_SELECTOR_INTERFACE_TYPE;
 	
 	public static final String SJ_PROTOCOL_CLASS = "sessionj.runtime.SJProtocol";
-	public static final String SJ_GLOB_PROTOCOL_CLASS = "sessionj.runtime.SJGlobProtocol";
+	public static final String SJ_GLOB_SESSION_CLASS = "sessionj.runtime.net.SJGlobSession";
+	public static final String SJ_GLOB_PARTICIPANT_CLASS = "sessionj.runtime.net.SJGlobParticipant";
 	public static final String SJ_CHANNEL_CLASS = "sessionj.runtime.net.SJService";
 	public static final String SJ_ABSTRACT_CHANNEL_CLASS = "sessionj.runtime.net.SJChannel";
 	public static final String SJ_SOCKET_INTERFACE = "sessionj.runtime.net.SJSocket";

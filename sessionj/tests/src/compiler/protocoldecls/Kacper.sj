@@ -25,13 +25,14 @@ class A
 }
 */
 
-global_protocol Kacper { |agency,buyer1|!<int>.|agency,buyer2|!<int>.|agency,creditcards|?(int) }
+public global_protocol Kacper { |agency,buyer1|!<int>.|agency,buyer2|!<int>.|agency,creditcards|?(int) }
 
 /*
 class MP
 { 
-	//global_protocol kacper2 { |a,b|!<int>.|a,b|!<int>, |b,a|!<int> }
-	public static final noalias protocol kacper3 {?(int).!<int>}
+	private global_protocol kacper2 { |a,b|!<int>.|a,b|!<int>, |b,a|!<int> }
+	//public static final noalias protocol kacper3 {?(int).!<int>}
 }
 */
+
 
