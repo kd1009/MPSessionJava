@@ -87,13 +87,25 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
 	{
 		Position pos = pd.position();
-		LinkedList<ClassMember> members = new LinkedList<ClassMember>();
-			
+		List<ClassMember> members = new LinkedList<ClassMember>();
+		QQ qq = new QQ(sjts.extensionInfo(), pos);
+		
+		String translation = "new sessionj.runtime.net.SJGlobParticipant(%E)";
+		
 		for (Id id: pd.getParticipantList())
 		{
-			ClassMember mb = new FieldDecl_c(pos, sjts.Public(), new CanonicalTypeNode_c(pos, SJ_GLOB_PARTICIPANT_TYPE), id, new NullLit_c(pos));
+			List<Object> mapping = new LinkedList<Object>();
+			mapping.add(sjnf.StringLit(pos, id.id()));
+			
+			ClassMember mb = new FieldDecl_c(
+					pos, 
+					sjts.Public(), 
+					new CanonicalTypeNode_c(pos, SJ_GLOB_PARTICIPANT_TYPE), 
+					id, 
+					qq.parseExpr(translation, mapping));
 			members.add(mb);
 		}
+		
 			
 		ClassBody bd = new ClassBody_c(pos, members);
 			
