@@ -106,6 +106,12 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 			members.add(mb);
 		}
 		
+		ClassMember mb = qq.parseMember("private java.lang.String encoded;", new LinkedList<Object>());
+		members.add(mb);
+		
+		mb = qq.parseMember("private sessionj.types.sesstypes.SJSessionType canonicalType;", new LinkedList<Object>());
+		members.add(mb);
+		
 			
 		ClassBody bd = new ClassBody_c(pos, members);
 			
