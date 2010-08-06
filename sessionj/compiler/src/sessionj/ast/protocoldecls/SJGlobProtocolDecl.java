@@ -8,6 +8,6 @@ import sessionj.ast.typenodes.SJGlobTypeNode;
 
 public interface SJGlobProtocolDecl extends ClassDecl 
 {
-	//public SJGlobalTypeNode sessionType();
+	public SJGlobTypeNode sessionType();
 	public LinkedList<Id> getParticipantList();
 }
