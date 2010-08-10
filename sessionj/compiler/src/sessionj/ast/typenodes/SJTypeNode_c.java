@@ -12,7 +12,7 @@ import static sessionj.SJConstants.*;
 
 public abstract class SJTypeNode_c extends TypeNode_c implements SJTypeNode
 {
-	private SJTypeNode child;
+	protected SJTypeNode child;
 
 	public SJTypeNode_c(Position pos)
 	{
@@ -29,18 +29,6 @@ public abstract class SJTypeNode_c extends TypeNode_c implements SJTypeNode
 		this.child = child;
 
 		return this;
-	}
-	
-	public SJGlobTypeNode globChild()
-	{
-		return (SJGlobTypeNode) child;
-	}
-
-	public SJGlobTypeNode globChild(SJTypeNode child)
-	{
-		this.child = child;
-
-		return (SJGlobTypeNode) this;
 	}
 	
 	public SJSessionType type()

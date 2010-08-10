@@ -58,9 +58,9 @@ public interface SJNodeFactory extends NodeFactory
 	SJCBeginNode SJCBeginNode(Position pos);
 	SJSBeginNode SJSBeginNode(Position pos);
 	SJSendNode SJSendNode(Position pos, TypeNode messageType);
-	SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType);
+	//SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType);
 	SJReceiveNode SJReceiveNode(Position pos, TypeNode messageType);
-	SJGlobReceiveNode SJGlobReceiveNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType);
+	//SJGlobReceiveNode SJGlobReceiveNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType);
 	SJOutbranchNode SJOutbranchNode(Position pos, List<SJBranchCaseNode> branchCases);
 	SJInbranchNode SJInbranchNode(Position pos, List<SJBranchCaseNode> branchCases);
 	SJBranchCaseNode SJBranchCaseNode(Position pos, SJLabel lab, SJTypeNode body);
@@ -71,6 +71,7 @@ public interface SJNodeFactory extends NodeFactory
 	SJProtocolRefNode SJProtocolRefNode(Position pos, Receiver target);
 	SJProtocolDualNode SJProtocolDualNode(Position pos, Receiver target);
 	
+	SJGlobTypeNode SJGlobTypeNode(Position pos, SJGlobElementPrefixNode prefix, SJTypeNode operation);
 	SJGlobElementPrefixNode SJGlobElementPrefixNode(Position pos, Id a, Id b);
 	
 	/*SJOutbranchNode SJOutbranchNode(Position pos, List<SJBranchCaseNode> branchCases, boolean isDependentlyTyped);

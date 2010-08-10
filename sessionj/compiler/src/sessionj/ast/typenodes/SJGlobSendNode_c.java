@@ -4,7 +4,7 @@ import polyglot.util.Position;
 import polyglot.ast.TypeNode;
 import static sessionj.SJConstants.*;
 
-public class SJGlobSendNode_c extends SJSendNode_c implements SJGlobSendNode, SJGlobTypeNode
+public class SJGlobSendNode_c extends SJSendNode_c implements SJGlobSendNode
 {
 	private SJGlobElementPrefixNode prefix;
 	

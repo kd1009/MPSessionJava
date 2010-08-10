@@ -52,7 +52,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		names.add(glob_session.getPrefix().getPartner().toString());
 		
 		//check children elements for participants not yet listed and add if necessary
-		SJGlobTypeNode child = glob_session.globChild();
+		SJGlobTypeNode child = glob_session.child();
 		while(child != null) {
 			
 			if(!(names.contains(child.getPrefix().getPrincipal().toString())))
@@ -65,7 +65,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 				participants.add(child.getPrefix().getPartner());
 				names.add(child.getPrefix().getPartner().toString());
 			}
-			child = child.globChild();
+			child = child.child();
 			
 		}
 		

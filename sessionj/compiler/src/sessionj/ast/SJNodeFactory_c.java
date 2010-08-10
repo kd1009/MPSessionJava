@@ -598,15 +598,20 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 		return new SJGlobElementPrefixNode_c(pos, a, b);	
 	}
 	
-	public SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
+	public SJGlobTypeNode SJGlobTypeNode(Position pos, SJGlobElementPrefixNode prefix, SJTypeNode operation)
 	{
-		return new SJGlobSendNode_c(pos, messageType, prefixType);
+		return new SJGlobTypeNode_c(pos, prefix, operation);
 	}
 	
-	public SJGlobReceiveNode SJGlobReceiveNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
-	{
-		return new SJGlobReceiveNode_c(pos, messageType, prefixType);
-	}
+//	public SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
+//	{
+//		return new SJGlobSendNode_c(pos, messageType, prefixType);
+//	}
+//	
+//	public SJGlobReceiveNode SJGlobReceiveNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
+//	{
+//		return new SJGlobReceiveNode_c(pos, messageType, prefixType);
+//	}
 	
 	public SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJGlobTypeNode tn)
 	{
