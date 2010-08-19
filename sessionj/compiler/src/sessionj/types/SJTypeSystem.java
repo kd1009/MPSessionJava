@@ -11,11 +11,12 @@ import java.util.List;
 
 public interface SJTypeSystem extends TypeSystem 
 {
+	SJGlobElementPrefixType SJGlobElementPrefixType();
+	SJGlobSessionType SJGlobSessionType(SJGlobElementPrefixType prefixType, SJSessionType sessionType);
+
 	SJCBeginType SJCBeginType();
 	SJSBeginType SJSBeginType();
 	SJSendType SJSendType(Type messageType) throws SemanticException;
-	SJGlobSendType SJGlobSendType(Type messageType, Type prefixType) throws SemanticException;
-	
 	SJReceiveType SJReceiveType(Type messageType) throws SemanticException;
 	SJOutbranchType SJOutbranchType(); // FIXME: finish refactoring these branch types.
 	SJOutbranchType SJOutbranchType(boolean isDependentlyTyped);
@@ -31,8 +32,6 @@ public interface SJTypeSystem extends TypeSystem
 	SJDelegatedType SJDelegatedType(SJSessionType st);
     //SJSetType SJSetType(List<SJSessionType_c> members);
 	SJSetType SJSetType(List<SJSessionType> members);
-	
-	SJGlobElementPrefixType SJGlobElementPrefixType();
 	
 	SJParsedClassType SJParsedClassType(LazyClassInitializer init, Source fromSource);
 	SJFieldInstance SJFieldInstance(FieldInstance fi, boolean isNoAlias, boolean isFinal);

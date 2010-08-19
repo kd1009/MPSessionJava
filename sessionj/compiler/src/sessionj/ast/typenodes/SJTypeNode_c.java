@@ -33,7 +33,11 @@ public abstract class SJTypeNode_c extends TypeNode_c implements SJTypeNode
 	
 	public SJSessionType type()
 	{
+		System.out.println("Executing1 type()");
+		
 		SJSessionType st = (SJSessionType) super.type();
+		
+		System.out.println("Executing2 type() " + st);
 		
 		if (st != null) // To support SJBranchCaseNode.
 		{
@@ -41,6 +45,8 @@ public abstract class SJTypeNode_c extends TypeNode_c implements SJTypeNode
 		}
 		
 		SJTypeNode child = child();
+		
+		System.out.println("Executing3 type() child SJTypeNOde " + child);
 	
 		if (child != null) // For SJBranchCaseNode, always null.
 		{	
@@ -54,6 +60,7 @@ public abstract class SJTypeNode_c extends TypeNode_c implements SJTypeNode
                }*/
 		}
 
+		System.out.println("Executing4 type()" + st);
 		return st;
 	}
 

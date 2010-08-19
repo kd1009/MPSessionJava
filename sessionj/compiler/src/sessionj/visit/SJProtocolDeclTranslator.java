@@ -96,7 +96,7 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		{
 			List<Object> mapping = new LinkedList<Object>();
 			mapping.add(sjnf.StringLit(pos, id.id()));
-			
+
 			ClassMember mb = new FieldDecl_c(
 					pos, 
 					sjts.Public(), 
@@ -111,6 +111,9 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 		
 		mb = qq.parseMember("private sessionj.types.sesstypes.SJSessionType canonicalType;", new LinkedList<Object>());
 		members.add(mb);
+		
+		System.out.println("OPNODE " + pd.sessionType().getOperationNode());
+		System.out.println("OPNODE.TYPE " + sjte.encode(pd.sessionType().getOperationNode().type()));
 		
 			
 		ClassBody bd = new ClassBody_c(pos, members);

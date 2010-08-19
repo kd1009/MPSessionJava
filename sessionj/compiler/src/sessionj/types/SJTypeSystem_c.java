@@ -17,6 +17,11 @@ public class SJTypeSystem_c extends TypeSystem_c implements SJTypeSystem
 	{
 		return new SJGlobElementPrefixType_c(this);
 	}
+
+	public SJGlobSessionType SJGlobSessionType(SJGlobElementPrefixType prefixType, SJSessionType sessionType)
+	{
+		return new SJGlobSessionType_c(this, prefixType, sessionType);
+	}
 	
 	public SJCBeginType SJCBeginType()
 	{
@@ -31,11 +36,6 @@ public class SJTypeSystem_c extends TypeSystem_c implements SJTypeSystem
 	public SJSendType SJSendType(Type messageType) throws SemanticException
 	{
 		return new SJSendType_c(this, messageType);
-	}
-	
-	public SJGlobSendType SJGlobSendType(Type messageType, Type prefixType) throws SemanticException
-	{
-		return new SJGlobSendType_c(this, messageType, prefixType);
 	}
 
 	public SJReceiveType SJReceiveType(Type messageType) throws SemanticException

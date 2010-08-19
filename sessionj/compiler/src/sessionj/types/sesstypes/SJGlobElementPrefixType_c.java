@@ -20,12 +20,12 @@ public class SJGlobElementPrefixType_c extends SJSessionType_c implements SJGlob
 	
 	protected boolean eligibleForSubtype(SJSessionType st)
 	{
-		return st instanceof SJGlobElementPrefixType;
+		return false;
 	}
 	
 	protected boolean eligibleForDualtype(SJSessionType st)
 	{
-		return st instanceof SJGlobElementPrefixType;
+		return false;
 	}
 	
 	protected boolean compareNode(NodeComparison op, SJSessionType st)
