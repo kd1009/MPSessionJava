@@ -25,7 +25,10 @@ class A
 }
 */
 
-public global_protocol Kacper { |agency,buyer1|!<int>.|agency,buyer2|!<int>.|agency,creditcards|?(int) }
+//public global_protocol Kacper { |agency,buyer1|!<int>.|agency,buyer2|!<int>.|agency,creditcards|?(int) }
+
+global_protocol Kacper {|agency, customer1|!<double>}  //. |agency,customer2|!<int>}
+
 
 /*
 class MP

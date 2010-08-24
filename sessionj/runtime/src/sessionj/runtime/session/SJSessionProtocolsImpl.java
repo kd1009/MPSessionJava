@@ -32,8 +32,8 @@ import java.util.logging.Level;
  */
 public class SJSessionProtocolsImpl implements SJSessionProtocols
 {
-	//private static final boolean RUNTIME_MONITORING = false;  
-	private static final boolean RUNTIME_MONITORING = true; // FIXME: factor out as a configurable parameter.
+	private static final boolean RUNTIME_MONITORING = false;  
+	//private static final boolean RUNTIME_MONITORING = true; // FIXME: factor out as a configurable parameter.
 	
 	private static final byte DELEGATION_START = -1; // Would be more uniform to be a control signal (although slower).
 	//private static final byte DELEGATION_ACK = -2;	
