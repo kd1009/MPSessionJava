@@ -206,10 +206,11 @@ public class SJNoAliasTypeChecker extends ContextVisitor
 		
 		if (t.isSubtype(SJ_SOCKET_INTERFACE_TYPE) || t.isSubtype(SJ_SERVER_INTERFACE_TYPE)) // FIXME: the session entity checks should be moved into a session-related pass.
 		{
-			if (!isNoAlias(ld))
-			{
-				throw new SemanticException("[SJNoAliasTypeChecker] Session sockets and server sockets must be noalias: " + ld);
-			}
+//KACPER:
+//			if (!isNoAlias(ld))
+//			{
+//				throw new SemanticException("[SJNoAliasTypeChecker] Session sockets and server sockets must be noalias: " + ld);
+//			}
 		}		
 		else if (init != null)
 		{			

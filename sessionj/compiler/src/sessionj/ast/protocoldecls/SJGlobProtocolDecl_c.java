@@ -8,7 +8,6 @@ import polyglot.util.Position;
 
 import static sessionj.SJConstants.*;
 import sessionj.ast.typenodes.SJGlobTypeNode;
-import sessionj.ast.typenodes.SJGlobElementPrefixNode;
 
 public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolDecl 
 {	
@@ -17,7 +16,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 
 	public SJGlobProtocolDecl_c (Position pos, Flags flags, Id name, TypeNode superClass, SJGlobTypeNode glob_session) 
 	{	
-		super(pos, flags, name, superClass, new LinkedList<Object>(), new ClassBody_c(pos, new LinkedList<Object>()));
+		super(pos, flags.Public(), name, superClass, new LinkedList<Object>(), new ClassBody_c(pos, makeGlobProtMembers (pos, glob_session)));
 		this.glob_session = glob_session;
 		this.participants = createParticipantList(glob_session);
 
@@ -37,7 +36,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		return this;
 	}
 	
-	private LinkedList<Id> createParticipantList(SJGlobTypeNode glob_session) 
+	private static LinkedList<Id> createParticipantList(SJGlobTypeNode glob_session) 
 	{
 
 		LinkedList<Id> participants = new LinkedList<Id>();
@@ -70,6 +69,27 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		}
 		
 		return participants;
+	}
+	
+	private static LinkedList<ClassMember> makeGlobProtMembers(Position pos, SJGlobTypeNode glob_session) {
+		
+		List<ClassMember> members = new LinkedList<ClassMember>();
+		
+		for (Id id: createParticipantList(glob_session))
+		{
+			LinkedList<String> args = new LinkedList<String>();
+			args.add(id.id());
+			
+			ClassMember mb = new FieldDecl_c(
+					pos, 
+					Flags.PUBLIC, 
+					new CanonicalTypeNode_c(pos, SJ_GLOB_PARTICIPANT_TYPE), 
+					id, 
+					new NullLit_c(pos));
+			members.add(mb);
+		}
+		
+		return (LinkedList<ClassMember>) members; 
 	}
 	
 	public LinkedList<Id> getParticipantList() 

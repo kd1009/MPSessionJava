@@ -8,28 +8,34 @@ import java.util.*;
 import sessionj.runtime.*;
 import sessionj.runtime.net.*;
 
-public class KacperProt {
-	
-	public static void main (String[] args) {
-		
-		//SJGlobSession ss = new Kacper();
-		//System.out.println(ss);
-		System.out.println("hello");
+/*
+public class Test 
+{			
+	public static void main(String[] args) throws Exception
+	{		
+		//final noalias protocol p1 { cbegin.?(!(int).!(String)) }
+		//final noalias protocol p2 { cbegin.@(A.pa) }
+		//final noalias protocol p3{ ^(B.pb).!(Integer) }
 	}
-
-
-
-	//String test = ((Kacper)ss).jlc$ClassType$jl;
-
-	//SJGlobParticipant hello = Kacper.customer1;
-	
-
-	//ss.agency.setLocal();
-	//ss.customer1.setRemote();
-
-	//ss.invite();
-
-	//ss.customer1.send(2.00);
-	
 }
+
+class A
+{
+	//public static final noalias protocol pa { ?(!(int).!(String)) }
+}
+*/
+
+//public global_protocol Kacper { |agency,buyer1|!<int>.|agency,buyer2|!<int>.|agency,creditcards|?(int) }
+
+global_protocol KacperProt {|agency, customer1|!<double>}  //. |agency,customer2|!<int>}
+
+
+/*
+class MP
+{ 
+	private global_protocol kacper2 { |a,b|!<int>.|a,b|!<int>, |b,a|!<int> }
+	//public static final noalias protocol kacper3 {?(int).!<int>}
+}
+*/
+
 

@@ -85,10 +85,10 @@ public class SJVariableParser extends ContextVisitor
 	{
 		Type t = f.type();
 		
-		if (t.isSubtype(SJ_ABSTRACT_CHANNEL_TYPE))
-		{
-			throw new SemanticException("[SJVariableParser] Session-typed fields not yet supported: " + f);
-		}
+//		if (t.isSubtype(SJ_ABSTRACT_CHANNEL_TYPE))
+//		{
+//			throw new SemanticException("[SJVariableParser] Session-typed fields not yet supported: " + f);
+//		}
 		
 		return f;
 	}		
@@ -184,7 +184,7 @@ public class SJVariableParser extends ContextVisitor
                     throw new SemanticException("[SJVariableParser] Expected session socket or server variable, not: " + r);
                 }
             } else {
-                throw new SemanticException("[SJVariableParser] Expected local variable, not: " + r);
+                //throw new SemanticException("[SJVariableParser] Expected local variable, not: " + r);
             }
         }
 		

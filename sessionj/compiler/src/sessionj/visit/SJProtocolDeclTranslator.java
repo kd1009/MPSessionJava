@@ -1,5 +1,6 @@
 package sessionj.visit;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 import polyglot.ast.*;
@@ -12,6 +13,7 @@ import polyglot.visit.*;
 import sessionj.ast.*;
 import sessionj.ast.typenodes.*;
 import sessionj.ast.protocoldecls.*;
+//import sessionj.runtime.net.SJGlobParticipant;
 import sessionj.types.SJTypeSystem;
 import sessionj.types.typeobjects.*;
 import sessionj.util.*;
@@ -86,40 +88,38 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 
 	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
 	{
+		System.out.println("translateSJGlobProtocolDecl");
+		
 		Position pos = pd.position();
-		List<ClassMember> members = new LinkedList<ClassMember>();
 		QQ qq = new QQ(sjts.extensionInfo(), pos);
 		
-		String translation = "new sessionj.runtime.net.SJGlobParticipant(%E)";
+		List<ClassMember> members = new LinkedList<ClassMember>();
+		members = pd.body().members();
 		
-		for (Id id: pd.getParticipantList())
-		{
-			List<Object> mapping = new LinkedList<Object>();
-			mapping.add(sjnf.StringLit(pos, id.id()));
-
-			ClassMember mb = new FieldDecl_c(
-					pos, 
-					sjts.Public(), 
-					new CanonicalTypeNode_c(pos, SJ_GLOB_PARTICIPANT_TYPE), 
-					id, 
-					qq.parseExpr(translation, mapping));
-			members.add(mb);
+		System.out.println(members);
+	
+		List<ClassMember> newMembers = new LinkedList<ClassMember>();	
+		
+		for(ClassMember mb: members) {
+			
+			if(mb instanceof FieldDecl) {
+			
+				System.out.println("Yes, I am a FieldDecl");
+				String translation ="";
+				List<Object> mapping = new LinkedList<Object>();
+				translation = "new SJGlobParticipant(%E)";
+				mapping.add(sjnf.StringLit(pos, ((FieldDecl) mb).name()));
+				
+				System.out.println(mapping);
+				System.out.println(((FieldDecl) mb).name());
+			
+				New n = (New) qq.parseExpr(translation, mapping);
+				//n = (New) buildAndCheckTypes(this, n);
+			
+				newMembers.add(((FieldDecl) mb).init(n));
+			}
 		}
 		
-		ClassMember mb = qq.parseMember("private java.lang.String encoded;", new LinkedList<Object>());
-		members.add(mb);
-		
-		mb = qq.parseMember("private sessionj.types.sesstypes.SJSessionType canonicalType;", new LinkedList<Object>());
-		members.add(mb);
-		
-		System.out.println("OPNODE " + pd.sessionType().getOperationNode());
-		System.out.println("OPNODE.TYPE " + sjte.encode(pd.sessionType().getOperationNode().type()));
-		
-			
-		ClassBody bd = new ClassBody_c(pos, members);
-			
-		System.out.println("MemberList: " + bd.members());
-			
-		return pd.body(bd);	
+		return pd.body(pd.body().members(newMembers));
 	}
 }

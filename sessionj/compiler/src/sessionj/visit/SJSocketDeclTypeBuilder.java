@@ -95,11 +95,12 @@ public class SJSocketDeclTypeBuilder extends ContextVisitor
 	private FieldDecl buildFieldDecl(FieldDecl fd) throws SemanticException
 	{	
 		Type t = fd.declType();
-		
-		if (t.isSubtype(SJ_SOCKET_INTERFACE_TYPE)) 
-		{
-			throw new SemanticException("[SJSocketDeclTypeBuilder] Field type not supported: " + t);
-		}
+
+//KACPER:
+//		if (t.isSubtype(SJ_SOCKET_INTERFACE_TYPE)) 
+//		{
+//			throw new SemanticException("[SJSocketDeclTypeBuilder] Field type not supported: " + t);
+//		}
 		
 		return fd;
 	}
@@ -127,11 +128,12 @@ public class SJSocketDeclTypeBuilder extends ContextVisitor
 			/*else if (init instanceof SJRequest) // FIXME: actually, isn't possible - socket must be declared before the session-try, but the request can only occur inside the session-try.
 			{
 				st = getSessionType(init);
-			}*/			
-			else
-			{
-				throw new SemanticException("[SJSocketDeclTypeBuilder] Unexpected channel variable initializer: " + init);
-			}		
+			}*/
+//KACPER:
+//			else
+//			{
+//				throw new SemanticException("[SJSocketDeclTypeBuilder] Unexpected channel variable initializer: " + init);
+//			}		
 			
 			ld = ld.localInstance(sjts.SJLocalSocketInstance(li, st, sjname));
 			ld = (LocalDecl) setSJNamedExt(sjef, ld, st, sjname);

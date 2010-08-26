@@ -8,10 +8,15 @@ import sessionj.runtime.transport.SJTransportUtils;
 public abstract class SJGlobSession 
 {
 	
-	public void invite() throws SecurityException, NoSuchMethodException, 
-				IllegalArgumentException, IllegalAccessException, SJIOException, 
-				SJSessionParametersException, SJIncompatibleSessionException {
+	public void invite() 
 	
+	//throws SecurityException, NoSuchMethodException, 
+	//			IllegalArgumentException, IllegalAccessException, SJIOException, 
+	//			SJSessionParametersException, SJIncompatibleSessionException 
+		{
+		try {
+			
+		
 		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
 		LinkedList<SJGlobParticipant> participants = new LinkedList<SJGlobParticipant>();
 		
@@ -25,7 +30,9 @@ public abstract class SJGlobSession
 			}
 		}
 		
-		for(SJGlobParticipant p: participants) {		
+		LinkedList<SJGlobParticipant> participantsCopy = new LinkedList<SJGlobParticipant>(participants);
+		
+		for(SJGlobParticipant p: participantsCopy) {		
 				
 				// send request to first on the list
 				String hostname = p.getHostname();
@@ -37,13 +44,19 @@ public abstract class SJGlobSession
 				participants.removeFirst();
 				
 				// send the list of participants that have to be invited by the participant
+				p.sendInt(10);
 				p.send(participants);
-		}	
+		}
+		
+		} catch (Exception e) {e.printStackTrace();} 
 	}
 	
-	public void acceptInvite() throws SJIOException, SJSessionParametersException,
-				SJIncompatibleSessionException, IllegalArgumentException, IllegalAccessException, 
-				ClassNotFoundException {
+	public void acceptInvite() {
+//		throws SJIOException, SJSessionParametersException,
+//		SJIncompatibleSessionException, IllegalArgumentException, IllegalAccessException, 
+//		ClassNotFoundException 
+		
+		try {
 
 		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
 		LinkedList<SJGlobParticipant> participants = new LinkedList<SJGlobParticipant>();
@@ -64,9 +77,12 @@ public abstract class SJGlobSession
 			p.setDel(servsocket.accept());
 			
 			// receive list of participants to whom a connection should be initiated
-			p.receive();
-			
-		}	
+			System.out.println("Receiving integer: " + p.receiveInt() + " from " + p.getName());
+			System.out.println(p.receive());
+		}
+		
+		}
+		catch (Exception e) {e.printStackTrace();}
 		
 	}
 }

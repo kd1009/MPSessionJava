@@ -420,10 +420,11 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
                 sjcontext.advanceSession(sjname, sjts.SJSBeginType());
             }
         }
-        else
-        {
-            throw new SemanticException(getVisitorName() + " Assign of session socket type not yet supported: " + right);
-        }
+//KACPER:
+//        else
+//        {
+//            throw new SemanticException(getVisitorName() + " Assign of session socket type not yet supported: " + right);
+//        }
         
         return a;
     }

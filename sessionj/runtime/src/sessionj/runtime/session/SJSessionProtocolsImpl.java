@@ -72,7 +72,7 @@ public class SJSessionProtocolsImpl implements SJSessionProtocols
 
 	public void accept() throws SJIOException, SJIncompatibleSessionException
 	{
-		dualityCheck(s.getProtocol());
+		//dualityCheck(s.getProtocol());
 		
 		if (RUNTIME_MONITORING)
 		{
@@ -82,7 +82,7 @@ public class SJSessionProtocolsImpl implements SJSessionProtocols
 	
 	public void request() throws SJIOException, SJIncompatibleSessionException
 	{
-		dualityCheck(s.getProtocol());
+		//dualityCheck(s.getProtocol());
 		
 		if (RUNTIME_MONITORING)
 		{

@@ -16,6 +16,10 @@ public class SJGlobParticipant implements SJSocket {
 	private String hostname;
 	private int port;
 	private boolean local = false;
+	
+	public SJGlobParticipant(String name) {
+		this.name = name;
+	}
 
 	public void setRemote(String host, int port) {
 		this.hostname = host;
@@ -34,16 +38,20 @@ public class SJGlobParticipant implements SJSocket {
 		return port;
 	}
 
-	public SJGlobParticipant(String name) {
-		this.name = name;
-	}
-	
 	public void setDel(SJAbstractSocket del) {
 		this.del = del;
 	}
 	
 	public boolean isLocal() {
 		return local;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return "I am a Global Participant " + name;
 	}
 	
 	/*********DELEGATED METHODS **************************/
@@ -245,9 +253,9 @@ public class SJGlobParticipant implements SJSocket {
 		return del.supportsBlocking();
 	}
 
-	public String toString() {
-		return del.toString();
-	}
+	//public String toString() {
+	//	return del.toString();
+	//}
 
 	public TransportSelector transportSelector() {
 		return del.transportSelector();
