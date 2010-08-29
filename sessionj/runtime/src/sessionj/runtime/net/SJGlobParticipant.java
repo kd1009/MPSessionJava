@@ -50,6 +50,10 @@ public class SJGlobParticipant implements SJSocket {
 		return name;
 	}
 	
+	public void setName(String n) {
+		name=n;
+	}
+	
 	public String toString() {
 		return "I am a Global Participant " + name;
 	}

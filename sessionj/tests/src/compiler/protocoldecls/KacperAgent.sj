@@ -25,7 +25,13 @@ public class KacperAgent {
 		ss.customer1.setRemote("localhost", 1050);
 		ss.acceptInvite();
 
-		System.out.println(ss.agency.receiveDouble());
+		Field[]  fields = ss.getClass().getDeclaredFields();	
+
+		for(int i=0; i<fields.length; i++) {
+			System.out.println(((Field) fields[i]).getType());
+		}		
+
+		System.out.println(ss.customer1.receiveInt());
 	}
 }
 

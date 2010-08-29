@@ -15,37 +15,23 @@ public abstract class SJGlobSession
 	//			SJSessionParametersException, SJIncompatibleSessionException 
 		{
 		try {
-			
 		
 		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
-		LinkedList<SJGlobParticipant> participants = new LinkedList<SJGlobParticipant>();
 		
-		// put all participants apart from yourself in a LinkedList
 		for(Field f: getClass().getDeclaredFields()) {
 			
-			if (f.getType().equals(SJGlobParticipant.class)) {
-				SJGlobParticipant p = (SJGlobParticipant) f.get(this);
-				if(!p.isLocal())
-				participants.add(p);
-			}
-		}
-		
-		LinkedList<SJGlobParticipant> participantsCopy = new LinkedList<SJGlobParticipant>(participants);
-		
-		for(SJGlobParticipant p: participantsCopy) {		
+			if (f.getType().equals(SJGlobParticipant.class) && (!((SJGlobParticipant) f.get(this)).isLocal())) {
+				SJGlobParticipant p = (SJGlobParticipant) f.get(this);;	
 				
-				// send request to first on the list
 				String hostname = p.getHostname();
 				int port = p.getPort();
 				final SJService serv = SJService.create(null, hostname, port);
 				p.setDel(serv.request(params));
-		
-				// remove the participant we just requested a session with
-				participants.removeFirst();
 				
-				// send the list of participants that have to be invited by the participant
-				p.sendInt(10);
-				p.send(participants);
+				f.set(this, p);
+				((SJGlobParticipant) f.get(this)).sendInt(10);
+				
+			}
 		}
 		
 		} catch (Exception e) {e.printStackTrace();} 
@@ -56,29 +42,24 @@ public abstract class SJGlobSession
 //		SJIncompatibleSessionException, IllegalArgumentException, IllegalAccessException, 
 //		ClassNotFoundException 
 		
+		int c = 0;
+		
 		try {
 
 		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
-		LinkedList<SJGlobParticipant> participants = new LinkedList<SJGlobParticipant>();
 		
-		// put all participants apart from yourself in a LinkedList
 		for(Field f: getClass().getDeclaredFields()) {
 			
-			if (f.getType().equals(SJGlobParticipant.class)) {
+			if (f.getType().equals(SJGlobParticipant.class)&& (!((SJGlobParticipant) f.get(this)).isLocal())) {
 				SJGlobParticipant p = (SJGlobParticipant) f.get(this);
-				if(!p.isLocal())
-				participants.add(p);
-			}
-		}
-		
-		for(SJGlobParticipant p: participants) {		
+				final SJServerSocket servsocket = SJServerSocketImpl.create(null, 1050+c, params);
+				p.setDel(servsocket.accept());
 				
-			final SJServerSocket servsocket = SJServerSocketImpl.create(null, 1050, params);
-			p.setDel(servsocket.accept());
-			
-			// receive list of participants to whom a connection should be initiated
-			System.out.println("Receiving integer: " + p.receiveInt() + " from " + p.getName());
-			System.out.println(p.receive());
+				f.set(this, p);
+				System.out.println("Receiving integer: " + ((SJGlobParticipant) f.get(this)).receiveInt()
+						+ " from " + ((SJGlobParticipant) f.get(this)).getName());
+				c++;
+			}
 		}
 		
 		}

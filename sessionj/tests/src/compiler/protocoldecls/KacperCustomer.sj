@@ -26,8 +26,9 @@ public class KacperCustomer {
 		ss.customer1.setLocal();
 		ss.agency.setRemote("localhost", 1050);
 		
-		ss.invite();	
-		ss.agency.sendDouble(10.05);
+		ss.invite();
+		System.out.println("invited successfully");
+		ss.agency.sendInt(10);
 
 	}
 }
