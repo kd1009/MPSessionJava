@@ -1,0 +1,15 @@
+\chapter{Introduction}
+\label{sec:intro}
+
+This paper reviews the background literature for an MSc Computing Science Individual Project at Imperial College London. The aim of the project is to enhance the security and anonymity of Session-Based Distributed Programming in Java and consider and implement an application of the technology in financial business protocols.
+
+With increasingly complicated interactions between distributed session programs the need for making interactions safe and less prone to errors gains its significance, too. So far such sessions had to rely on Remote Procedure Call (RPC) techniques, which increased the amount of method calls between the two parties, making the successful execution of data exchange unnecessarily reliable on the way these interactions were programmed in high-level languages.
+
+Recent work was put into integrating session types and the Java programming language, creating an SJ Framework, which allows the compiler to statically check the safety of the data exchange at compilation\cite{sessionbased_programming}.
+
+The underlying foundation of Java session types is an adaptation of $\pi$-calculus carried out by Honda et al. in \cite{language_primitives} who introduced basic language constructs and a type discipline for structured communication-based concurrent programming. This language offers a high-level abstraction of interactive bahaviours of programs further permitting program designers to ensure compatibility of interaction processes and soundness of communication. These properties can be ensured by constructs of proofs as in $\pi$-calculus.
+
+$\pi$-calculus, as described in \cite{pi-calculus}, is a calculus which can be used for analysing behaviours of mobile systems at design stage. Modelling in $\pi$-calculus is based around the notion of automata and allows to analyse properties of concurrent communication processes, which may shrink, grow or move about. Each of the processes is interpreted as an automaton with links representing interactions with other processes.
+
+All combined, the entire system of model analysis, property enforcement and session-based programming can be applied to any programs which require robust, safe and structured communications. This can be of particular importance in financial business protocols or safety critical applications such as Air Traffic Control Systems.
+

@@ -1,0 +1,297 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% - BACKGROUND: BEGIN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Background Review}
+\label{ch:background}
+
+%%%%%%%%%%%%%%%%%%%%%%%% STRUCTURED COMMUNICATIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Importance of Structures Communications}
+\label{sec:structuredcommms}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   PI-CALCULUS    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pi-calculus: The Roots of Session Types}
+\label{sec:picalculus}
+	
+	As briefly discussed in Section \ref{sec:intro} $\pi$-calculus is an important foundation of Session-Based Programming as it allows to understand the behaviour of communicating systems. It is an extension of the theory of sequential algorithmic processes to systems where interaction plays a significant role, which was limited by the inability of modelling physical and virtual mobility of such systems. $\pi$-calculus lets us model this effectively describing concurrent communicating processes and their interactional behaviours rigorously.
+
+The basic unit in the model is an \textit{automaton}. Links between automata may evolve over time as automata may for example be created, split or die. They can be loosely compared to method calls in programming, i.e. when a code section is entered an automaton is created, when it executes it can make calls to other sections of code, hence creating other automata and when the code block is left, automata die.
+
+This behaviour was already described by Milner in \cite{comm_sys_calc} but mobility was not covered. In \cite{pi-calculus} it has been recognised that the notion of mobility can be modelled by the movement of links between components hence allowing to model the movement of automata themselves. Their `location' is determined by the active links at a given point in time.
+
+At this point it is useful to introduce the definition of an automaton:
+
+\newtheorem{automaton}{Definition}
+\begin{automaton}
+An automaton A over Act has four ingredients:
+\begin{align}
+\mbox{a set }Q = \{q_0,q_1,...\}\mbox{ of states;}\nonumber\\
+\mbox{a state } q_0 \in Q  \mbox{ called the start state;}\nonumber\\
+\mbox{a subset F of Q called the accepting states;}\nonumber\\
+\mbox{a subset T of Q} \times Act \times Q\mbox{ called the transitions;}\nonumber
+\end{align}
+A transition (q,a,q')  $\in$ T is usually written as $q \xrightarrow{a} q'$. The automaton A is said to be finite state if Q is finite, and deterministic if for each pair (q, a) $\in Q \times Act$ there is exactly one transition $q \xrightarrow{a} q'.$\cite{pi-calculus}
+\end{automaton}
+
+This definition allows an automaton to be represented by a transition graph, whose nodes are the states and whose arcs are the transitions. Intuitively, this allows us to represent processes in a very similar fashion with transitions being mapped onto actions that a process $P$ can execute to find itself in a new state $P'$.
+
+Let us now fully introduce mobility with $\pi$-calculus as a way of modelling the changing connectivity of interactive systems. It is possible to model networking in a broad modern sense of sending messages from site to site and adopting mobility as as the movement of links in the virtual space of linked processes. The model also allows to enforce a certain discipline on a family of automata, which can be compared to type-system value checking in high-level languages, which imposes certain patterns of behaviour on selected types.
+
+Milner\cite{pi-calculus} introduces a helpful example of mobility in the context of a \textit{Car} connected to a \textit{Control} station via \textit{Transmitters} and a certain wavelength. As the signal fades Control can tell a Transmitter to lose a Car and reassign it to a different Transmitter. This can be easily converted into a mobile phone example, which is based around the same pattern of interaction.
+
+$\pi$-calculus proves itself very powerful in this example. Not only is it possible to model actions and reactions along channels but also new \textit{names (=channels)} can be sent as messages. Hence it allows to model interactions like sending names in negative actions, such as $\overline{switch}\langle t,s \rangle$, or receiving names in positive actions such as $lose(t,s)$. This effectively provides a way of modelling channel switches by using name-binding actions, which will later prove to be a very important feature for session-based programming.
+
+Finally using operational semantics it is possible to prove that a specified protocol for performing a desired action is correct. In this example it is the case that the hand-over from one transmitter to another is performed successfully resulting in all entities having the new desired active states.
+
+It becomes apparent that the system can be used to model both small and large scale systems. In the context of this work it is especially important for modelling the validity of protocols. Implementing a protocol according to a design that has been proven to be valid ensures integrity of the system providing a formal proof that a protocol changes a global state $A$ into a desired state $A'$.
+
+Let us now show a two interesting examples of $\pi$-calculus:
+
+$$ \bar{a}<1>.0 | a(x).P \longrightarrow 0 | P\{1/x\} $$
+
+The interaction begins by sending $1$ along $\bar{a}$. In the dual name $a$ each $x$ is substituted by $1$. $\bar{a}$ then continues with the terminating action $0$ and a continues into P with all variables $x$ substituted by $1$. This is a fairly simple and standard interaction scenario.
+
+$$ (\nu a)(\bar{a}<1>.P) | a(x).0 \nrightarrow (\nu a) P|0 $$
+
+In this case $a$ is restricted and its scope is limited to the current application, hence it cannot interact with the second process. $a$ would never receive a value for $x$ and blocks out forever.
+
+Finally we can formalise ${\pi}$-calculus with the following rules:
+
+\begin{equation} \bar{a}<v>.P | a(x).Q \longrightarrow P|Q{v/x} \end{equation}
+
+\begin{equation} \frac{P \rightarrow P'}{P|Q \rightarrow P'|Q} \end{equation}
+
+\begin{equation} \frac{P \rightarrow P'}{(\nu x) P \rightarrow (\nu x) P'} \end{equation}
+
+\begin{equation} \frac{P \rightarrow P'}{Q \rightarrow Q'} \mbox{ if } P \equiv Q \mbox{ and } P' \equiv Q' \end{equation}
+\newline
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION TYPES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Session Types}
+\label{sec:sessiontypes}	
+	
+\subsection{Binary Session Types}
+\label{subsec:binsessiontypes}
+		
+	Although many programming languages and formalisms have been developed that can describe software based on communication, they are limited to expressing one-time interactions between processes. Hence the only way of describing a more complex pattern of interaction is a sequential grouping of independent interactions. If we consider the Transmitter example from Section \ref{sec:picalculus} the code to reflect the protocol would be unverifiable and likely to consider bugs not noticed in system tests.
+
+It appears necessary to have a method of structuring such complex sequential interactions with clarity and verifiability at the high-level abstraction. Due to increasing complexity of interactional systems there exists the need not only to support sequential interactions, but also branching and iterations.
+
+Honda et al. suggest a structuring method for communication-based concurrent programming in \cite{language_primitives}. The method consists of both structuring primitives as well as a type discipline forming a basis for verification. Specifically it describes the following three key elements:
+
+\begin{description}
+  \item[Session:] A session is a chain of interactions whose collection forms the program. A session utilises a \textit{channel} through which all interactions of that particular session are performed. These channels form a syntactic domain which creates the appropriate level of abstraction. In addition, standard concurrent programming primitives are used to allow parallel composition, execution of conditional and recursive statements. Notably, the combination of recursive calls and sessions enables the incorporation of an infinite sequence of interactions to be embedded into a single unit of abstraction. This was not possible to achieve in other implementable formalisation languages.
+  \item[Value passing, label branching, delegation:] Apart from the standard value passing, which is integrated into $\pi$-calculus the communication primitives of the suggested formalisation also allow a form of method invocation. More interestingly, it is also possible for one process to delegate a session to multiple other processes. This effectively provides a way `spreading' a session across other processes in a well-structured, formalisable and clean manner.
+  \item[Basic type discipline:] This element is of great importance to the verifiability of systems and indispensable to a valid structuring method. It ensures that two communicating processes are compatible with each other. In particular if a process $A$ is expecting to receive a value from process $B$ and vice-versa the session would lead to a dead-lock. It is hence necessary to always compatibility and duality of interacting processes.
+\end{description}
+
+Using these key elements it is possible to design a basic language that reflects communication primitives such as remote procedure calls (RPC) and method invocations executed in structured communication sessions. The newly created language can be translated into $\pi$-calculus hence enabling proofs and pointing towards the feasibility of an implementation across distributed systems such as the mentioned Transmitter example.
+
+The following Table \ref{TBobject_notation} introduces the basic notation for the session type formalisation.
+
+\begin{table}[H]
+\center
+\caption{Basic Object Notation for Session Types}
+\begin{tabular}{|l|l|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  Notation & Type \\
+  \hline
+  $\{a,b,..\}$ & names \\
+  $\{k,k'\}$ & session channels \\
+  $\{x,y,..\}$ & variables \\
+  $\{1,2,false,..\}$ & constants \\
+  $\{e,e'\}$ & expressions \\
+  $\{l,l'\}$ & labels \\
+  \hline
+\end{tabular}
+\label{TBobject_notation}
+\end{table}
+
+The basic concept of Session Types revolves around the central idea of sessions. At the beginning of each group of interactions that form a program the session is initiated by the two parties, where one party requests a session and the other one accepts. This is depicted by the following syntax:
+
+\[request\mbox{ }a(k)\mbox{ }in\mbox{ }P\mbox{ and }accept\mbox{ }a(k)\mbox{ }in\mbox{ }P\]
+
+The request for initiation is made via a name $a$ and a fresh channel $k$ is generated. The interaction then continues with process P. The process is dual in accept and the channel $k$ and the keyword \textit{in} describes the binding and scope of the channel.
+
+The processes then have can perform any of the atomic dual actions as shown in Table \ref{TBatomic_actions}:
+
+\begin{table}[H]
+\center
+\caption{Atomic Actions for Processes}
+\begin{tabular}{|l|l|l|}
+  \hline
+   Action & Dual Action & Description \\
+   \hline
+  $k![\tilde{e}];P$ & $k?(\tilde{x}) in P$ & data sending / receiving \\
+  $k\nabla l;P$ & $k\triangle \{l_1:P_1,..,l_n:P_n\}$ & label selection / branching \\
+  $\mbox{throw } k[k'];P$ & $\mbox{catch } k(k') in P$ & channel sending / receiving \\
+  \hline
+\end{tabular}
+\label{TBatomic_actions}
+\end{table}
+
+Here $e$ denotes any sent expression, including variables and names, and $x$ is any variable expected to be received. In branching the sending party selects a label and the receiver acts upon the label $l_n$ by selecting the appropriate branch $P_n$. Finally in channel sending/receiving the delegating party passes a channel $k'$ used as a channel with the party that the session is being delegated to. This channel is then bound in process $P$ of the receiving party, which continues the session through channel $k'$.
+
+Finally the syntax is completed by the addition of the following standard constructs of concurrent programming, as shown in Table \ref{TBstd_constructs}.
+
+\begin{table}[H]
+\center
+\caption{Standard Constructs of Concurrent Programming}
+\begin{tabular}{|l|l|}
+  \hline
+  Construct & Description \\
+  \hline
+  $P\|Q$ &concurrent composition\\
+  $(\nu a)P \mbox{  } (\nu k)P$  & name/channel hiding \\
+  if $e$ then $P$ else $Q$ & conditional \\
+  $D:=X_1[\tilde{e}\tilde{k}]=P_1\mbox{ and..and } X_n[\tilde{x_n}\tilde{k_n}] = P_n\mbox{ } in \mbox{ }P$ & recursion\\
+  $inact$ & inaction \\
+  \hline
+\end{tabular}
+\label{TBstd_constructs}
+\end{table}
+
+Concurrent composition denotes the composition of two processes $P$ and $Q$. $inact$ denotes the lack of any action to be taken. More interestingly \textit{name/channel hiding} restricts the scope of the name to the process. Here in the two cases first the name $a$ and then the channel $k$ are only within the scope of $P$. However, this is rather unlikely to be used in programming but is necessary for operational semantics of the method presented. Finally in \textit{recursion} process $X$ would appear in $P$ $n$ times, hence if $n=1$ then this is equivalent to just $P(\tilde{x}\tilde{k})$.	
+		
+		\subsection{Multi-Party Session Types}
+		\label{subsec:mpsessiontypes}
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+\section{Session Java: Implementing Binary Session Types}
+\label{sec:sessionj}
+	
+Session-Based Distributed Programming integrates session-types discussed in Section \ref{subsec:binsessiontypes} and object-oriented programming in Java providing the programmer with a new tool to ensure soundness and correct execution of communications between distributed parties. The implementation of the runtime and compiler framework guarantees the desired properties both statically at compilation by checking whether the specified interactions match the declared protocol and dynamically through checking at runtime between the parties whether the used protocols are compatible. Hu et al. \cite{sessionbased_programming} also prove that this can be performed with low runtime overhead.
+
+Session programming consists of two steps: specifying the intended interaction protocol and implementing these protocols using session types.
+
+Protocol specification can be clearly illustrated using the example of an ATM interacting with bank servers, in which the ATM submits a query with the user's id accompanied with the amount he/she would like to withdraw. If the amount is available, the bank returns true, else false is returned. This process can be iterated by the ATM as many times as needed for different amounts. If the customer confirms the withdrawal the ATM sends the amount again and the bank returns true if the transaction was completed successfully.
+
+\begin{table}[H]
+\center
+\caption{Protocol Specification Code}
+\begin{tabular}{|l|l|}
+\hline
+
+  \begin{lstlisting}[basicstyle=\LISTINGSTYLE]
+  protocol query {
+    begin.
+    ![
+        !<Double>.
+        ?(Boolean)
+    ]*
+    !{
+      ACCEPT: !<Double>.
+              ?(Boolean),
+      REJECT:
+    }
+  }
+  \end{lstlisting}
+  &
+  \begin{lstlisting}[basicstyle=\LISTINGSTYLE]
+  protocol answer {
+    begin.
+    ?[
+        ?(Double).
+        !<Boolean>
+    ]*.
+    ?{
+        ACCEPT: ?(Double).
+                !<Boolean>,
+        REJECT:
+    }
+  }
+  \end{lstlisting}\\
+  \hline
+  
+\end{tabular}
+\label{CODEprotocol}
+\end{table}
+
+The code fragment shows how a protocol is specified, in particular sending a type is specified as \LST{!<Type>} and dual action of receiving as \LST{?(Type)}. Iterations are depicted by \LST{![...]*} for the controlling part and \LST{?[...]*} by the following part, where the * can be replaced with a fixed number of iterations. Finally, branching is specified by \LST{!\{LABEL1:..., LABEL2:...\}} for the controlling party and the dual identifier is \LST{?\{LABEL1:..., LABEL2:...\}}.
+
+The next step is to establish a \textit{Session server socket} listening for session requests alongside a \textit{Session server address} specifying the socket's address and type of connection it accepts. Additionally, the \textit{socket} itself has to be created which represents the channel through which all communications are performed. The server-side code accepting connections therefore looks as follows:
+
+\begin{lstlisting}%[basicstyle=\LISTINGSTYLE, numbers=left]
+/* create SJServerSocket for incoming requests */
+SJServerSocket bank_accept = SJServerSocketImpl.create(answer, 1452);
+
+/* create SJSocket for accepting requests */
+SJSocket bank_socket = null;
+
+/* accept incoming request */
+bank_socket = bank_accept.accept();
+\end{lstlisting}
+
+The client, in this case the ATM can request the service from the bank in the following way:
+
+\begin{lstlisting}%[basicstyle=\LISTINGSTYLE, numbers=left]
+/* create SJServerAddress at `host'*/
+SJServerAddress atm_send =
+        SJServerAddress.create(query, host, 1452);
+
+/* create SJSocket for sending requests */
+SJSocket atm_socket = SJSocketImpl.create(atm_send);
+
+/* request a session with bank */
+atm_socket.request();
+\end{lstlisting}
+
+\LST{SJSocket.send(Object)} and \LST{SJSocket.receive(Object)} methods can then be called on the instances of the sockets to send/receive data. Additionally the same methods are used for sending and receiving sessions, making the process very clear and concise.
+
+Method \LST{SJSocket.outwhile(/*condition*/)} can be called on the controlling side of the iteration and \LST{SJSocket.inwhile()} on the receiving part to iteratively follow the sender.
+
+Finally \LST{SJSocket.outbranch(ACCEPT)} can be called to select the desired branch. On the receiving end 
+\LST{SJSocket.inbranch()\{case: ACCEPT \{..\} case:REJECT\{..\}} is called for branching off in the desired direction. The process of setting up the connection is as simple as the configuration of RMI or UDP connections, however added safety of execution is provided.
+
+The operation of this system is enabled by the underlying compiler and runtime architecture. The Session Java (SJ) source code is mapped on to standard Java using the SJ compiler, which also statically checks the interaction pattern against the specified protocols. It then translates the code into communication primitives supported by the session runtime interface, which is currently TCP, however easily extendable to other transport primitives. Lastly the code is executed using the standard JVM with SJ libraries.
+
+The type checking is performed both according to standard Java typing and session typing. In case of session types, the sockets are being validated for linear usage to prevent any concurrent usage. It is verified that each session implementation conforms to the protocol with regards to conversation structure and the types of messages exchanged. This is also true for session delegation where the accepted sessions in the methods are checked against the protocols.
+
+Dynamic validation is ensured by the JVM. When the parties perform the `handshake' each checks whether the sessions are compatible. Should one of them disagree, an exception is raised at both ends and the session is aborted. The JVM also runs live monitors to check the messages sent and received against the specified types in the protocol. This prevents software from being validated correctly but suddenly adversely changing its behaviour.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%   	  POLYGLOT		      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Polyglot}
+\label{sec:polyglot}
+
+\subsection{Overview}
+\label{subsec:polyglotoverview}
+Session Java is built as an extension to the Java language and as such needs modifications to the Java compiler. Polyglot, beign an extensible compiler front end for the Java programming language implemented as a Java class framework \cite{polyglotonline} itself provides this necessary functionality to SJ. It also includes PPG, a parser generator, which can be easily modified to include new syntactic rules and for these reasons Polyglot 2 was chosen by SJ developers to serve as a foundation for their project. The Polyglot 2 API can be found on \cite{polyglotapi}
+
+\subsection{Architecture}
+\label{subsec:polyglotarch}
+A Polyglot extension is a source-to-source compiler, i.e. a mechanism for the extended syntax to be compiled in to Java code, on which then the \LST{javac} compiler can be invoked to achieve the byte code. 
+
+The first step in the creation of a new extension is to speicfy the sytnax and generate a parser in order for the source code to be transformed into an Abstract Syntax Tree (AST) node structure. Polyglot comes with a parser generator, PPG, that allows the developer to implement the syntax extension based on additions or modifications of existing Java syntax rules\cite{polyglotpaper}.
+
+Polyglot allows the user to define new AST nodes whose constructors can be called via the \textit{node factory} from the generated parser and additional information about the code structure can be encoded within these nodes. 
+
+A \textit{type system} is also offered by the extension framework which acts as a factory for objects representing types and related constructs such as method or class signatures\cite{polyglotpaper}.
+
+At the core of the compilation process lies the sequence of passes through the tree, which traverse all AST nodes and transform them as defined by the user. Some of these passes, i.e. the type checking pass, can halt the compilation process if the generated tree does not conform to the predefined rules. 
+
+If the pass succeeds another AST tree is generated with the aim of finally generating a tree structures that is equivalent to a Java code tree. The resulting code is then passed to \LST{javac} which compiles is into byte code that can be executed on an Java Virtual Machine.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%   MULTIPARTY SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+\section{Session Type Guided Distributed Multi-Party Interaction in Java}
+\label{sec:mpstjava}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%   PROGRAMMING ALTERNATIVES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+\section{Distributed Programming Alternatives}
+\label{sec:alternatives}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% - BACKGROUND: END
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

@@ -1,0 +1,19 @@
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Background Review}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Importance of Structures Communications}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Pi-calculus: The Roots of Session Types}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Session Types}{5}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Binary Session Types}{5}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Multi-Party Session Types}{7}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}Session Java: Implementing Binary Session Types}{7}{section.2.4}
+\contentsline {section}{\numberline {2.5}Polyglot}{9}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Overview}{9}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Architecture}{9}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Session Type Guided Distributed Multi-Party Interaction in Java}{9}{section.2.6}
+\contentsline {section}{\numberline {2.7}Distributed Programming Alternatives}{9}{section.2.7}
+\contentsline {chapter}{\numberline {3}Design}{10}{chapter.3}
+\contentsline {chapter}{\numberline {4}Implementation}{11}{chapter.4}
+\contentsline {chapter}{\numberline {5}Benchmarks}{12}{chapter.5}
+\contentsline {chapter}{\numberline {6}Evaluation}{13}{chapter.6}
+\contentsline {chapter}{\numberline {7}Future Work}{14}{chapter.7}
+\contentsline {chapter}{\numberline {8}Conclusions}{15}{chapter.8}

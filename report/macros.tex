@@ -1,0 +1,143 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Latex.
+%%%
+
+\newcommand{\REF}[1]{\S\,\ref{#1}} % Section reference. Doesn't add a breaking space in the middle.
+\newcommand{\HLINE}{\rule{\linewidth}{.5pt} \\} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% General text.
+%%%
+
+\newcommand{\MYPARAGRAPH}[1]{\vspace{1mm} \noindent \textbf{#1}} % No ending indent.
+
+\newcommand{\ESJ}{eSJ}
+
+\newcommand{\COMMENT}[1]{\noindent [#1]} % Author comment.
+\newcommand{\COMMENTNL}[1]{\COMMENT{#1} \\} % Author comment with new line..
+\newcommand{\NEWL}{~\\} % Force newline.
+\newcommand{\NOTE}{\textbf{N.B.}} % Note.
+
+\newcommand{\RH}[1]{\COMMENT{\textbf{RH}: #1}} % Author comment.
+\newcommand{\RHNL}[1]{\COMMENTNL{\textbf{RH}: #1}} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgements.
+%%%
+
+\makeatletter
+\newcommand\ackname{Acknowledgements}
+\if@titlepage
+  \newenvironment{acknowledgements}{%
+      \titlepage
+      \null\vfil
+      \@beginparpenalty\@lowpenalty
+      \begin{center}%
+        \bfseries \ackname
+        \@endparpenalty\@M
+      \end{center}}%
+     {\par\vfil\null\endtitlepage}
+\else
+  \newenvironment{acknowledgements}{%
+      \if@twocolumn
+        \section*{\abstractname}%
+      \else
+        \small
+        \begin{center}%
+          {\bfseries \ackname\vspace{-.5em}\vspace{\z@}}%
+        \end{center}%
+        \quotation
+      \fi}
+      {\if@twocolumn\else\endquotation\fi}
+\fi
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code.
+%%%%
+
+\newcommand{\ARG}[1]{{\rm\em #1}}
+
+%\newcommand{\CODESIZE}{\footnotesize} % Doesn't work: llncs.cls redefines footnotesize as small.
+\newcommand{\CODESIZE}{\small} % For "in line" code.
+\newcommand{\LISTINGSIZE}{\fontsize{8}{10}\selectfont} % For listings. Apparently, the second argument should be 1.2 times the first.
+\newcommand{\CODE}[1]{\texttt{\CODESIZE #1}} % Inline code listing (no extra formatting).
+\newcommand{\LST}[1]{\lstinline@#1@} % Inline code listing (with formatting).
+
+\newcommand{\OPIN}[2]{\ensuremath{\CODE{#1}(#2)}} % For application of (input-based) macros.
+\newcommand{\OPOUT}[2]{\ensuremath{\CODE{#1}\langle #2 \rangle}} % For application of (output-based) macros.
+\newcommand{\PARTY}[1]{\ensuremath{\textbf{#1}}} % Agent names.
+
+\newcommand{\LISTINGSTYLE}{\ttfamily\LISTINGSIZE}
+
+\lstset
+{
+	language=Java,
+	float=hbp,
+	%basicstyle=\ttfamily\small,
+	basicstyle=\ttfamily\CODESIZE, % For "in line" code as a default. Floated listing figures will need to override this property.
+	identifierstyle=\color{Black},
+	keywordstyle=\bfseries\color{blue},
+	stringstyle=\color{Violet},
+	commentstyle=\itshape\color{RedViolet},
+	columns=flexible,
+	tabsize=4,
+	frame=none,
+	extendedchars=true,
+	showspaces=false,
+	showstringspaces=false,
+	numbers=none,
+	numberstyle=\tiny,
+	breaklines=true,
+	breakautoindent=true,
+	xleftmargin=10pt,
+	captionpos=b,
+	mathescape=true,
+	morekeywords=
+	{	
+		noalias,
+		protocol, begin, cbegin, sbegin, rec,
+		%accept,
+		request, send, pass, copy, receive, recurse, 
+		outbranch, inbranch, outwhile, inwhile, recursion, 
+		arrived, registerAccept, registerInput, register, select, 
+		typecase, when, 
+		outsync, insync, outlabel, inlabel, 
+		SJTypeable, SJProtocol, SJChannel, SJSocket, SJService, SJServerSocket, SJPort, 
+		SJIOException, SJIncompatibleSessionException, 
+		SJSelector,  
+		sessrec, 
+		using,
+                selT,
+		SJTransport,  SJConnection,  SJConnectionAcceptor,  SJLocalConnection
+	},
+	escapeinside={(*@}{@*)}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyperrefs.
+%%%%
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keywords}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links
+    citecolor=PineGreen,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
