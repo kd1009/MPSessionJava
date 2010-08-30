@@ -5,15 +5,38 @@
 \BOOKMARK [1][-]{section.2.3}{Session Types}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.3.1}{Binary Session Types}{section.2.3}
 \BOOKMARK [2][-]{subsection.2.3.2}{Multi-Party Session Types}{section.2.3}
-\BOOKMARK [1][-]{section.2.4}{Session Java: Implementing Binary Session Types}{chapter.2}
+\BOOKMARK [1][-]{section.2.4}{Session Java \(SJ\): Implementing Binary Session Types}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.4.1}{Programming in SJ - Overview}{section.2.4}
+\BOOKMARK [2][-]{subsection.2.4.2}{SJ Compiler Structure}{section.2.4}
+\BOOKMARK [2][-]{subsection.2.4.3}{SJ Runtime Structure}{section.2.4}
 \BOOKMARK [1][-]{section.2.5}{Polyglot}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.5.1}{Overview}{section.2.5}
 \BOOKMARK [2][-]{subsection.2.5.2}{Architecture}{section.2.5}
 \BOOKMARK [1][-]{section.2.6}{Session Type Guided Distributed Multi-Party Interaction in Java}{chapter.2}
 \BOOKMARK [1][-]{section.2.7}{Distributed Programming Alternatives}{chapter.2}
 \BOOKMARK [0][-]{chapter.3}{Design}{}
+\BOOKMARK [1][-]{section.3.1}{Design aims}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{Syntax}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{Global Protocol Declarations}{section.3.2}
+\BOOKMARK [2][-]{subsection.3.2.2}{Programming in Multi-Party SJ}{section.3.2}
+\BOOKMARK [1][-]{section.3.3}{Compiler Design Modifications}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Extending the Parser Generator}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Modifying the AST Node Structure}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Global Protocol as the Core of Interaction}{section.3.3}
+\BOOKMARK [1][-]{section.3.4}{Runtime Design Alterations}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.4.1}{Use of Session Participants as SJSockets}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.2}{Creating the Multi-Party Session}{section.3.4}
 \BOOKMARK [0][-]{chapter.4}{Implementation}{}
+\BOOKMARK [1][-]{section.4.1}{Implementing the Multi-Party SJ Compiler}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Revised Parser Generator}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Additional AST Nodes}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Generating the Global Participant Class}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Implementing the Multi-Party SJ Runtime}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Achieving Ease of Programming}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Session Initiation and Acceptance Methods}{section.4.2}
 \BOOKMARK [0][-]{chapter.5}{Benchmarks}{}
 \BOOKMARK [0][-]{chapter.6}{Evaluation}{}
 \BOOKMARK [0][-]{chapter.7}{Future Work}{}
+\BOOKMARK [1][-]{section.7.1}{Futher Development of the Multi-Party SJ Framework}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Further Development in the Area of Structured Multi-Party Communications}{chapter.7}
 \BOOKMARK [0][-]{chapter.8}{Conclusions}{}

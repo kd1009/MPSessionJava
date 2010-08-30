@@ -163,8 +163,11 @@ Concurrent composition denotes the composition of two processes $P$ and $Q$. $in
 		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-\section{Session Java: Implementing Binary Session Types}
+\section{Session Java (SJ): Implementing Binary Session Types}
 \label{sec:sessionj}
+
+\subsection{Programming in SJ - Overview}
+\label{subsec:sjprogram}
 	
 Session-Based Distributed Programming integrates session-types discussed in Section \ref{subsec:binsessiontypes} and object-oriented programming in Java providing the programmer with a new tool to ensure soundness and correct execution of communications between distributed parties. The implementation of the runtime and compiler framework guarantees the desired properties both statically at compilation by checking whether the specified interactions match the declared protocol and dynamically through checking at runtime between the parties whether the used protocols are compatible. Hu et al. \cite{sessionbased_programming} also prove that this can be performed with low runtime overhead.
 
@@ -254,6 +257,14 @@ The operation of this system is enabled by the underlying compiler and runtime a
 The type checking is performed both according to standard Java typing and session typing. In case of session types, the sockets are being validated for linear usage to prevent any concurrent usage. It is verified that each session implementation conforms to the protocol with regards to conversation structure and the types of messages exchanged. This is also true for session delegation where the accepted sessions in the methods are checked against the protocols.
 
 Dynamic validation is ensured by the JVM. When the parties perform the `handshake' each checks whether the sessions are compatible. Should one of them disagree, an exception is raised at both ends and the session is aborted. The JVM also runs live monitors to check the messages sent and received against the specified types in the protocol. This prevents software from being validated correctly but suddenly adversely changing its behaviour.
+
+\subsection{SJ Compiler Structure}
+\label{subsec:sjcomp}
+
+
+\subsection{SJ Runtime Structure}
+\label{subsec:sjrun}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%   	  POLYGLOT		      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
