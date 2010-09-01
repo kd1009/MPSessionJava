@@ -14,7 +14,7 @@ Communication is increasingly becoming the fundamental issue in many areas of so
 
 All these examples of distributed systems inlvolve multiple remote components that independently communicate message and coordinate activities between each other. It is important that such interactions conform to an agreed structure, often referred to as a protocol, such as SMTP, POP3\cite{sess_type_guided_distr_interact} or even lower-level network protocols such as TCP and IP. These sequences of interactions as a whole form a unit of \textit{conversation}, which may involve basic message passing, repeated exchanges (i.e. loops) and branching into different communication paths\cite{sessionbased_programming}.
 
-The study of \textit{session types} has been proposed as a type thoery for structuring the units of interaction in the context of process calculi as a way of capturing precise interaction between peers\cite{sessionbased_programming, sess_type_guided_distr_interact}. However, the \textit{session type theory} is focused on binary (two-party) interactions and does not capture the communications structures of multi-party distributed systems. The \textit{session type theory} has been extended recently in \cite{multiparty_sess_types} to cater for this more general situation. Both theories will be discussed in detail respectively in Sections \ref{subsec:binsessiontypes} and \ref{subsec:mpsessiontypes}.
+The study of \textit{session types} has been proposed as a type thoery for structuring the units of interaction in the context of process calculi as a way of capturing precise interaction between peers\cite{sessionbased_programming, sess_type_guided_distr_interact}. However, the \textit{session type theory} is focused on binary (two-party) interactions and does not capture the communications structures of multiparty distributed systems. The \textit{session type theory} has been extended recently in \cite{multiparty_sess_types} to cater for this more general situation. Both theories will be discussed in detail respectively in Sections \ref{subsec:binsessiontypes} and \ref{subsec:mpsessiontypes}.
 
 
 
@@ -154,7 +154,7 @@ Finally the syntax is completed by the addition of the following standard constr
   \hline
   Construct & Description \\
   \hline
-  $P\|Q$ &concurrent composition\\
+  $P\|Q$ & concurrent composition\\
   $(\nu a)P \mbox{  } (\nu k)P$  & name/channel hiding \\
   if $e$ then $P$ else $Q$ & conditional \\
   $D:=X_1[\tilde{e}\tilde{k}]=P_1\mbox{ and..and } X_n[\tilde{x_n}\tilde{k_n}] = P_n\mbox{ } in \mbox{ }P$ & recursion\\
@@ -165,9 +165,19 @@ Finally the syntax is completed by the addition of the following standard constr
 \end{table}
 
 Concurrent composition denotes the composition of two processes $P$ and $Q$. $inact$ denotes the lack of any action to be taken. More interestingly \textit{name/channel hiding} restricts the scope of the name to the process. Here in the two cases first the name $a$ and then the channel $k$ are only within the scope of $P$. However, this is rather unlikely to be used in programming but is necessary for operational semantics of the method presented. Finally in \textit{recursion} process $X$ would appear in $P$ $n$ times, hence if $n=1$ then this is equivalent to just $P(\tilde{x}\tilde{k})$.	
+
 		
-\subsection{Multi-Party Session Types}
+\subsection{Multiparty Session Types}
 \label{subsec:mpsessiontypes}
+
+Binary Session Types discussed in the Section \ref{subsec:binsessiontypes} can only be efficiently used for structuring units of conversation between two parties. Many patterns can also be effectively captured by compositions of binary sessions but there is also a significant amount of cases where this is not feasible and could lead to problems with describing and validating such interactions. \cite{multiparty_sess_types} therefore introduces \textit{Multiparty Session Types} that offer the ability to represent communications between many peers as a single session.
+
+\subsubsection{Syntax for Multiparty Sessions}
+
+Multiparty Session Types use an extended syntax of the binary session types 
+
+
+
 		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
@@ -301,7 +311,7 @@ If the pass succeeds another AST tree is generated with the aim of finally gener
 
 %%%%%%%%%%%%%%%%%%%%%%%%%   MULTIPARTY SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\section{Session Type Guided Distributed Multi-Party Interaction in Java}
+\section{Session Type Guided Distributed Multiparty Interaction in Java}
 \label{sec:mpstjava}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%   PROGRAMMING ALTERNATIVES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
