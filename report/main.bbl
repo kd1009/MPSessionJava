@@ -18,9 +18,21 @@ Robin Milner.
 \newblock {\em Communicating and mobile systems: the {$\pi$}-calculus}.
 \newblock Cambridge University Press, New York, NY, USA, 1999.
 
+\bibitem{sess_type_guided_distr_interact}
+K.~Sivaramakrishnan, Karthik Nagaraj, Lukasz Ziarek, and Patrick Eugster.
+\newblock {Efficient Session Type Guided Distributed Interaction}.
+\newblock In Dave Clarke and Gul Agha, editors, {\em Coordination Models and
+  Languages}, volume 6116 of {\em Lecture Notes in Computer Science}, pages
+  152--167. Springer Berlin / Heidelberg, 2010.
+
+\bibitem{multiparty_sess_types}
+Kohei Honda, Nobuko Yoshida, and Marco Carbone.
+\newblock {Multiparty asynchronous session types}.
+\newblock {\em SIGPLAN Not.}, 43(1):273--284, 2008.
+
 \bibitem{comm_sys_calc}
 R.~Milner.
-\newblock {\em A Calculus of Communicating Systems}.
+\newblock {\em {A Calculus of Communicating Systems}}.
 \newblock Springer-Verlag New York, Inc., Secaucus, NJ, USA, 1982.
 
 \bibitem{polyglotonline}
@@ -31,7 +43,7 @@ Cornell University Computer~Science Department.
 
 \bibitem{polyglotapi}
 Cornell University Computer~Science Department.
-\newblock {Polyglot 2 API}.
+\newblock Polyglot 2 {API}.
 \newblock \url{http://www.cs.cornell.edu/projects/polyglot/api2/}.
 \newblock This is an electronic document. Date retrieved: 27/08/2010.
 
