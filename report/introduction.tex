@@ -1,6 +1,7 @@
 \chapter{Introduction}
 \label{sec:intro}
 
+\section{Introduction to the Field}
 This paper reviews the background literature for an MSc Computing Science Individual Project at Imperial College London. The aim of the project is to enhance the security and anonymity of Session-Based Distributed Programming in Java and consider and implement an application of the technology in financial business protocols.
 
 With increasingly complicated interactions between distributed session programs the need for making interactions safe and less prone to errors gains its significance, too. So far such sessions had to rely on Remote Procedure Call (RPC) techniques, which increased the amount of method calls between the two parties, making the successful execution of data exchange unnecessarily reliable on the way these interactions were programmed in high-level languages.
@@ -13,3 +14,6 @@ $\pi$-calculus, as described in \cite{pi-calculus}, is a calculus which can be u
 
 All combined, the entire system of model analysis, property enforcement and session-based programming can be applied to any programs which require robust, safe and structured communications. This can be of particular importance in financial business protocols or safety critical applications such as Air Traffic Control Systems.
 
+\section{Aim of this Paper}
+
+The aim of this paper is to present an extension of the current binary implementation of SessionJava to support multiparty structured and type-safe communications. It is intended to integrate the new elements into the existing code base to give programmers the choice of development techniques without the need for major adjustments. It is also envisaged to create an extension which does not to deviate far from the current SJ programming paradigm in order to reduce the need for extensive acquaintance with the extension.   

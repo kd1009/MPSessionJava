@@ -1,42 +1,45 @@
 \contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}
-\contentsline {chapter}{\numberline {2}Background Review}{6}{chapter.2}
-\contentsline {section}{\numberline {2.1}Importance of Structured Communications}{6}{section.2.1}
-\contentsline {section}{\numberline {2.2}Pi-calculus: The Roots of Session Types}{6}{section.2.2}
-\contentsline {section}{\numberline {2.3}Session Types}{8}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Binary Session Types}{8}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Multi-Party Session Types}{10}{subsection.2.3.2}
-\contentsline {section}{\numberline {2.4}Session Java (SJ): Implementing Binary Session Types}{10}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Programming in SJ - Overview}{10}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}SJ Compiler Structure}{12}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}SJ Runtime Structure}{12}{subsection.2.4.3}
-\contentsline {section}{\numberline {2.5}Polyglot}{12}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Overview}{12}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Architecture}{12}{subsection.2.5.2}
-\contentsline {section}{\numberline {2.6}Session Type Guided Distributed Multi-Party Interaction in Java}{12}{section.2.6}
-\contentsline {section}{\numberline {2.7}Distributed Programming Alternatives}{12}{section.2.7}
-\contentsline {chapter}{\numberline {3}Design}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}Design aims}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}Syntax}{13}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Global Protocol Declarations}{13}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Programming in Multi-Party SJ}{13}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Compiler Design Modifications}{13}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Extending the Parser Generator}{13}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Modifying the AST Node Structure}{13}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Global Protocol as the Core of Interaction}{13}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Runtime Design Alterations}{13}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Use of Session Participants as SJSockets}{13}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Creating the Multi-Party Session}{13}{subsection.3.4.2}
-\contentsline {chapter}{\numberline {4}Implementation}{14}{chapter.4}
-\contentsline {section}{\numberline {4.1}Implementing the Multi-Party SJ Compiler}{14}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Revised Parser Generator}{14}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Additional AST Nodes}{14}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Generating the Global Participant Class}{14}{subsection.4.1.3}
-\contentsline {section}{\numberline {4.2}Implementing the Multi-Party SJ Runtime}{14}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Achieving Ease of Programming}{14}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Session Initiation and Acceptance Methods}{14}{subsection.4.2.2}
-\contentsline {chapter}{\numberline {5}Benchmarks}{15}{chapter.5}
-\contentsline {chapter}{\numberline {6}Evaluation}{16}{chapter.6}
-\contentsline {chapter}{\numberline {7}Future Work}{17}{chapter.7}
-\contentsline {section}{\numberline {7.1}Futher Development of the Multi-Party SJ Framework}{17}{section.7.1}
-\contentsline {section}{\numberline {7.2}Further Development in the Area of Structured Multi-Party Communications}{17}{section.7.2}
-\contentsline {chapter}{\numberline {8}Conclusions}{18}{chapter.8}
+\contentsline {section}{\numberline {1.1}Introduction to the Field}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}Aim of this Paper}{5}{section.1.2}
+\contentsline {chapter}{\numberline {2}Background Review}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Importance of Structured Communications}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Pi-calculus: The Roots of Session Types}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Session Types}{9}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Binary Session Types}{9}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Multiparty Session Types}{11}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}Session Java (SJ): Implementing Binary Session Types}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Programming in SJ - Overview}{11}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}General SJ Design}{12}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}SJ Compiler Structure}{13}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}SJ Runtime Structure}{13}{subsection.2.4.4}
+\contentsline {section}{\numberline {2.5}Polyglot}{14}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Overview}{14}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Architecture}{14}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Session Type Guided Distributed Multiparty Interaction in Java}{14}{section.2.6}
+\contentsline {section}{\numberline {2.7}Distributed Programming Alternatives}{14}{section.2.7}
+\contentsline {chapter}{\numberline {3}Design}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Design aims}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}Syntax}{15}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Global Protocol Declarations}{15}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Programming in Multi-Party SJ}{15}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Compiler Design Modifications}{15}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Extending the Parser Generator}{15}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Modifying the AST Node Structure}{15}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Global Protocol as the Core of Interaction}{15}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Runtime Design Alterations}{15}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Use of Session Participants as SJSockets}{15}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Creating the Multi-Party Session}{15}{subsection.3.4.2}
+\contentsline {chapter}{\numberline {4}Implementation}{16}{chapter.4}
+\contentsline {section}{\numberline {4.1}Implementing the Multi-Party SJ Compiler}{16}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Revised Parser Generator}{16}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Additional AST Nodes}{16}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Generating the Global Participant Class}{16}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Implementing the Multi-Party SJ Runtime}{16}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Achieving Ease of Programming}{16}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Session Initiation and Acceptance Methods}{16}{subsection.4.2.2}
+\contentsline {chapter}{\numberline {5}Benchmarks}{17}{chapter.5}
+\contentsline {chapter}{\numberline {6}Evaluation}{18}{chapter.6}
+\contentsline {chapter}{\numberline {7}Future Work}{19}{chapter.7}
+\contentsline {section}{\numberline {7.1}Futher Development of the Multi-Party SJ Framework}{19}{section.7.1}
+\contentsline {section}{\numberline {7.2}Further Development in the Area of Structured Multi-Party Communications}{19}{section.7.2}
+\contentsline {chapter}{\numberline {8}Conclusions}{20}{chapter.8}

@@ -172,7 +172,7 @@ Concurrent composition denotes the composition of two processes $P$ and $Q$. $in
 
 Binary Session Types discussed in the Section \ref{subsec:binsessiontypes} can only be efficiently used for structuring units of conversation between two parties. Many patterns can also be effectively captured by compositions of binary sessions but there is also a significant amount of cases where this is not feasible and could lead to problems with describing and validating such interactions. \cite{multiparty_sess_types} therefore introduces \textit{Multiparty Session Types} that offer the ability to represent communications between many peers as a single session.
 
-\subsubsection{Syntax for Multiparty Sessions}
+\subsubsection*{Syntax for Multiparty Sessions}
 
 Multiparty Session Types use an extended syntax of the binary session types 
 
@@ -184,10 +184,11 @@ Multiparty Session Types use an extended syntax of the binary session types
 \section{Session Java (SJ): Implementing Binary Session Types}
 \label{sec:sessionj}
 
+	
+Session-Based Distributed Programming as described in \cite{sessionbased_programming} integrates session-types discussed in Section \ref{subsec:binsessiontypes} and object-oriented programming in Java providing the programmer with a new tool to ensure soundness and correct execution of communications between distributed parties. The implementation of the runtime and compiler framework guarantees the desired properties both statically at compilation by checking whether the specified interactions match the declared protocol and dynamically through checking at runtime between the parties. The work from \cite{sessionbased_programming} is described in detail in the following sections.
+
 \subsection{Programming in SJ - Overview}
 \label{subsec:sjprogram}
-	
-Session-Based Distributed Programming integrates session-types discussed in Section \ref{subsec:binsessiontypes} and object-oriented programming in Java providing the programmer with a new tool to ensure soundness and correct execution of communications between distributed parties. The implementation of the runtime and compiler framework guarantees the desired properties both statically at compilation by checking whether the specified interactions match the declared protocol and dynamically through checking at runtime between the parties whether the used protocols are compatible. Hu et al. \cite{sessionbased_programming} also prove that this can be performed with low runtime overhead.
 
 Session programming consists of two steps: specifying the intended interaction protocol and implementing these protocols using session types.
 
@@ -270,18 +271,42 @@ Method \LST{SJSocket.outwhile(/*condition*/)} can be called on the controlling s
 Finally \LST{SJSocket.outbranch(ACCEPT)} can be called to select the desired branch. On the receiving end 
 \LST{SJSocket.inbranch()\{case: ACCEPT \{..\} case:REJECT\{..\}} is called for branching off in the desired direction. The process of setting up the connection is as simple as the configuration of RMI or UDP connections, however added safety of execution is provided.
 
-The operation of this system is enabled by the underlying compiler and runtime architecture. The Session Java (SJ) source code is mapped on to standard Java using the SJ compiler, which also statically checks the interaction pattern against the specified protocols. It then translates the code into communication primitives supported by the session runtime interface, which is currently TCP, however easily extendable to other transport primitives. Lastly the code is executed using the standard JVM with SJ libraries.
+\subsection{General SJ Design}
+\label{subsec:sjdesign}
 
-The type checking is performed both according to standard Java typing and session typing. In case of session types, the sockets are being validated for linear usage to prevent any concurrent usage. It is verified that each session implementation conforms to the protocol with regards to conversation structure and the types of messages exchanged. This is also true for session delegation where the accepted sessions in the methods are checked against the protocols.
+The SJ Framwork is organised around the three following layers in which actions are taken depending on the session types currently processed. By going through each of the layers, the user code programmed transport-independtly in SJ is compiled into concrete communication actions based around a certain transport in Java.
 
-Dynamic validation is ensured by the JVM. When the parties perform the `handshake' each checks whether the sessions are compatible. Should one of them disagree, an exception is raised at both ends and the session is aborted. The JVM also runs live monitors to check the messages sent and received against the specified types in the protocol. This prevents software from being validated correctly but suddenly adversely changing its behaviour.
+\begin{packed_description}
+\item[Layer 1] SJ source code.
+\item[Layer 2] Java translation and session runtime APIs.
+\item[Layer 3] Runtime execution: JVM and SJ libraries.
+\end{packed_description}
+
+The compiler maps Layer 1 onto Layer 2, resulting in type-checked Java code. During this process session-operations are checked against the specified protocol and translated into communication primitives supported by SJ Runtime. Layer 3 then executes the resulting code over concrete data transfer protocols and performs the dynamic type-checking in order to ensure runtime compliance of data exchange.
+
+The authors envisage programmers to agree on a communication protocol and then code their sections of the code accordingly. This permits Layer 2 to check individual party's communications against the session-type, often referred to as protocol. The protocol is then also used to ensure that the two parties that engage in a session use the same protocol, i.e. that the same structure of the conversation is desired by both peers.
+
 
 \subsection{SJ Compiler Structure}
-\label{subsec:sjcomp}
+\label{subsec:sjcomp} 
+
+\paragraph*{Compiler Design Principles}
+The SJ compiler is based on the Polyglot extensible compiler framework (as discussed in Section \ref{sec:polyglot}), which forms the foundation for compiling the standard Java syntax. The SJ compiler, as it inherits its basic functionality from Polyglot, is therefore capable of performing the type-checking against the requirements of both Java and the additional SJ rules. 
+
+In the special compilation case of session types, the sockets are being validated for linear usage to prevent any concurrent usage. It is verified that each session implementation conforms to the protocol with regards to conversation structure and the types of messages exchanged. This is also true for session delegation where the accepted sessions in the methods are checked against the protocols.
+
+Notably, the design of the session types is implemented according to object-orientation guidelines, implementing \textit{session subtyping}, an inheritance structure for these special types. This permits message type variance, for example receiving a subtype of the type specified in the protocol or structural subtyping for branching. In the latter case the deciding party of the branching structure may only wish to cover a set from the range of branches covered by the protocol, which is allowedd according the SJ structural subtyping principles.
+
+\paragraph*{Compiler Implementation Details}
+As briefly mentioned above the SJ Compiler follows the design principles of Polyglot. A range of additional AST nodes are introduced to represent the SJ syntax in form of an Abstract Syntax Tree (AST). 
+
+
 
 
 \subsection{SJ Runtime Structure}
 \label{subsec:sjrun}
+
+Dynamic validation is ensured by the JVM. When the parties perform the `handshake' each checks whether the sessions are compatible. Should one of them disagree, an exception is raised at both ends and the session is aborted. The JVM also runs live monitors to check the messages sent and received against the specified types in the protocol. This prevents software from being validated correctly but suddenly adversely changing its behaviour.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%   	  POLYGLOT		      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

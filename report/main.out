@@ -1,18 +1,21 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}
+\BOOKMARK [1][-]{section.1.1}{Introduction to the Field}{chapter.1}
+\BOOKMARK [1][-]{section.1.2}{Aim of this Paper}{chapter.1}
 \BOOKMARK [0][-]{chapter.2}{Background Review}{}
 \BOOKMARK [1][-]{section.2.1}{Importance of Structured Communications}{chapter.2}
 \BOOKMARK [1][-]{section.2.2}{Pi-calculus: The Roots of Session Types}{chapter.2}
 \BOOKMARK [1][-]{section.2.3}{Session Types}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.3.1}{Binary Session Types}{section.2.3}
-\BOOKMARK [2][-]{subsection.2.3.2}{Multi-Party Session Types}{section.2.3}
+\BOOKMARK [2][-]{subsection.2.3.2}{Multiparty Session Types}{section.2.3}
 \BOOKMARK [1][-]{section.2.4}{Session Java \(SJ\): Implementing Binary Session Types}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.4.1}{Programming in SJ - Overview}{section.2.4}
-\BOOKMARK [2][-]{subsection.2.4.2}{SJ Compiler Structure}{section.2.4}
-\BOOKMARK [2][-]{subsection.2.4.3}{SJ Runtime Structure}{section.2.4}
+\BOOKMARK [2][-]{subsection.2.4.2}{General SJ Design}{section.2.4}
+\BOOKMARK [2][-]{subsection.2.4.3}{SJ Compiler Structure}{section.2.4}
+\BOOKMARK [2][-]{subsection.2.4.4}{SJ Runtime Structure}{section.2.4}
 \BOOKMARK [1][-]{section.2.5}{Polyglot}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.5.1}{Overview}{section.2.5}
 \BOOKMARK [2][-]{subsection.2.5.2}{Architecture}{section.2.5}
-\BOOKMARK [1][-]{section.2.6}{Session Type Guided Distributed Multi-Party Interaction in Java}{chapter.2}
+\BOOKMARK [1][-]{section.2.6}{Session Type Guided Distributed Multiparty Interaction in Java}{chapter.2}
 \BOOKMARK [1][-]{section.2.7}{Distributed Programming Alternatives}{chapter.2}
 \BOOKMARK [0][-]{chapter.3}{Design}{}
 \BOOKMARK [1][-]{section.3.1}{Design aims}{chapter.3}
