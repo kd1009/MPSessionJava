@@ -29,22 +29,17 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+
 %%% Ray's packages %%%%
 
 \usepackage[dvipsnames]{xcolor}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{latexsym}
-\usepackage{multirow}
-\usepackage{suffix}
-\usepackage{url}
-%\usepackage{space}
-\usepackage{mathptmx}
-\usepackage{mathrsfs}
-\usepackage{comment}
+%\usepackage{latexsym}
+%\usepackage{suffix}
+%\usepackage{mathptmx} CAUSES FONT OF THE DOCUMENT TO CHANGE - DON'T USE
+%\usepackage{mathrsfs}
+%\usepackage{comment}
 \newcommand{\minus}{\text{\small{$-$}}}
-
+%
 \usepackage{hyperref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,7 +53,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\pagestyle{plain}
+%\pagestyle{plain}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,7 +61,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{titlepage}
-\renewcommand\thepage{}
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -74,7 +68,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{abstract}
-\renewcommand\thepage{}
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,14 +75,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{acknowledgements}
-\renewcommand\thepage{}
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Table of Contents.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\renewcommand\thepage{}
+%\renewcommand\thepage{}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
