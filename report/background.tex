@@ -138,9 +138,9 @@ The processes then have can perform any of the atomic dual actions as shown in T
   \hline
    Action & Dual Action & Description \\
    \hline
-  $k![\tilde{e}];P$ & $k?(\tilde{x}) in P$ & data sending / receiving \\
-  $k\nabla l;P$ & $k\triangle \{l_1:P_1,..,l_n:P_n\}$ & label selection / branching \\
-  $\mbox{throw } k[k'];P$ & $\mbox{catch } k(k') in P$ & channel sending / receiving \\
+  $k![e_{1} \cdots e_{n}];P$ & $k?(x_{1} \cdots x_{n}) \mbox{ \LST{in} } P$ & data sending / receiving \\
+  $k\lhd l;P$ & $k\rhd \{l_1:P_1,..,l_n:P_n\}$ & label selection / branching \\
+  $\mbox{\LST{throw} } k[k'];P$ & $\mbox{\LST{catch} } k(k') \mbox{ \LST{in} } P$ & channel sending / receiving \\
   \hline
 \end{tabular}
 \label{TBatomic_actions}
@@ -191,7 +191,7 @@ $\bar{a}[2..n](\tilde{s}).P$ - this prefix initiates a new session through a sha
 \subsection{Global Types}
 Since describing a session from the viewpoint of one of the peers as in binary sessions is no longer feasible the need arises for specifying conversation scenarios from a global viewpoint. This is achieved through the introduction of \textit{global types}. The following Table \ref{TBglobtypesynt} introduces the syntax of global types.
 
- 
+
 \begin{table}[H]
 \center
 \caption{Syntax of Global Types}
@@ -202,13 +202,33 @@ Since describing a session from the viewpoint of one of the peers as in binary s
   		 &		&	$|$		& $G,G' $ 															& 	parallel 	\\
   		 &		&	$|$		& $\mu t.G $ 														& 	recursive 	\\
   		 &		&	$|$		& $t$ 																& 	variable 	\\
-  		 &		&	$|$		& $\text{end}$ 														& 	end		 	\\
+  		 &		&	$|$		& $end$ 															& 	end		 	\\
   Value	 &	$U$ &	$::=$	& $\tilde{S} | T@p $							 					& 			 	\\
   Sort	 &	$S$ &	$::=$	& $ \text{bool} | \text{nat} | \text{...} | \langle G \rangle $		& 			 	\\	  
   \hline
 \end{tabular}
 \label{TBglobtypesynt}
 \end{table}
+
+The \textit{global session type} also referred to as \textit{global type} is denoted as $G,G',...$. The type  $p \rightarrow p' : k \langle U \rangle . G'$ indicates that participant $p$ sends a message of type $U$ to channel $k$ received by participant $p'$ followed by interactions defined in $G'$. 
+
+Comparably to binary session types, the type $p \rightarrow p' : k \lbrace l_{j}:G_{j} \rbrace _{j \in J} $ signifies the sending of one of the labels to channel $k$ by participant $p$, which is then received by participant $p'$. Branching in this context means that if label $l_{j}$ is sent, interactions in $G_{j}$ follow.
+Type $G, G'$ represents the concurrent execution of the conversation structures in $G$ and $G'$, which is another similarity to the binary session types.
+
+Finally, type $\mu t.G $ represents the recursive occurency of session type $t$ assuming the variable is guarded by the usual prefix $p \rightarrow p' : k $ defined in Definition 3.1 of \cite{multiparty_sess_types} as the \textit{prefix from $p$ to $p'$ at k}. The session terminates with type $end$.
+
+\subsection{Projection of Global Types onto Local Types}
+
+The global types define the interaction from a global, participant-independent point of view, however to implement the local behaviour of participants a projection onto the local type at each participant is needed.
+
+The local types follow almost exactly the same rules as binary session types but they also record the identity of a session channel, as multiple channels are now used for addressing the different participants. It is also crucial to specify which participant a local type is assigned to, hence the convention $ T @ p $  is used for type $T$ located participant $p$.
+
+Eventhough formal rules of projections are specified in \cite{multiparty_sess_types} the projection is very intuitive. For the main cases of calue sending, the type $G ::= p \rightarrow p' : k \langle U \rangle . G'$ becomes the local type $G @ p ::= k! \langle U \rangle . (G' @ p)$. Respectively it can also become the local type $G @ p' ::= k? \langle U \rangle . (G' @ p')$ when projected for particpant $p'$.
+
+For the branching case similar rules apply, where the type $G::= p \rightarrow p' : k \lbrace l_{j}:G_{j} \rbrace _{j \in J} $ is projected to local type $G @ p ::= !{l_{j}: (G_{j} @ p)}$. The analogous applies for the projection of $G$ onto participant $p'$.
+
+In all these case it is a condition that $p \neq p'$. The further rules of projection for recursion and parallel composition are described in \cite{multiparty_sess_types}. The paper also includes additional conditions of \textit{coherence} and the definitions for a \textit{multiparty session type system}.
+
 
 
 
@@ -250,12 +270,7 @@ The Polyglot Parser Generator (PPG) is implemented as a pre-processor for the CU
 
 The package \LST{polyglot.ast} contains the AST node classes used to represent the Abstract Syntax Tree. Polyglot implements all node classes for Java constructs, such as constructor calls, method calls, casts, synchronized methods, blocks and definitions. Each of the nodes inherits its main functionality from \LST{polyglot.ast.Node}.
 
-As discussed, the actual compilation process is performed by a series of pases. The definitions of passes as well as their order is defined in an extension's ExtensionInfo class and the passes are executed in an order scheduled by the scheduler, which ensures that all dependencies between compilation units are satisfied. The most notable passes from the default set are \textit{parsing}, \textit{build-types}, \textit{disambiguate} and \textit{type checking} with all their respective implementations located in \LST{polyglot.visit}. The final \textit{translation} pass transforms each AST node to a String and writes it to an output file to be compiled with the standard Java compiler.
-
-
-
-
-
+As discussed, the actual compilation process is performed by a series of pases. The definitions of passes as well as their order is defined in an extension's ExtensionInfo class and the passes are executed in an order scheduled by the scheduler, which ensures that all dependencies between compilation units are satisfied. The most notable passes from the default set are \textit{parsing}, \textit{build-types}, \textit{disambiguate} and \textit{type checking} with all their respective implementations located in \LST{polyglot.visit}. The final \textit{translation} pass transforms each AST node to a String and writes it to a \LST{.java} output file to be compiled with the standard Java compiler.
 
 		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
