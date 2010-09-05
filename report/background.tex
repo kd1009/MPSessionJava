@@ -25,6 +25,7 @@ The study of \textit{session types} has been proposed as a type thoery for struc
 	
 As briefly discussed in Section \ref{sec:intro} $\pi$-calculus is an important foundation of Session-Based Programming as it allows to understand the behaviour of communicating systems. It is an extension of the theory of sequential algorithmic processes to systems where interaction plays a significant role, which was limited by the inability of modelling physical and virtual mobility of such systems. $\pi$-calculus lets us model this effectively describing concurrent communicating processes and their interactional behaviours rigorously.
 
+\subsection{Automaton - Basic Unit in $\pi$-calculus}
 The basic unit in the model is an \textit{automaton}. Links between automata may evolve over time as automata may for example be created, split or die. They can be loosely compared to method calls in programming, i.e. when a code section is entered an automaton is created, when it executes it can make calls to other sections of code, hence creating other automata and when the code block is left, automata die.
 
 This behaviour was already described by Milner in \cite{comm_sys_calc} but mobility was not covered. In \cite{pi-calculus} it has been recognised that the notion of mobility can be modelled by the movement of links between components hence allowing to model the movement of automata themselves. Their `location' is determined by the active links at a given point in time.
@@ -45,6 +46,8 @@ A transition (q,a,q')  $\in$ T is usually written as $q \xrightarrow{a} q'$. The
 
 This definition allows an automaton to be represented by a transition graph, whose nodes are the states and whose arcs are the transitions. Intuitively, this allows us to represent processes in a very similar fashion with transitions being mapped onto actions that a process $P$ can execute to find itself in a new state $P'$.
 
+
+\subsection{Modelling Mobility}
 Let us now fully introduce mobility with $\pi$-calculus as a way of modelling the changing connectivity of interactive systems. It is possible to model networking in a broad modern sense of sending messages from site to site and adopting mobility as as the movement of links in the virtual space of linked processes. The model also allows to enforce a certain discipline on a family of automata, which can be compared to type-system value checking in high-level languages, which imposes certain patterns of behaviour on selected types.
 
 Milner\cite{pi-calculus} introduces a helpful example of mobility in the context of a \textit{Car} connected to a \textit{Control} station via \textit{Transmitters} and a certain wavelength. As the signal fades Control can tell a Transmitter to lose a Car and reassign it to a different Transmitter. This can be easily converted into a mobile phone example, which is based around the same pattern of interaction.
@@ -53,21 +56,22 @@ $\pi$-calculus proves itself very powerful in this example. Not only is it possi
 
 Finally using operational semantics it is possible to prove that a specified protocol for performing a desired action is correct. In this example it is the case that the hand-over from one transmitter to another is performed successfully resulting in all entities having the new desired active states.
 
+\subsection{$\pi$-calculus as a Foundation for Structuring Communications }
 It becomes apparent that the system can be used to model both small and large scale systems. In the context of this work it is especially important for modelling the validity of protocols. Implementing a protocol according to a design that has been proven to be valid ensures integrity of the system providing a formal proof that a protocol changes a global state $A$ into a desired state $A'$.
 
 Let us now show a two interesting examples of $\pi$-calculus:
 
-$$ \bar{a}<1>.0 | a(x).P \longrightarrow 0 | P\{1/x\} $$
+\[ \bar{a} \langle 1 \rangle .0 | a(x).P \rightarrow 0 | P \lbrace \frac{1}{x} \rbrace \]
 
 The interaction begins by sending $1$ along $\bar{a}$. In the dual name $a$ each $x$ is substituted by $1$. $\bar{a}$ then continues with the terminating action $0$ and a continues into P with all variables $x$ substituted by $1$. This is a fairly simple and standard interaction scenario.
 
-$$ (\nu a)(\bar{a}<1>.P) | a(x).0 \nrightarrow (\nu a) P|0 $$
+$$ (\nu a)(\bar{a} \langle 1 \rangle.P) | a(x).0 \nrightarrow (\nu a) P|0 $$
 
 In this case $a$ is restricted and its scope is limited to the current application, hence it cannot interact with the second process. $a$ would never receive a value for $x$ and blocks out forever.
 
 Finally we can formalise ${\pi}$-calculus with the following rules:
 
-\begin{equation} \bar{a}<v>.P | a(x).Q \longrightarrow P|Q{v/x} \end{equation}
+\begin{equation} \bar{a} \langle v \rangle .P | a(x).Q \rightarrow P|Q {\frac{v}{x}} \end{equation}
 
 \begin{equation} \frac{P \rightarrow P'}{P|Q \rightarrow P'|Q} \end{equation}
 
@@ -77,13 +81,10 @@ Finally we can formalise ${\pi}$-calculus with the following rules:
 \newline
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION TYPES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Session Types}
-\label{sec:sessiontypes}	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  BINARY SESSION TYPES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\subsection{Binary Session Types}
-\label{subsec:binsessiontypes}
+\section{Binary Session Types}
+\label{sec:binsessiontypes}
 		
 	Although many programming languages and formalisms have been developed that can describe software based on communication, they are limited to expressing one-time interactions between processes. Hence the only way of describing a more complex pattern of interaction is a sequential grouping of independent interactions. If we consider the Transmitter example from Section \ref{sec:picalculus} the code to reflect the protocol would be unverifiable and likely to consider bugs not noticed in system tests.
 
@@ -91,6 +92,7 @@ It appears necessary to have a method of structuring such complex sequential int
 
 Honda et al. suggest a structuring method for communication-based concurrent programming in \cite{language_primitives}. The method consists of both structuring primitives as well as a type discipline forming a basis for verification. Specifically it describes the following three key elements:
 
+\subsection{Basic Session Type Definitions}
 \begin{description}
   \item[Session:] A session is a chain of interactions whose collection forms the program. A session utilises a \textit{channel} through which all interactions of that particular session are performed. These channels form a syntactic domain which creates the appropriate level of abstraction. In addition, standard concurrent programming primitives are used to allow parallel composition, execution of conditional and recursive statements. Notably, the combination of recursive calls and sessions enables the incorporation of an infinite sequence of interactions to be embedded into a single unit of abstraction. This was not possible to achieve in other implementable formalisation languages.
   \item[Value passing, label branching, delegation:] Apart from the standard value passing, which is integrated into $\pi$-calculus the communication primitives of the suggested formalisation also allow a form of method invocation. More interestingly, it is also possible for one process to delegate a session to multiple other processes. This effectively provides a way `spreading' a session across other processes in a well-structured, formalisable and clean manner.
@@ -120,6 +122,7 @@ The following Table \ref{TBobject_notation} introduces the basic notation for th
 \label{TBobject_notation}
 \end{table}
 
+\subsection{Sessions and Processes}
 The basic concept of Session Types revolves around the central idea of sessions. At the beginning of each group of interactions that form a program the session is initiated by the two parties, where one party requests a session and the other one accepts. This is depicted by the following syntax:
 
 \[request\mbox{ }a(k)\mbox{ }in\mbox{ }P\mbox{ and }accept\mbox{ }a(k)\mbox{ }in\mbox{ }P\]
@@ -167,14 +170,46 @@ Finally the syntax is completed by the addition of the following standard constr
 Concurrent composition denotes the composition of two processes $P$ and $Q$. $inact$ denotes the lack of any action to be taken. More interestingly \textit{name/channel hiding} restricts the scope of the name to the process. Here in the two cases first the name $a$ and then the channel $k$ are only within the scope of $P$. However, this is rather unlikely to be used in programming but is necessary for operational semantics of the method presented. Finally in \textit{recursion} process $X$ would appear in $P$ $n$ times, hence if $n=1$ then this is equivalent to just $P(\tilde{x}\tilde{k})$.	
 
 		
-\subsection{Multiparty Session Types}
-\label{subsec:mpsessiontypes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MULTIPARTY SESSION TYPES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
+		
+\section{Multiparty Session Types}
+\label{sec:mpsessiontypes}
 
-Binary Session Types discussed in the Section \ref{subsec:binsessiontypes} can only be efficiently used for structuring units of conversation between two parties. Many patterns can also be effectively captured by compositions of binary sessions but there is also a significant amount of cases where this is not feasible and could lead to problems with describing and validating such interactions. \cite{multiparty_sess_types} therefore introduces \textit{Multiparty Session Types} that offer the ability to represent communications between many peers as a single session.
+Binary Session Types discussed in Section \ref{sec:binsessiontypes} can only be efficiently used for structuring units of conversation between two parties. Many patterns can also be effectively captured by compositions of binary sessions but there is also a significant amount of cases where this is not feasible and could lead to problems with describing and validating such interactions. \cite{multiparty_sess_types} therefore introduces \textit{Multiparty Session Types} that offer the ability to represent communications between many peers as a single session.
 
-\subsubsection*{Syntax for Multiparty Sessions}
+\subsection{Multiparty Session Syntax}
 
-Multiparty Session Types use an extended syntax of the binary session types 
+Multiparty Session Types is a formal extension of binary session types from \cite{language_primitives} and it inherits all constructs without manipulating them in any way. In addition to the existing language primitives, multiparty session type make use of the two following ones:
+
+\begin{description}
+\item[multicast session request:] 
+$\bar{a}[2..n](\tilde{s}).P$ - this prefix initiates a new session through a shared interaction point $a$, by distributing a vector of freshly generated session channels $\tilde{s}$ to the remaining $n-1$ parties, each of the shape of $a[p](\tilde{s}).Q_{p}$ for $ 2 \leq p \leq n$. 
+
+\item[session acceptance:] $a[p](\tilde{s}).P$ - receive $\tilde{s}$ over which the actual session communications can take place among the $n$ parties. $p, q, ..$ range over the natural numbers called \textit{participants} of a session.
+\end{description}
+
+\subsection{Global Types}
+Since describing a session from the viewpoint of one of the peers as in binary sessions is no longer feasible the need arises for specifying conversation scenarios from a global viewpoint. This is achieved through the introduction of \textit{global types}. The following Table \ref{TBglobtypesynt} introduces the syntax of global types.
+
+ 
+\begin{table}[H]
+\center
+\caption{Syntax of Global Types}
+\begin{tabular}{|l|l c l|l|}
+  \hline  
+  Global &	$G$ &	$::=$	& $p \rightarrow p' : k \langle U \rangle . G'$ 					& 	values	 	\\
+  		 &		&	$|$		& $p \rightarrow p' : k \lbrace l_{j}:G_{j} \rbrace _{j \in J} $ 	& 	branching 	\\
+  		 &		&	$|$		& $G,G' $ 															& 	parallel 	\\
+  		 &		&	$|$		& $\mu t.G $ 														& 	recursive 	\\
+  		 &		&	$|$		& $t$ 																& 	variable 	\\
+  		 &		&	$|$		& $\text{end}$ 														& 	end		 	\\
+  Value	 &	$U$ &	$::=$	& $\tilde{S} | T@p $							 					& 			 	\\
+  Sort	 &	$S$ &	$::=$	& $ \text{bool} | \text{nat} | \text{...} | \langle G \rangle $		& 			 	\\	  
+  \hline
+\end{tabular}
+\label{TBglobtypesynt}
+\end{table}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%   	  POLYGLOT		      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,19 +221,41 @@ Multiparty Session Types use an extended syntax of the binary session types
 \label{subsec:polyglotoverview}
 Session Java is built as an extension to the Java language and as such needs modifications to the Java compiler. Polyglot, beign an extensible compiler front end for the Java programming language implemented as a Java class framework \cite{polyglotonline} itself provides this necessary functionality to SJ. It also includes PPG, a parser generator, which can be easily modified to include new syntactic rules and for these reasons Polyglot 2 was chosen by SJ developers to serve as a foundation for their project. The Polyglot 2 API can be found on \cite{polyglotapi}.
 
-\subsection{Architecture}
+\subsection{Design}
 \label{subsec:polyglotarch}
-A Polyglot extension is a source-to-source compiler, i.e. a mechanism for the extended syntax to be compiled in to Java code, on which then the \LST{javac} compiler can be invoked to achieve the byte code. 
+A Polyglot extension is a source-to-source compiler, i.e. a mechanism for the extended syntax to be compiled in to Java code, on which then the \LST{javac} compiler can be invoked to achieve the byte code.
 
-The first step in the creation of a new extension is to speicfy the sytnax and generate a parser in order for the source code to be transformed into an Abstract Syntax Tree (AST) node structure. Polyglot comes with a parser generator, PPG, that allows the developer to implement the syntax extension based on additions or modifications of existing Java syntax rules\cite{polyglotpaper}.
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{polyglotarch.png}
+\caption{Polyglot Architecture as per \cite{polyglotpaper}.}
+\label{fig:polyglotarch}
+\end{center}
+\end{figure} 
+
+As shown in Figure \ref{fig:polyglotarch} the first step in the creation of a new extension is to specify the syntax and generate a parser in order for the source code to be transformed into an Abstract Syntax Tree (AST) node structure. Polyglot comes with a parser generator, PPG, that allows the developer to implement the syntax extension based on additions or modifications of existing Java syntax rules\cite{polyglotpaper}.
 
 Polyglot allows the user to define new AST nodes whose constructors can be called via the \textit{node factory} from the generated parser and additional information about the code structure can be encoded within these nodes. 
 
 A \textit{type system} is also offered by the extension framework which acts as a factory for objects representing types and related constructs such as method or class signatures\cite{polyglotpaper}.
 
-At the core of the compilation process lies the sequence of passes through the tree, which traverse all AST nodes and transform them as defined by the user. Some of these passes, i.e. the type checking pass, can halt the compilation process if the generated tree does not conform to the predefined rules. 
+At the core of the compilation process lies the sequence of passes through the tree, which traverse all AST nodes and transform them as defined by the pass implementations. Some of these passes, i.e. the type checking pass, can halt the compilation process if the generated tree does not conform to the predefined rules. 
 
 If the pass succeeds another AST tree is generated with the aim of finally generating a tree structures that is equivalent to a Java code tree. The resulting code is then passed to \LST{javac} which compiles is into byte code that can be executed on an Java Virtual Machine.
+
+\subsection{Implementation}
+\label{subsec:polyglotimpl}
+
+The Polyglot Parser Generator (PPG) is implemented as a pre-processor for the CUP LALR parser generator\cite{cuplalr}. PPG uses a language-independent syntax definition style based on productions. The definitions are sequences of tokens, with the basic unit of specification being a \textit{terminal token}. Groups of tokens can be defined as \textit{non-terminal tokens} and non-terminal tokens can be grouped agin into other non-terminal tokens, faciliting definition reuse. When the syntax of an extension is specified, the programmer can extend, modify or delete some of the definitions form the given PPG as Polyglot supports grammar inheritance bewteen the default set and the extension. Examples of such language definitions can be found in Section \ref{subsec:ppgimpl}.
+
+The package \LST{polyglot.ast} contains the AST node classes used to represent the Abstract Syntax Tree. Polyglot implements all node classes for Java constructs, such as constructor calls, method calls, casts, synchronized methods, blocks and definitions. Each of the nodes inherits its main functionality from \LST{polyglot.ast.Node}.
+
+As discussed, the actual compilation process is performed by a series of pases. The definitions of passes as well as their order is defined in an extension's ExtensionInfo class and the passes are executed in an order scheduled by the scheduler, which ensures that all dependencies between compilation units are satisfied. The most notable passes from the default set are \textit{parsing}, \textit{build-types}, \textit{disambiguate} and \textit{type checking} with all their respective implementations located in \LST{polyglot.visit}. The final \textit{translation} pass transforms each AST node to a String and writes it to an output file to be compiled with the standard Java compiler.
+
+
+
+
+
 
 		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -207,7 +264,7 @@ If the pass succeeds another AST tree is generated with the aim of finally gener
 \label{sec:sessionj}
 
 	
-Session-Based Distributed Programming as described in \cite{sessionbased_programming} integrates session-types discussed in Section \ref{subsec:binsessiontypes} and object-oriented programming in Java providing the programmer with a new tool to ensure soundness and correct execution of communications between distributed parties. The implementation of the runtime and compiler framework guarantees the desired properties both statically at compilation by checking whether the specified interactions match the declared protocol and dynamically through checking at runtime between the parties. The work from \cite{sessionbased_programming} is described in detail in the following sections.
+Session-Based Distributed Programming as described in \cite{sessionbased_programming} integrates session-types discussed in Section \ref{sec:binsessiontypes} and object-oriented programming in Java providing the programmer with a new tool to ensure soundness and correct execution of communications between distributed parties. The implementation of the runtime and compiler framework guarantees the desired properties both statically at compilation by checking whether the specified interactions match the declared protocol and dynamically through checking at runtime between the parties. The work from \cite{sessionbased_programming} is described in detail in the following sections.
 
 \subsection{Programming in SJ}
 \label{subsec:sjprogram}
@@ -328,7 +385,7 @@ A range of additional AST nodes are introduced to represent the SJ syntax in for
 
 The package \LST{sessionj.parse} contains the extension to the Polyglot parser generator which specifies the necessary additions to the standard Java syntax. This includes syntactic rules for the specification of protocols and session operations together with any other definitions needed by the Polyglot framework.
 
-The SJ type system is implemented in the packages within \LST{session.types} with classes that contain type information about SJ objects. The types in this package provide the foundation for the type-checking during compilation and runtime as they implement the \textit{session type theory} discussed in Section \ref{subsec:binsessiontypes}. As in the case of AST nodes, types are created through calls to relevant methods in the \LST{sessionj.types.SJTypeSystem} interface, where the type constructors are called from.
+The SJ type system is implemented in the packages within \LST{session.types} with classes that contain type information about SJ objects. The types in this package provide the foundation for the type-checking during compilation and runtime as they implement the \textit{session type theory} discussed in Section \ref{sec:binsessiontypes}. As in the case of AST nodes, types are created through calls to relevant methods in the \LST{sessionj.types.SJTypeSystem} interface, where the type constructors are called from.
 
 Finally, compilation process is coordinated by visitor passes in the order specified in \LST{sessionj.ExtensionInfo}. The SJ passes are responsible for building the types, parsing operations, performing the type checking and then translating the nodes into standard Java nodes for the code to be ready for compilation with the standard Java compiler. All the passes are implemented in the \LST{sessionj.visit} package and run when the \textit{sessionjc} compiler is invoked.
 
@@ -355,20 +412,14 @@ The Session API, depicted as the upper-most layer facilitates the main operation
 The \textit{initiation protocol} is invoked when the \LST{request()} and \LST{accept()} methods are called. The connection over the underlying transport is then established and the session compatibility between the peers verified. This is enforced when the parties exchange the session types which they implement and each independtly checks compatibility. At this stage each of the parties can raise exceptions, which terminate the session in case there is a disagreement on the session types. The initiation protocol can also perform eager class downloading, in case a class definition is needed for one of the receieved types.
 
 Once the interaction is underway, basic send and receive operations can be performed. Each such call invokes runtime monitoring actions across several classes to ensure that received types are equal to expected types. Basic operations also facilitate branching and looping cases, as a single branch case or loop condition value can be sent in form of a basic message. The messages, either as primitive types or objects are transmitted through the byte stream of the underlying transport, using standard Java serialization, as depicted in Figure \ref{fig:sjruntime}. Note that this figure shows the example of TCP, however currently UDP, HTTP and HTTPS are also supported.
- 
+
+The SJ Runtime implements a class loader, which can perform remote class loading enabling the communication of concrete message types that implement the abstract types of a protocol specification. Classes can be downloaded \textit{eagerly} (i.e. download all classes that may be needed at session initiation or \textit{lazily} (download just as needed) from an HTTP repository. Class verification can also be performed using the SerialVersionUID checks of all shared classes for equality.
+
+Finally, the session is closed using the implicit \LST{close()} method. The method is called when both parties finish their parts of the conversation. Alternatively, the session can terminate when one of the session peers raises an exception, in which case \LST{close()} propagates the failure signal to both peers. The last case of session termination can arise due to asynchrony possible in cases of session delegation.
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%   MULTIPARTY SESSION JAVA   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-\section{Session Type Guided Distributed Multiparty Interaction in Java}
-\label{sec:mpstjava}
-	
-%%%%%%%%%%%%%%%%%%%%%%%%%   PROGRAMMING ALTERNATIVES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
-\section{Distributed Programming Alternatives}
-\label{sec:alternatives}
+
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % - BACKGROUND: END
