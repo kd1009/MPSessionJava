@@ -3,6 +3,17 @@
 
 \section{Design aims}
 
+The design of Multiparty SessionJava (MPSJ) required taking into consideration different aspects of software engineering. The objective of providing a framework that can be easily utilised by the end-user often contrasted with the current implementation of SJ. The introduction of multiparty session types, referred to as \textit{global types}, in conjunction with new methods, invoked design considerations in terms of restricting the amount of methods called within the \LST{.sj} programs vs. increasing the amount of calls in the background.
+
+In summary, the following list provides the main design aims developed in the initial stage of the project:
+
+\begin{itemize}
+\item Safe and type-checked structured interaction tools for multiparty sessions
+\item Simple syntax for global types and general ease of programming
+\item Overall efficiency and fast speed of interactions
+\item Efficient integration into existing SJ code base, whilst mainting current functionality
+\end{itemize}
+
 \section{Syntax}
 
 \subsection{Global Protocol Declarations}

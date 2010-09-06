@@ -1,19 +1,28 @@
 \chapter{Introduction}
 \label{sec:intro}
 
+\section{Aim of this Paper}
+
+The aim of this paper is to present an extension of the current binary implementation of SessionJava to support multiparty structured and type-safe communications. It is intended to integrate the new elements into the existing code base to give programmers the choice of development techniques without the need for major adjustments. It is also envisaged to create an extension which does not to deviate far from the current SessionJava programming paradigm in order to reduce the need for extensive acquaintance with the extension.   
+
 \section{Introduction to the Field}
-This paper reviews the background literature for an MSc Computing Science Individual Project at Imperial College London. The aim of the project is to enhance the security and anonymity of Session-Based Distributed Programming in Java and consider and implement an application of the technology in financial business protocols.
 
-With increasingly complicated interactions between distributed session programs the need for making interactions safe and less prone to errors gains its significance, too. So far such sessions had to rely on Remote Procedure Call (RPC) techniques, which increased the amount of method calls between the two parties, making the successful execution of data exchange unnecessarily reliable on the way these interactions were programmed in high-level languages.
+With increasingly complicated interactions between distributed session programs the need for making interactions safe and less prone to errors gains has been continuously gaining significancy. So far such 'conversations' had to rely on Remote Procedure Call (RPC) techniques, which increased the amount of method calls between the two parties, making the successful execution of data exchange unnecessarily reliable on the way these interactions were programmed in high-level languages.
 
-Recent work was put into integrating session types and the Java programming language, creating an SJ Framework, which allows the compiler to statically check the safety of the data exchange at compilation\cite{sessionbased_programming}.
+Recent work was put into integrating session types and the Java programming language, creating an SessionJava (SJ) Framework, which allows the compiler to statically check the safety of the data exchange at compilation and monitor the sessions dynamically at runtime\cite{sessionbased_programming}. SJ enables programmers to specify protocols and program interactions accordingly. The static and dynamic validation of the interactions is performed against the specified protocol.
 
-The underlying foundation of Java session types is an adaptation of $\pi$-calculus carried out by Honda et al. in \cite{language_primitives} who introduced basic language constructs and a type discipline for structured communication-based concurrent programming. This language offers a high-level abstraction of interactive bahaviours of programs further permitting program designers to ensure compatibility of interaction processes and soundness of communication. These properties can be ensured by constructs of proofs as in $\pi$-calculus.
+The underlying foundation of session types is an adaptation of $\pi$-calculus carried out by Honda et al. in \cite{language_primitives} who introduced basic language constructs and a type discipline for structured communication-based concurrent programming, called \textit{session type theory}. This language offers a high-level abstraction of interactive bahaviours of programs further permitting program designers to ensure compatibility of interaction processes and soundness of communication between two and only two peers. These properties can be ensured by constructs of proofs as in $\pi$-calculus.
 
 $\pi$-calculus, as described in \cite{pi-calculus}, is a calculus which can be used for analysing behaviours of mobile systems at design stage. Modelling in $\pi$-calculus is based around the notion of automata and allows to analyse properties of concurrent communication processes, which may shrink, grow or move about. Each of the processes is interpreted as an automaton with links representing interactions with other processes.
 
 All combined, the entire system of model analysis, property enforcement and session-based programming can be applied to any programs which require robust, safe and structured communications. This can be of particular importance in financial business protocols or safety critical applications such as Air Traffic Control Systems.
 
-\section{Aim of this Paper}
+Many of such systems however, involve interactions between multiple parties which the raw session-type theory and therefore the SJ Framework do not support. \cite{multiparty_sess_types} therefore introduces \textit{Multiparty Session Types} as an extension to the standard session-type theory. The \textit{multiparty session theory} can be used as a type discipline for specifying structured interactions between $n$ parties.
 
-The aim of this paper is to present an extension of the current binary implementation of SessionJava to support multiparty structured and type-safe communications. It is intended to integrate the new elements into the existing code base to give programmers the choice of development techniques without the need for major adjustments. It is also envisaged to create an extension which does not to deviate far from the current SJ programming paradigm in order to reduce the need for extensive acquaintance with the extension.   
+The multiparty session theory can serve as a foundation for extending the existing SJ framework to support multiparty session interactions. This way a programming paradigm can be created enable type-safe statically and dynamically verified communications between $n$ parties. 
+
+\section{Structure of this Paper}
+
+\autoref{ch:background}
+
+
