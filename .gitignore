@@ -11,6 +11,7 @@ Thumbs.db
 # ---- Byte-compiled Java
 
 *.class
+sessionj/compiler/protocoldecls/**
 
 # ---- Log files
 
@@ -26,3 +27,15 @@ sessionj/bin/*
 *.aux
 *.dvi
 *.pdf
+*.toc
+*.out
+*.bbl
+*.blg
+
+# ---- eclise files
+
+.classpath
+.externalToolBuilders
+.project
+.settings/**
+
