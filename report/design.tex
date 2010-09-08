@@ -3,7 +3,7 @@
 
 \section{Design aims}
 
-The design of Multiparty SessionJava (MPSJ) required taking into consideration different aspects of software engineering. The objective of providing a framework that can be easily utilised by the end-user often contrasted with the current implementation of SJ. The introduction of multiparty session types, referred to as \textit{global types}, in conjunction with new methods, invoked design considerations in terms of restricting the amount of methods called within the \LST{.sj} programs vs. increasing the amount of calls in the background.
+The design of Multiparty SessionJava (MPSJ) required taking into consideration different aspects of software engineering. The objective of providing a framework that can be easily utilised by the end-user often contrasted with the current implementation of SJ. The introduction of new methods and multiparty session types, referred to as \textit{global types}, created design considerations in terms of which calls should be left to the programmer vs. which methods can be implicitly called in the background and abstracted away from the user. 
 
 In summary, the following list provides the main design aims developed in the initial stage of the project:
 
@@ -14,12 +14,71 @@ In summary, the following list provides the main design aims developed in the in
 \item Efficient integration into existing SJ code base, whilst mainting current functionality
 \end{itemize}
 
+The following design solutions are aiming at fulfilling the specified objectives in the best possible way. Their discussion involves justifications of any trade offs made as well as  
+
+
 \section{Syntax}
 
 \subsection{Global Protocol Declarations}
+\label{subsec:globprotdecl}
+
+\paragraph*{Declaration Placing}
+The idea behind SJ is to make collaborative network programming structured and safe through an initial agreement on a protocol, followed by programming the individual parts of the programs in accordance to it. MPSJ builds upon this idea by supporting protocol declarations placed as \textit{class members} and \textit{local variables}, which is compatible with SJ. 
+
+MPSJ also offers the novelty of specifying the global protocol \textit{outside the class body}. This design choice provides the opportunity to declare the global protocol in a seperate file and exchange the file easily between programmers in the team. 
+
+\paragraph*{Declaration Syntax}
+The syntax design considerations for the multiparty session types presented the options of following the syntax from \cite{multiparty_sess_types} or modifying the syntax used currently by SJ to provide the additional functionality needed. The main difference is the lack of an explicit receive operation in the multiparty-session type syntax, as  shown in \autoref{TBglobtypesynt}. This in stark contrast with the current implementation of SJ.
+
+MPSJ follows a mixture of SJ syntax and multiparty session type syntax which is shown in \autoref{TBglobprotsynt} below.
+
+\begin{table}[H]
+\center
+\caption{Global Protocol Declaration Syntax}
+\begin{tabular}{|l|l|}
+  \hline 
+  Syntax				&	Description												\\
+  \hline	 
+  \LST{global_protocol} &	protocol declaration keyword 							\\
+  \LST{\{...\}}			&	global session type delimiter							\\
+  \LST{a, b, ...}		& 	participant names										\\
+  \LST{.}				&	session operation join									\\
+  \LST{|a,b|}			&	session operation prefix								\\
+  \LST{|a,b|!<int>}		& 	participant \LST{a} sends \LST{int} to \LST{b}			\\
+  \LST{|b,a|?(int)}		&	participant \LST{b} receives \LST{int} from \LST{a}		\\	  
+  \hline
+\end{tabular}
+\label{TBglobprotsynt}
+\end{table} 
+
+The declaration \LST{global_protocol InteractionProtocol \{|a,b|!<int>. |b,c|!<int>. |a,b|?(int) \} } therefore implies that the interaction starts with participant \LST{a} sends an integer value to \LST{b}. Participant \LST{b} then sends an integer value to particpant \LST{c} and the interaction finishes with participant \LST{b} receiving an integer from participant \LST{c}. 
+
+Note that this design of global protocols uses a sense of duality, as the last interaction in the above example could be rewritten to \LST{|b,a|!<int>} without changing its the structure of interactions. This has been provided for better integration and compatibility with SJ as well as more user freedom in the presentation of the protocols. It may be desired to represent some parts of the interactions from the receiving end especially in large protocols to maintain clarity and similarity to the desired process models. This could not always be achieved if MPSJ fully adhered to \cite{multiparty_sess_types}.
 
 \subsection{Programming in Multi-Party SJ}
 
+The following code fragment in \autoref{LSTglobprotimpl} illustrates a short example of interactions programmed according to the protocol specified above. Initially the protocol has to be initialised to a new protocol variable. The protocol specification acts as a class, hence the initiation follows the standard Java practice.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption={Interaction implementation of the protocol from \autoref{subsec:globprotdecl}}, label={LSTglobprotimpl}]
+public class Interaction {
+
+	public static void main (String[] args) throws SJIOException {		
+
+		InteractionProtocol prot = new InteractionProtocol();
+	
+		prot.a.setLocal();
+		prot.b.setRemote("computer1", 1050);
+		prot.b.setRemote("computer2", 1100);
+
+		prot.invite();		
+
+		int x = prot.b.sendInt();
+		int y = prot.b.receiveInt();
+	}
+}
+\end{lstlisting}
+
+The methods \LST{setLocal()} and \LST{setRemote(String remoteName, int port)} are used to assign roles to the participants. They are invoked on the protocol variable and the participant to which the role is to be assigned. \LST{invite()} can only be called by one of the participants and it is important for all the other participants to have their ports open for incoming connections. To create all necessary links between the participants the inviting party delegates further invitations to other parties. All further interactions are similar to those of SessionJava with the difference that they are invoked on the protocol variable and participant as in the initial \LST{set...()} calls.
 
 
 \section{Compiler Design Modifications}

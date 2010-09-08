@@ -198,6 +198,8 @@ Since describing a session from the viewpoint of one of the peers as in binary s
 \caption{Syntax of Global Types}
 \begin{tabular}{|l|l c l|l|}
   \hline  
+  \multicolumn{4}{|c|}{Types} 																	&	Descrition \\
+  \hline  
   Global &	$G$ &	$::=$	& $p \rightarrow p' : k \langle U \rangle . G'$ 					& 	values	 	\\
   		 &		&	$|$		& $p \rightarrow p' : k \lbrace l_{j}:G_{j} \rbrace _{j \in J} $ 	& 	branching 	\\
   		 &		&	$|$		& $G,G' $ 															& 	parallel 	\\
@@ -334,7 +336,7 @@ The code fragment shows how a protocol is specified, in particular sending a typ
 
 The next step is to establish a \textit{Session server socket} listening for session requests alongside a \textit{Session server address} specifying the socket's address and type of connection it accepts. Additionally, the \textit{socket} itself has to be created which represents the channel through which all communications are performed. The server-side code accepting connections therefore looks as follows:
 
-\begin{lstlisting}%[basicstyle=\LISTINGSTYLE, numbers=left]
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE]
 /* create SJServerSocket for incoming requests */
 SJServerSocket bank_accept = SJServerSocketImpl.create(answer, 1452);
 
@@ -347,7 +349,7 @@ bank_socket = bank_accept.accept();
 
 The client, in this case the ATM can request the service from the bank in the following way:
 
-\begin{lstlisting}%[basicstyle=\LISTINGSTYLE, numbers=left]
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE]
 /* create SJServerAddress at `host'*/
 SJServerAddress atm_send =
         SJServerAddress.create(query, host, 1452);
