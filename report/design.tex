@@ -1,3 +1,4 @@
+\cleardoublepage
 \chapter{Design}
 \label{ch:design}
 
@@ -61,14 +62,13 @@ The following code fragment in \autoref{LSTglobprotimpl} illustrates a short exa
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption={Interaction implementation of the protocol from \autoref{subsec:globprotdecl}}, label={LSTglobprotimpl}]
 public class Interaction {
-
 	public static void main (String[] args) throws SJIOException {		
 
 		InteractionProtocol prot = new InteractionProtocol();
 	
 		prot.a.setLocal();
 		prot.b.setRemote("computer1", 1050);
-		prot.b.setRemote("computer2", 1100);
+		prot.c.setRemote("computer2", 1100);
 
 		prot.invite();		
 
@@ -80,14 +80,43 @@ public class Interaction {
 
 The methods \LST{setLocal()} and \LST{setRemote(String remoteName, int port)} are used to assign roles to the participants. They are invoked on the protocol variable and the participant to which the role is to be assigned. \LST{invite()} can only be called by one of the participants and it is important for all the other participants to have their ports open for incoming connections. To create all necessary links between the participants the inviting party delegates further invitations to other parties. All further interactions are similar to those of SessionJava with the difference that they are invoked on the protocol variable and participant as in the initial \LST{set...()} calls.
 
+For other parties, which are on the receiving end of the session initiation the code fragment differs in the session setup method. The parties on the receiving end have to make a call to \LST{acceptInvite()} to initiate the session. The call has to be made before the \LST{invite()} is made on the initialising end. This is to ensure that the incoming connection port is open and ready to receive the session initiation call.
 
 \section{Compiler Design Modifications}
 
-\subsection{Extending the Parser Generator}
+The syntax and program design discussed in the previous sections impose several modifications onto the compiler. The syntax modifications need to be reflected in the langauge-indpendent grammar, additional AST nodes are necessary. An intelligent design has to be used to utilise the global protocol and the participants as the centres of interaction.
+
+\subsection{Extending the Parser Generator for Global Session Types}
+
+To support the definition of global protocols, or global session types in technical terms, as local variables, class fields and additionally as objects outside the scope of any class the design required a Java construct which could serve as a common denominator for all these declarations. Defining the global protocol as a construct similar to a class would match the requirements, as a Java class can be defined both in place of a class member and locally in a method. 
+
+Lexically, a class definition is identified as a type declaration. The parser generator was therefore extended to interpret a global protocol declaration as a type declaration. This enables the compiler to recognise any global protocol as a type with the ability to instantiate variables of this type as shown in line 4 of \autoref{LSTglobprotimpl}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{globsesstypeelement}
+\caption{Structure of a Global Session Type}
+\label{fig:globsesstypelement}
+\end{center}
+\end{figure}
+
+The parser generator also had to be extended to correctly recognise a global session operation of the structure \LST{|a,b|!<int>} of which a global session type consists. \autoref{fig:globsesstypelement} shows the structure of a \textit{global session type}. For a global session type to be valid, it has to have at least one \textit{global session type element}, which in turn consists of a \textit{global session type element prefix} and a standard \textit{SJ type element}. This construct together is interpreted as one global operation. Any number $n$ of subsequent operations can be defined as children of previous operations as in the figure. 
+
+The discussed design permits MPSJ to use the SJ code efficiently as it follows similar patterns and provides enough flexibility for future extensions. The specific implementation of the syntax discussed in \autoref{subsec:ppgimpl} ensures safe permformance of lexical analysis so that the majority of structural mistakes can be recognised at the initial stages of the compilation process.
+
 
 \subsection{Modifying the AST Node Structure}
 
+As discussed in \autoref{subsec:polyglotarch} the generated parser calls relevant methods in the \textit{node factory} to generate the AST nodes that correspond the syntactic elements. Given the extensions specified above there is the need to create additional nodes in order to represent the additional parts of the syntax.
+
+\LST{SJGlobElementPrefixNode} acts as the prefix and is constructed out of two \LST{Identifier} nodes which represent the participants. Together with an \LST{SJTypeNode} which depicts the operation the nodes form a \LST{SJGlobTypeNode}, which has a field \LST{child} of type \LST{SJGlobTypeNode} to encapsulate the next operation in the sequence.
+
+Finally all the information about the session is enclosed in the \LST{SJGlobProtocolDecl} node with the addition of the protocol name in form of an \LST{Identifier} and any flags such as \LST{public} or \LST{private}. 
+
 \subsection{Global Protocol as the Core of Interaction}
+
+
+
 
 
 

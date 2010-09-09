@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="700.79584"
+   height="406.77493"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="globsesstypeelement.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible">
+      <path
+         id="path3397"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.97309,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleInL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleInL"
+       style="overflow:visible">
+      <path
+         id="path3510"
+         d="M 5.77,0 L -2.88,5 L -2.88,-5 L 5.77,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="scale(-0.8,-0.8)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="271.50824"
+     inkscape:cy="277.56339"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1005"
+     inkscape:window-x="0"
+     inkscape:window-y="25">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3201"
+       visible="true"
+       enabled="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.418779,-33.102321)">
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.90958434;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2383"
+       width="699.88623"
+       height="405.86536"
+       x="21.873571"
+       y="33.557114" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="241.01015"
+       y="67.541405"
+       id="text3165"><tspan
+         sodipodi:role="line"
+         id="tspan3167"
+         x="241.01015"
+         y="67.541405">Global Session Type</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="177.78685"
+       y="205.20122"
+       id="text3179"><tspan
+         sodipodi:role="line"
+         id="tspan3181"
+         x="177.78685"
+         y="205.20122" /></text>
+    <rect
+       y="104.42552"
+       x="50.016113"
+       height="90.518181"
+       width="130.03333"
+       id="rect3169"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05902481;stroke-opacity:1" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05589497;stroke-opacity:1"
+       id="rect3173"
+       width="130.02124"
+       height="89.992287"
+       x="190.02794"
+       y="104.43736" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="114.41992"
+       y="134.40942"
+       id="text3175"><tspan
+         sodipodi:role="line"
+         id="tspan3177"
+         x="114.41992"
+         y="134.40942">Global Session</tspan><tspan
+         sodipodi:role="line"
+         x="116.75781"
+         y="151.90942"
+         id="tspan3183">Type Element </tspan><tspan
+         sodipodi:role="line"
+         x="114.41992"
+         y="169.40942"
+         id="tspan3185">Prefix</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="259.72461"
+       y="144.40942"
+       id="text3187"><tspan
+         sodipodi:role="line"
+         x="262.0625"
+         y="144.40942"
+         id="tspan3193">SJ Session Type </tspan><tspan
+         sodipodi:role="line"
+         x="259.72461"
+         y="161.90942"
+         id="tspan3199">Element</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.10919404;stroke-opacity:1"
+       id="rect3209"
+       width="299.89081"
+       height="159.99872"
+       x="40.054604"
+       y="84.46402"
+       ry="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="60"
+       y="224.40942"
+       id="text3279"><tspan
+         sodipodi:role="line"
+         id="tspan3281"
+         x="60"
+         y="224.40942">Global Session Type Element</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05902481;stroke-opacity:1"
+       id="rect3299"
+       width="130.03333"
+       height="90.518181"
+       x="409.96152"
+       y="104.37221" />
+    <rect
+       y="104.38405"
+       x="549.97333"
+       height="89.992287"
+       width="130.02124"
+       id="rect3301"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05589497;stroke-opacity:1" />
+    <text
+       id="text3303"
+       y="134.35611"
+       x="474.36533"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       xml:space="preserve"><tspan
+         y="134.35611"
+         x="474.36533"
+         id="tspan3305"
+         sodipodi:role="line">Global Session</tspan><tspan
+         id="tspan3307"
+         y="151.85611"
+         x="476.70322"
+         sodipodi:role="line">Type Element </tspan><tspan
+         id="tspan3309"
+         y="169.35611"
+         x="474.36533"
+         sodipodi:role="line">Prefix</tspan></text>
+    <text
+       id="text3311"
+       y="144.35611"
+       x="619.66998"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       xml:space="preserve"><tspan
+         id="tspan3313"
+         y="144.35611"
+         x="622.00787"
+         sodipodi:role="line">SJ Session Type </tspan><tspan
+         id="tspan3315"
+         y="161.85611"
+         x="619.66998"
+         sodipodi:role="line">Element</tspan></text>
+    <rect
+       ry="0"
+       y="84.410706"
+       x="400"
+       height="159.99872"
+       width="299.89081"
+       id="rect3317"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.10919404;stroke-opacity:1" />
+    <text
+       id="text3319"
+       y="224.35611"
+       x="419.9454"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       xml:space="preserve"><tspan
+         y="224.35611"
+         x="419.9454"
+         id="tspan3321"
+         sodipodi:role="line">Global Session Type Element</tspan></text>
+    <g
+       id="g2545"
+       transform="translate(0,-40.406102)">
+      <rect
+         y="324.37091"
+         x="50.070702"
+         height="90.518181"
+         width="130.03333"
+         id="rect3325"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05902481;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05589497;stroke-opacity:1"
+         id="rect3327"
+         width="130.02124"
+         height="89.992287"
+         x="190.08252"
+         y="324.38275" />
+      <text
+         xml:space="preserve"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+         x="114.47451"
+         y="354.35483"
+         id="text3329"><tspan
+           sodipodi:role="line"
+           id="tspan3331"
+           x="114.47451"
+           y="354.35483">Global Session</tspan><tspan
+           sodipodi:role="line"
+           x="116.8124"
+           y="371.85483"
+           id="tspan3333">Type Element </tspan><tspan
+           sodipodi:role="line"
+           x="114.47451"
+           y="389.35483"
+           id="tspan3335">Prefix</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+         x="259.77921"
+         y="364.35483"
+         id="text3337"><tspan
+           sodipodi:role="line"
+           x="262.1171"
+           y="364.35483"
+           id="tspan3339">SJ Session Type </tspan><tspan
+           sodipodi:role="line"
+           x="259.77921"
+           y="381.85483"
+           id="tspan3341">Element</tspan></text>
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.10919404;stroke-opacity:1"
+         id="rect3343"
+         width="299.89081"
+         height="159.99872"
+         x="40.109192"
+         y="304.40942"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+         x="60.054588"
+         y="444.35483"
+         id="text3345"><tspan
+           sodipodi:role="line"
+           id="tspan3347"
+           x="60.054588"
+           y="444.35483">Global Session Type Element</tspan></text>
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3355"
+       sodipodi:cx="445"
+       sodipodi:cy="369.40942"
+       sodipodi:rx="5"
+       sodipodi:ry="5"
+       d="M 450,369.40942 A 5,5 0 1 1 440,369.40942 A 5,5 0 1 1 450,369.40942 z"
+       transform="translate(13.888322,23.233508)"
+       inkscape:transform-center-x="80.000001"
+       inkscape:transform-center-y="24.243661" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3357"
+       sodipodi:cx="445"
+       sodipodi:cy="369.40942"
+       sodipodi:rx="5"
+       sodipodi:ry="5"
+       d="M 450,369.40942 A 5,5 0 1 1 440,369.40942 A 5,5 0 1 1 450,369.40942 z"
+       transform="translate(93.888325,23.233508)"
+       inkscape:transform-center-y="24.243661" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3359"
+       sodipodi:cx="445"
+       sodipodi:cy="369.40942"
+       sodipodi:rx="5"
+       sodipodi:ry="5"
+       d="M 450,369.40942 A 5,5 0 1 1 440,369.40942 A 5,5 0 1 1 450,369.40942 z"
+       transform="translate(173.88832,23.233508)"
+       inkscape:transform-center-x="-80.000001"
+       inkscape:transform-center-y="24.243661" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-mid:none;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+       d="M 549.52298,243.58702 L 342.44172,343.59212"
+       id="path6263"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+       d="M 341.43156,165.80527 L 398.0001,165.80527"
+       id="path7828" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="348.50262"
+       y="160.75452"
+       id="text8872"><tspan
+         sodipodi:role="line"
+         id="tspan8874"
+         x="348.50262"
+         y="160.75452"
+         style="font-size:18px">child</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="244.99051"
+       y="444.37317"
+       id="text8880"
+       transform="matrix(0.9124137,-0.4092692,0.4092692,0.9124137,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan8882"
+         x="244.99051"
+         y="444.37317"
+         style="font-size:18px">child</tspan></text>
+  </g>
+</svg>

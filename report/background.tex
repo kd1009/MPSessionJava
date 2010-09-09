@@ -205,9 +205,9 @@ Since describing a session from the viewpoint of one of the peers as in binary s
   		 &		&	$|$		& $G,G' $ 															& 	parallel 	\\
   		 &		&	$|$		& $\mu t.G $ 														& 	recursive 	\\
   		 &		&	$|$		& $t$ 																& 	variable 	\\
-  		 &		&	$|$		& $end$ 															& 	end		 	\\
-  Value	 &	$U$ &	$::=$	& $\tilde{S} | T@p $							 					& 			 	\\
-  Sort	 &	$S$ &	$::=$	& $ \text{bool} | \text{nat} | \text{...} | \langle G \rangle $		& 			 	\\	  
+  		 &		&	$|$		& end																& 	end		 	\\
+  Value	 &	$U$ &	$::=$	& $\tilde{S}$ $|$ $T@p$							 					& 			 	\\
+  Sort	 &	$S$ &	$::=$	& $bool$ $|$ $nat$ $|$ ${...}$ $|$ $\langle G \rangle$				& 			 	\\	  
   \hline
 \end{tabular}
 \label{TBglobtypesynt}
@@ -228,7 +228,7 @@ The local types follow almost exactly the same rules as binary session types but
 
 Eventhough formal rules of projections are specified in \cite{multiparty_sess_types} the projection is very intuitive. For the main cases of calue sending, the type $G ::= p \rightarrow p' : k \langle U \rangle . G'$ becomes the local type $G @ p ::= k! \langle U \rangle . (G' @ p)$. Respectively it can also become the local type $G @ p' ::= k? \langle U \rangle . (G' @ p')$ when projected for particpant $p'$.
 
-For the branching case similar rules apply, where the type $G::= p \rightarrow p' : k \lbrace l_{j}:G_{j} \rbrace _{j \in J} $ is projected to local type $G @ p ::= k! \lbrace l_{j}: (G_{j} @ p) \rbrace$. The analogous applies for the projection of $G$ onto participant $p'$.
+For the branching case similar rules apply, where the type $G::= p \rightarrow p' : k \lbrace l_{j}:G_{j} \rbrace _{j \in J} $ is projected to local type $G @ p ::= k! \lbrace l_{j}: (G_{j} @ p) \rbrace$. The same approach applies for the projection of $G$ onto participant $p'$.
 
 In all these case it is a condition that $p \neq p'$. The further rules of projection for recursion and parallel composition are described in \cite{multiparty_sess_types}. The paper also includes additional conditions of \textit{coherence} and the definitions for a \textit{multiparty session type system}.
 
