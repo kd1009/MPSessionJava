@@ -26,7 +26,7 @@ sessionj/bin/*
 # ---- Tex compilation files
 *.aux
 *.dvi
-*.pdf
+report/*.pdf
 *.toc
 *.out
 *.bbl
