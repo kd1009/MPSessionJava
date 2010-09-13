@@ -7,7 +7,67 @@
 \section{Session Type Guided Distributed Multiparty Interaction in Java}
 \label{sec:mpstjava}
 
+The paper \textit{Efficient Session Type Guided Distributed Interaction} \cite{sess_type_guided_distr_interact} published in June, 2010 discusses a very similar session type assisted distributed object orientated framework for Java. It is the first paper to utilise multiparty session types for global communications.
+
+The authors present the following protocol definition syntax from which the protocol projections are created for the type checking of specific parties. The projection follows the rules set out by \cite{multiparty_sess_types}.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
+protocol name {
+	participants a, b, c;
+	a: begin;
+	b->c: <Type>
+	a:
+		[c->b: <Type>;
+		 a->c: <Type>;
+		]*
+	c: 
+		{CASE1: c->b <Type>,
+		 CASE2: c->a <Type>
+		} 
+} 
+\end{lstlisting}
+
+In the given example first the participants are specified followed by designating the initiating participant. The interaction begins with b sending a message of a specific type to c. Participant a then takes the control over a loop in which two other sending actions are executed. Finally, participant c decides on one of the branch cases and the interaction follows as per the specifics of each case label.  
+
+After specifying the protocol the global session type is registered with a \textit{session resgistry}, giving the protocol name and an instance name. Multiple instances of the same protocol are therfore allowed to run simultanously within the same registry. The instantiation is followed by any participant registering with the session by providing the protocol name, instance and its own role.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE]
+SessionRegistry.instantiate(name, "instance_name")
+SessionSocket ss = SessionRegistry.lookup(name, "instance_name", "a");
+\end{lstlisting}
+
+The authors adopt an extended interaction syntax based on SJ, with additional specifications of the target participants in the session operations. The method names are intuitive, however a full description of each of the methods can be found in \cite{sess_type_guided_distr_interact}.
+
+\begin{table}[H]
+\center
+\caption{Global Protocol Declaration Syntax}
+\begin{tabular}{|l|l|}
+  \hline 
+  Syntax					&	Description												\\
+  \hline	 
+  \LST{ss.begin()}	 		&	initiates the protocol 										\\
+  \LST{ss.awaitBegin()}		&	waits for protocol begin								\\
+  \LST{ss.send(A, obj)}		& 	send object to A										\\
+  \LST{ss.receive(A)}		&	receive from A											\\
+  \LST{ss.outbranch(L)}		&	controlled branch body of case L						\\
+  \LST{ss.inbranch(L)}		& 	accepted branch body of case L							\\
+  \LST{ss.outwhile(bool)}	&	controlled loop by boolean expression					\\	  
+  \LST{ss.inwhile(A)}		& 	loop in control of participant A						\\
+  \hline
+\end{tabular}
+\label{TBlafayettesyntax}
+\end{table} 
+
+The work by Sivaramakrishnan et al. also suggests several compiler and runtime performance enhancement strategies. These include batching consecutive sends together, changing the choice structure of branching operations and analysing the data flow in order to redesign the global session type in a more efficient way.
+
+It appears that for many of these enhancements the compiler and runtime are redefining the global session type according to some interpretation of the source code specified in the implementation of these very same session types. Despite the questionable techniques the authors report good performance improvements during testing.   
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%   PROGRAMMING ALTERNATIVES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 \section{Distributed Programming Alternatives}
 \label{sec:alternatives}
+
+\subsection{Java RMI and Socket Programming}
+
+

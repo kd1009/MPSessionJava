@@ -3,6 +3,7 @@
 \label{ch:design}
 
 \section{Design aims}
+\label{sec:designaims}
 
 The design of Multiparty SessionJava (MPSJ) required taking into consideration different aspects of software engineering. The objective of providing a framework that can be easily utilised by the end-user often contrasted with the current implementation of SJ. The introduction of new methods and multiparty session types, referred to as \textit{global types}, created design considerations in terms of which calls should be left to the programmer vs. which methods can be implicitly called in the background and abstracted away from the user. 
 
@@ -44,7 +45,7 @@ MPSJ follows a mixture of SJ syntax and multiparty session type syntax which is 
   \LST{global_protocol} &	protocol declaration keyword 							\\
   \LST{\{...\}}			&	global session type delimiter							\\
   \LST{a, b, ...}		& 	participant names										\\
-  \LST{.}				&	session operation join									\\
+  \LST{.}				&	session operation concatenation							\\
   \LST{|a,b|}			&	session operation prefix								\\
   \LST{|a,b|!<int>}		& 	participant \LST{a} sends \LST{int} to \LST{b}			\\
   \LST{|b,a|?(int)}		&	participant \LST{b} receives \LST{int} from \LST{a}		\\	  
@@ -57,7 +58,7 @@ The declaration \LST{global_protocol InteractionProtocol \{|a,b|!<int>. |b,c|!<i
 
 Note that this design of global protocols uses a sense of duality, as the last interaction in the above example could be rewritten to \LST{|b,a|!<int>} without changing its the structure of interactions. This has been provided for better integration and compatibility with SJ as well as more user freedom in the presentation of the protocols. It may be desired to represent some parts of the interactions from the receiving end especially in large protocols to maintain clarity and similarity to the desired process models. This could not always be achieved if MPSJ fully adhered to \cite{multiparty_sess_types}.
 
-\subsection{Programming in Multi-Party SJ}
+\subsection{Programming in Multiparty SJ}
 
 The following code fragment in \autoref{LSTglobprotimpl} illustrates a short example of interactions programmed according to the protocol specified above. Initially the protocol has to be initialised to a new protocol variable. The protocol specification acts as a class, hence the initiation follows the standard Java practice.
 
@@ -88,6 +89,7 @@ For other parties, which are on the receiving end of the session initiation the 
 The syntax and program design discussed in the previous sections impose several modifications onto the compiler. The syntax modifications need to be reflected in the langauge-indpendent grammar, additional AST nodes are necessary. An intelligent design has to be used to utilise the global protocol and the participants as the centres of interaction.
 
 \subsection{Extending the Parser Generator for Global Session Types}
+\label{subsec:extendingparsegen}
 
 To support the definition of global protocols, or global session types in technical terms, as local variables, class fields and additionally as objects outside the scope of any class the design required a Java construct which could serve as a common denominator for all these declarations. Defining the global protocol as a construct similar to a class would match the requirements, as a Java class can be defined both in place of a class member and locally in a method. 
 
@@ -115,8 +117,9 @@ As discussed in \autoref{subsec:polyglotarch} the generated parser calls relevan
 Finally all the information about the session is enclosed in the \LST{SJGlobProtocolDecl} node with the addition of the protocol name in form of an \LST{Identifier} and any flags such as \LST{public} or \LST{private}. 
 
 \subsection{Global Protocol as the Core of Interaction}
+\label{subsec:globprotocolcore}
 
-\autoref{sec:syntaxdesign} made it explicit that all interactions in MPSJ revolve around the global protocol. \autoref{fig:globprotocol} illustrates the design pattern used to achieve this. During the compilation process the global protocol is effectively transformed into a class with the participants as its members. In that way the global protocol becomes the session interaction centre. If methods such as \LST{invite()} or \LST{acceptInvite()} relate to the session as a whole, the operations are performed on the global protocol. Other methods concerning specific session participants such as \LST{send()} or \LST{receive()} are performed on the participant objects. Invoking  
+\autoref{sec:syntaxdesign} made it explicit that all interactions in MPSJ revolve around the global protocol. \autoref{fig:globprotocol} illustrates the design pattern used to achieve this. During the compilation process the global protocol is translated into a class with the participants as its members. The list of participants is inferred automatically from the global session type.
 
 \begin{figure}[htb]
 \begin{center}
@@ -126,10 +129,58 @@ Finally all the information about the session is enclosed in the \LST{SJGlobProt
 \end{center}
 \end{figure}
 
+If methods such as \LST{invite()} or \LST{acceptInvite()} relate to the session as a whole, the operations are performed on the global protocol. Other methods concerning specific session participants such as \LST{send()} or \LST{receive()} are performed on the participant objects. Invoking the send method on participant \LST{P1} will therefore asynchronously send the \LST{Object} to participant, whereas the method \LST{receive()} will cause the program to wait until the \LST{Object} from \LST{P1} is received.
+
+
+\subsection{Projection of Global Session Types}
+
+%\subsection{Safety and Type Checking}
+
 
 
 \section{Runtime Design Alterations}
 
+The execution of programs compiled with the extended SJ Compiler requires additional support from the runtime. The MPSJ Runtime provides the classes and methods that enable the realisation of interactions in the paradigm pictured in \autoref{fig:globprotocol}.
+
 \subsection{Use of Session Participants as SJSockets}
 
-\subsection{Creating the Multi-Party Session}
+The functionality for performing session operations such as sending and receiving is provided by the runtime class \LST{SJGlobParticipant}. The design challenge lies in the way that sockets are currently implemented in SJ. The implementation differs between sockets accepting the incoming connection and sockets that initiate it.
+
+To provide maximum flexibility the participant class provides an abstract socket implementation, which is the same for both sorts of sockets. Only when the session is initiated does the behaviour of the participant socket become specialised for the necessary type of interaction. 
+
+\subsection{The Multiparty Connection Protocol}
+
+Establishing the multiparty session carries two major difficulties. First of all, the participants' sockets need to be assigned correctly with respect whether they are expecting a connection, or initiating the connection themselves. Then the session invitations have to be sent out and it has be ensured that at the end of the initiation process all parties are connected. The current design creates $n (n-1) /2 $ channels to connect all participants to each other. The invitation process for a session with four participants is illustrated in \autoref{fig:sessioncreation}.  
+
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{placeholder.jpeg}
+\caption{Invitation sending and invitation delegation}
+\label{fig:sessioncreation}
+\end{center}
+\end{figure}
+
+Upon the method call \LST{acceptInvite()} the party sets all of the participants to receiving sockets and awaits connections. It is unknown at the time which session participant will initiate the session, hence the accepting party has to listen to all participant sockets.
+
+When the method \LST{invite()} is called all participant sockets are set to initiating sockets and an attempt is made to establish a connection with each of the remaining participants in the session. Once the connection is established, the other participants receive a list of participants they have to connect to, to complete the session. This is referred to as \textit{invitation delegation}.
+
+In the session example used above \LST{p1} establishes connections with \LST{p2}, \LST{p3} and \LST{p4}. It then delegates \LST{p2} to establish its own connections with \LST{p3} and \LST{p4}. It also tells \LST{p3} to establish its own channel with \LST{p4}. The order of invitations is always dictated by the order in which the participants appear in the global protocol. The connection protocol always results in the participants being connected in a star-like fashion as shown in \autoref{fig:connprotresult} and works for any number $n$ of participants.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{placeholder.jpeg}
+\caption{Result of the Multiparty Connection Protocol}
+\label{fig:connprotresult}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
