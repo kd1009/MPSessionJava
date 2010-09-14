@@ -2,8 +2,24 @@
 \chapter{Evaluation}
 \label{ch:evaluation}
 
-\section{Evaluation Against Design Aims}
+\section{Evaluation Against Design Aims} 
+
+The presented solution demonstrates a framework for developing structured distributed interaction systems based on multiparty session types. The design and implementation clearly follow the structure of global types from \cite{multiparty_sess_types}.
+
+Global type specification syntax is closely related to binary session type definitions, whilst also adopting the principles developed in the original paper on multiparty session types. By integrating the two, we facilitate the adoption of the definition syntax for both programmers acquainted with SJ as well as theoretical practitioners who are less familiar with it. 
+
+The suggested interaction syntax is very intuitive and all methods that need to be called by the programmer have clearly defined and self-explanatory names. By providing a single point of programming interaction in form of the global protocol and the global participants defined therein, an extra level of code clarity is introduced.
+
+The transfer of the majority of session setup operations into the background increases ease of programming by reducing the burden put on the programmers. This also reduces the risk of failure due to bad coding practices. However, on the other hand the user is denied some flexibility, which may be desired by more experienced developers.
+
+The MPSJ codebase was designed to integrate well into SJ and by following this paradigm code duplication was avoided at many stages. An additional benefit of this approach is the availability of solid, well defined methods and techniques that enhance the implementation of MPSJ.
+
+Due to time constraints we could not implement type checking, however safety is ensured at a selection of places in the code. Example of that can be found in the generated parser as well as constructors for some AST nodes. However, because type checking is not implemented widely and successively througout the project it is still possible for interactions not to adhere to the specified protocols. This could be rectified by implementing MPSJ Runtime Monitoring.
+
+In general the majority of design aims have been achieved to a large extent and a well defined foundation is available for further work on the project, which could benefit greatly from several extension to it. These will be discussed in detail in \autoref{ch:futurework}.
+
 
 \section{Evaluation Against the Implementation in \cite{sess_type_guided_distr_interact}}
+
 
 \section{Evaluation Against Other Programming Alternatives}
