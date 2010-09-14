@@ -69,8 +69,8 @@ public class Interaction {
 		InteractionProtocol prot = new InteractionProtocol();
 	
 		prot.a.setLocal();
-		prot.b.setRemote("computer1", 1050);
-		prot.c.setRemote("computer2", 1100);
+		prot.b.setRemote("computer1", 1050, 1200);
+		prot.c.setRemote("computer2", 1100, 1201);
 
 		prot.invite();		
 
@@ -80,7 +80,9 @@ public class Interaction {
 }
 \end{lstlisting}
 
-The methods \LST{setLocal()} and \LST{setRemote(String remoteName, int port)} are used to assign roles to the participants. They are invoked on the protocol variable and the participant to which the role is to be assigned. \LST{invite()} can only be called by one of the participants and it is important for all the other participants to have their ports open for incoming connections. To create all necessary links between the participants the inviting party delegates further invitations to other parties. All further interactions are similar to those of SessionJava with the difference that they are invoked on the protocol variable and participant as in the initial \LST{set...()} calls.
+The methods \LST{setLocal()} and \LST{setRemote(String remoteName, int remotePort, int localPort)} are used to assign roles to the participants. They are invoked on the protocol variable and the participant to which the role is to be assigned. There are two ports to be set in the \LST{setRemote(..)} of which the first one is used for connecting to that participant, the latter to accept connections on. 
+
+\LST{invite()} can only be called by one of the participants and it is important for all the other participants to have their ports open for incoming connections. To create all necessary links between the participants the inviting party delegates further invitations to other parties. All further interactions are similar to those of SessionJava with the difference that they are invoked on the protocol variable and participant as in the initial \LST{set...()} calls.
 
 For other parties, which are on the receiving end of the session initiation the code fragment differs in the session setup method. The parties on the receiving end have to make a call to \LST{acceptInvite()} to initiate the session. The call has to be made before the \LST{invite()} is made on the initialising end. This is to ensure that the incoming connection port is open and ready to receive the session initiation call.
 
@@ -95,7 +97,7 @@ To support the definition of global protocols, or global session types in techni
 
 Lexically, a class definition is identified as a type declaration. The parser generator was therefore extended to interpret a global protocol declaration as a type declaration. This enables the compiler to recognise any global protocol as a type with the ability to instantiate variables of this type as shown in line 4 of \autoref{LSTglobprotimpl}.
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{globsesstypeelement}
 \caption{Structure of a Global Session Type}
@@ -121,7 +123,7 @@ Finally all the information about the session is enclosed in the \LST{SJGlobProt
 
 \autoref{sec:syntaxdesign} made it explicit that all interactions in MPSJ revolve around the global protocol. \autoref{fig:globprotocol} illustrates the design pattern used to achieve this. During the compilation process the global protocol is translated into a class with the participants as its members. The list of participants is inferred automatically from the global session type.
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{globprotocol}
 \caption{Global Session Interaction Points}
@@ -153,9 +155,9 @@ To provide maximum flexibility the participant class provides an abstract socket
 Establishing the multiparty session carries two major difficulties. First of all, the participants' sockets need to be assigned correctly with respect whether they are expecting a connection, or initiating the connection themselves. Then the session invitations have to be sent out and it has be ensured that at the end of the initiation process all parties are connected. The current design creates $n (n-1) /2 $ channels to connect all participants to each other. The invitation process for a session with four participants is illustrated in \autoref{fig:sessioncreation}.  
 
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{placeholder.jpeg}
+\includegraphics[width=0.8\textwidth]{connprotocol.pdf}
 \caption{Invitation sending and invitation delegation}
 \label{fig:sessioncreation}
 \end{center}
@@ -167,9 +169,9 @@ When the method \LST{invite()} is called all participant sockets are set to init
 
 In the session example used above \LST{p1} establishes connections with \LST{p2}, \LST{p3} and \LST{p4}. It then delegates \LST{p2} to establish its own connections with \LST{p3} and \LST{p4}. It also tells \LST{p3} to establish its own channel with \LST{p4}. The order of invitations is always dictated by the order in which the participants appear in the global protocol. The connection protocol always results in the participants being connected in a star-like fashion as shown in \autoref{fig:connprotresult} and works for any number $n$ of participants.
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{placeholder.jpeg}
+\includegraphics[width=0.4\textwidth]{connectionestabl.pdf}
 \caption{Result of the Multiparty Connection Protocol}
 \label{fig:connprotresult}
 \end{center}

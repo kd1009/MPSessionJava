@@ -62,7 +62,7 @@ It becomes apparent that the system can be used to model both small and large sc
 
 Let us now show a two interesting examples of $\pi$-calculus:
 
-\[ \bar{a} \langle 1 \rangle .0 | a(x).P \rightarrow 0 | P \lbrace \frac{1}{x} \rbrace \]
+\[ \bar{a} \langle 1 \rangle .0 | a(x).P \rightarrow 0 | P \mbox{ } \SUBS{1}{x} \]
 
 The interaction begins by sending $1$ along $\bar{a}$. In the dual name $a$ each $x$ is substituted by $1$. $\bar{a}$ then continues with the terminating action $0$ and a continues into P with all variables $x$ substituted by $1$. This is a fairly simple and standard interaction scenario.
 
@@ -72,7 +72,7 @@ In this case $a$ is restricted and its scope is limited to the current applicati
 
 Finally we can formalise ${\pi}$-calculus with the following rules:
 
-\begin{equation} \bar{a} \langle v \rangle .P | a(x).Q \rightarrow P|Q {\frac{v}{x}} \end{equation}
+\begin{equation} \bar{a} \langle v \rangle .P | a(x).Q \rightarrow P|Q \text{ } {\SUBS{v}{x}} \end{equation}
 
 \begin{equation} \frac{P \rightarrow P'}{P|Q \rightarrow P'|Q} \end{equation}
 
@@ -161,7 +161,7 @@ Finally the syntax is completed by the addition of the following standard constr
   $P\|Q$ & concurrent composition\\
   $(\nu a)P \mbox{  } (\nu k)P$  & name/channel hiding \\
   if $e$ then $P$ else $Q$ & conditional \\
-  $D:=X_1[\tilde{e}\tilde{k}]=P_1\mbox{ and..and } X_n[\tilde{x}_n}\tilde{k}_n] = P_n\mbox{ } in \mbox{ }P$ & recursion\\
+  $D:=X_1[\tilde{e}\tilde{k}]=P_1\mbox{ and..and } X_n[\tilde{x}_n\tilde{k}_n] = P_n\mbox{ } in \mbox{ }P$ & recursion\\
   $inact$ & inaction \\
   \hline
 \end{tabular}
