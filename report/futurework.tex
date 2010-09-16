@@ -2,8 +2,17 @@
 \chapter{Future Work}
 \label{ch:futurework}
 
-\begin{itemize}
-\item Integrate looping mechanisms
-\item Implement type checking
-\item Session delegation
-\end{itemize}
+Despite providing a good foundation for the integration of multiparty session types into object orientated programming in Java many goals could not be achieved due to time constraints.
+
+First of all, the current implementation of MPSJ reuquires additional session operations for handling recursion. The methods needed for MPSJ correspond to the method calls for \LST{outwhile(bool)} and \LST{inwhile()} in SJ. MPSJ would also largely profit from integrating the symmetric session types discussed in \cite{symmetric_sum} to ehance programming choices for branching.
+
+Further, an interesting idea that to our best knowledge has not been explored yet, is the implementation of session delegation for multiparty session type programming. In this environment session delegation becomes more complex and adds challenges to many areas including session initiation and type checking.
+
+To ensure full safety, MPSJ lacks an implementation of type checking. Currently, a lot of trust is put in programmers to adhere to the specified protocols. This should be lifted, and the compiler should check that the implemented interactions are compliant with the typing and sequencing in the session type. Additionally, MPSJ Runtime Monitoring should be implemented to allow dynamic checking of incoming and outgoing messages.
+
+With respect to the insights given by related work there are also other interested paths to be pursued. One of the involves the integration of security enhancements into multiparty session programming. With multiple participants the risk of one of them being compromised is increased and therefore an implementation of underlying cryptographic protocols such as the ones suggested in \cite{crypto_mpst1, crypto_mpst2} would certainly be beneficial.
+
+Finally, some of the performance enhancements suggested in \cite{sess_type_guided_distr_interact} could also be adapted. This would be under the condition that they can be proven to be safe, sound and correct. Extensive testing would also have to be performed before the integration of such solutions. Another performance enhancement could be considered in terms of restricting the numbers of opened channels to the bare minimum. 
+
+In general, the study of multiparty session types is relatively new with a great potential for future development. Given the advances in the theoretical field, continous integration of this theory into object oriented programming can be very beneficial for both academic and industry purposes.
+
