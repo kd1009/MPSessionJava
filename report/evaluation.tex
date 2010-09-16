@@ -19,7 +19,23 @@ Due to time constraints we could not implement type checking, however safety is 
 In general the majority of design aims have been achieved to a large extent and a well defined foundation is available for further work on the project, which could benefit greatly from several extension to it. These will be discussed in detail in \autoref{ch:futurework}.
 
 
-\section{Evaluation Against a Similar Implementation}
+\section{Evaluation Against the Current SJ Implementation}
+
+SessionJava is a very well developed and established extension that supports binary session types in order to realise sessions safely. It has been a source of inspiration for MPSJ as well as given the codebase including many underlying methods which perform the session communications.  
+
+MPSJ adds to this implementation by incorporating the support for multiparty sessions, including the additional syntax, compiler transformations and runtime methods for their support of global protocols. This constitutes a significant advance, but additional work is required in order to fully integrate MPSJ code into SJ and provide similar levels of functionality for both..
+
+It is clear that the depth of the core SessionJava is superior to that of MPSJ, as it provides a greater set of session operations. Session delegation, is an additional feature that could be very beneficial if included in MPSJ. Another aid given to SJ programmers is the class downloader and error handling constructs, which are not implemented in MPSJ. Its main advantage over MPSJ however, is the implemented type-checking and runtime monitoring, which together ensure the safe execution of the interactions in accordance to the negotiated protocols.
+
+On the other hand however, SJ could possibly profit from a session participant oriented approach, even if only adapted for binary types. This could potentially attract less advanced programmers who may find session sockets somewhat discouraging.
+
+Another advantage that we deem MPSJ has over SJ is the ability to specify the protocols externally. Keeping the protocol declaration in seperate decomuents reduces the potential for errors when copying from a different source, such as emails, after having agreed on a protocol with programming peers.
+
+With respect to the implementation techniques, both use a similar set of tools as well as programming paradigms. There are therefore only minor differences in the code design, mainly depending on coding preferences. 
+
+Finally, SJ has the advantage of being researched in terms of its performance compared to Java RMI and Socket programming. MPSJ could profit from such benchmarks after having implemented type-checking as it would increase credibility of the language in the research field.
+
+\section{Evaluation Against a Similar Multiparty Implementation}
 
 The recently published paper \textit{Efficient Session Type Guided Distributed Interaction} provides a very similar implementation of multiparty session type guided interactions to the one presented in this report. 
 

@@ -1,0 +1,114 @@
+\cleardoublepage
+\chapter{Examples of MPSJ Programming}
+\label{ch:examples}
+
+\section{Hello World}
+
+The following code illustrates a binary application of a \textit{Hello World!} program written in MPSJ. This complete, yet concise source code is based on the implementation of a similar program in Scribble \cite{scribble}.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Global Declaration of \textit{HelloWorldProt}]
+// HelloWorldProt.sj
+package helloworld; 
+import sessionj.runtime.net.*;
+ 
+global_protocol HelloWorldProt {|you, world| !<String>}
+\end{lstlisting}
+
+The global protocol declaration can be defined in a seperate file (called \LST{HelloWorldProt.sj} in this example) and exchanged between programmers who implement the interactions for the specific parties. Notice, that because the resulting global protocol is a class, the capital letter notation has been adopted for its name.
+
+The next fragment shows the implementation for the paticipant \LST{you} who is the session initiator in the given example. The implementation of this is very straightforward, with the global protocol being initiated first and the roles defined and parameterised. Following that the session invitation is sent out and the interaction between the participants may begin.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Implementation for participant \textit{you}]
+// You.sj
+package helloworld; 
+import sessionj.runtime.net.*;
+ 
+public class You {
+	
+	public static main (String[] args) {
+		HelloWorldProt hwp = new HelloWorldProt();
+		hwp.you.setLocal():
+		hwp.world.setRemote("globalworldmachine", 1950, 1100);
+	
+		hwp.invite();
+		hwp.world.send("Hello World!");
+	} 
+}
+\end{lstlisting}
+
+Finally the final code fragment implements the interactions for the participant \LST{world}. The session setup is similar to that of participant \LST{you}, however now that participants accepts the connection. The ports are now in reversed order, which is to support initiation from both parties. If \LST{world} was to invite \LST{you}, \LST{you} would be listening on port 1100 and therefore, 1100 is specified as the first port in the following \LST{setRemote(..)} call. Once the session is established \LST{world} receives the \textit{Hello World!} message and prints it to the screen.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Implementation for participant \textit{world}]
+// World.sj
+package helloworld; 
+import sessionj.runtime.net.*;
+ 
+public class You {
+	
+	public static main (String[] args) {
+		HelloWorldProt hwp = new HelloWorldProt();
+		hwp.world.setLocal():
+		hwp.you.setRemote("youmachine", 1100, 1950);
+	
+		hwp.acceptInvite();
+		System.out.println(hwp.you.receive());
+	} 
+}
+\end{lstlisting}
+
+\section{Two-Buyer Protocol}
+
+This example is adapted from \cite{multiparty_sess_types} and defines a protocol and interactions in which as one buyer1 asks a seller for the price of a book. The seller responds with a quote, sent to buyer1 and his cooperating partner, buyer2. Buyer1 then sends to buyer2 the amount she is prepared to contribute. If buyer2 is happy to contribute the rest, the branch with label \textit{ok} is entered and buyer2 sends the delivery address to the seller. The seller then responds with a delivery date.
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Global Declaration of \textit{HelloWorldProt}]
+// TwoBuyerProt.sj
+package twobuyer; 
+import sessionj.runtime.net.*;
+ 
+global_protocol TwoBuyerProt {
+	|b1, s|  !<String>.
+	|b1, s|  ?(int).
+	|b2, s|  ?(int).
+	|b1, b2| !<int>.
+	|b2, s| {
+		OK: |b2, s| !<String>.
+			|b2, s| ?(Date),
+		QUIT:
+	}	
+}
+\end{lstlisting}
+
+The structure of this protocol is more complicated than in the case of the \textit{HelloWorldProt}, nonetheless it can still be represented using our syntax in a legible and clear fashion. Note that as example of integrating the receive type into the multiparty session types in lines 7, 8 and 12 have been replaced with dual types compared to the original definition in \cite{multiparty_sess_types}. In our opinion, this better represents the seller as a service provider.  
+
+For brevity we will only demonstrate the most interesting implementation for the \LST{b2} participant. We assume that the session is initiated by \LST{b1}. 
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Global Declaration of \textit{HelloWorldProt}]
+// Buyer2.sj
+package twobuyer; 
+import sessionj.runtime.net.*;
+ 
+public class Buyer2 {
+	
+	public static main (String[] args) {
+		TwoBuyerProt tbp = new TwoBuyerProt();
+		tbp.b2.setLocal():
+		tbp.b1.setRemote("b1machine", 1500, 1600);
+		tbp.s.setRemote("sellermachine", 2000, 1800);
+		tbp.acceptInvite();
+		
+		int price = tbp.s.receive(); 	// price of the book
+		int contr = tbp.b1.receive();	// buyer1's contribution
+					
+		if(price-contr < 20) {				// only buy if less than 20 pounds needed from me 				
+			tbp.s.outbranch(OK) {
+				tbp.s.send("180 Queen's Gate, London SW7 2AZ");
+				System.out.println("The delivery date is: " + tbp.s.receive()); }
+		else
+			tbp.s.outbranch(QUIT) {}				
+	} 
+}
+\end{lstlisting}
+
+Participant \LST{b2} decides to only buy the book of the she has to contribute less than \pounds 20 towards the book. The interesting feature of this protocol and its implementation is the branching. Once \LST{b2} deems the offer as appropriate it sends its address and receieves the delivery date for the book, which the program prints to the screen.
+
+The implementations for other parties follow a similar pattern and can be found in \autoref{appendixA}.

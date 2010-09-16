@@ -134,11 +134,34 @@ Finally all the information about the session is enclosed in the \LST{SJGlobProt
 If methods such as \LST{invite()} or \LST{acceptInvite()} relate to the session as a whole, the operations are performed on the global protocol. Other methods concerning specific session participants such as \LST{send()} or \LST{receive()} are performed on the participant objects. Invoking the send method on participant \LST{P1} will therefore asynchronously send the \LST{Object} to participant, whereas the method \LST{receive()} will cause the program to wait until the \LST{Object} from \LST{P1} is received.
 
 
-\subsection{Projection of Global Session Types}
+\subsection{Projection Algorithm for Global Session Types}
+
+Global session type projection onto specific participants is necessary for validating the interactions of that participant against the defined global protocol. The projection is intuitive and onvolves defining a new local session type that is only valid for the participant in question. The following algorithm given in pseudo-code would be used to achieve that projection. 
+
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
+PROJECT(globalType, @p) {
+	DEF: localType@p = null;
+	DO	{
+		IF (globalType.prefix.getPrincipal == @p)
+			localType@p.APPEND(globalType)
+		ELSE IF (globalType.prefix.getPartner == @p)
+			localType@p.APPEND(globalType.dual)
+		globalType = globalType.child
+	}
+	WHILE(globalType != null)
+
+	RETURN: localType@p
+}
+\end{lstlisting}
+
+First a new local type is created that will be returned as the local type projected for participant \LST{p}, written \LST{localType@p}. Then, for each element in the global type, its prefix is analysed in order to the determine whether one of the participants is the particpant for which the projection is executed. If the participant is the principal, meaning the element is written from his perspective, then the session type element is appended to the local projection. If in turn the participant is the partner, the dual type is taken. 
+
+The procedure is the same for the child of the session type, the child of the child, etc. This is to ensure that the entire sequence of session type elements that build up the session type is analysed. Once the child is null, it means the end of the sequence was reached and the local projection for \LST{p} is returned as the result.
+
+This algorithm clearly follows the principles of projection set out in \cite{multiparty_sess_types}.  
 
 %\subsection{Safety and Type Checking}
-
-
 
 \section{Runtime Design Alterations}
 

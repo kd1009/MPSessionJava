@@ -1,3 +1,19 @@
 \cleardoublepage
 \chapter{Conclusions}
 \label{ch:conclusions}
+
+
+
+This report introduces Multiparty SessionJava (MPSJ), which to our best knowledge is the second attempt to integrate multiparty session types into object oriented programming in Java. MPSJ allows programmers to structure multiparty distributed interactions and implement them accordingly. By introducing MPSJ, we also created a foundation for the safe, type-checked and monitored execution of such interactions.
+
+We introduced the theoretical background for the integration of multiparty session types into the existing implementation of Java, discussing the $\pi$-calculu and various types of session types it relies on. We also examined the exisiting implementation of binary session types in Java, i.e. SessionJava as well as Polyglot, the extensible compiler framework it was built on, which is also used as foundation for MPSJ.
+
+We developed an innovative global protocol defintion syntax as a blend of current SessionJava syntax and the global session type definition syntax aiming to synthesize the main benefits of both. We also created an effective session interaction programming paradigm with the global protocol as the main interaction point for all operations. Global session participant objects are used as session sockets allowing intuitive encoding of session operations.
+
+Our MPSJ compiler is able to parse the defined global session type, automatically infer the list of participants and perform a series of transformations in order to create the appropriate class structures for use by the programmer. 
+
+Our extended runtime infrastructure provides appropriate support for session establishment, in which all participants create links to each other via direct and delegated session invitations. Following session establishment all parties can interact via session operations. 
+
+All of our design and implementation is integrated into the exisiting SJ codebase and follows the same design and programming paradigms allowing potential programmers to become quickly acquainted with the extension to SJ presented in this paper. The ease of programming is illustrated by the two examples of usage we presented in full scope.
+
+We then evaluate our design and implementation against our own design aims as well as the first implementation of multiparty session types in Java. We find that we achieved the majority of our goals and although similar to the first independent implementation we identify elements in our design that we find superior. However, we also identify the weaknesses of MPSJ and suggest a range of improvements, that can be integrated as part of future work on the project. 

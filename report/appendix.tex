@@ -1,0 +1,68 @@
+\appendix
+\addappheadtotoc
+
+
+\chapter{Two-Buyer Protocol Implementation Code}
+\label{appendixA}
+
+\section*{Buyer1 Code}
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
+// Buyer1.sj
+package twobuyer; 
+import sessionj.runtime.net.*;
+ 
+public class Buyer1 {
+	
+	public static main (String[] args) {
+		TwoBuyerProt tbp = new TwoBuyerProt();
+		tbp.b1.setLocal():
+		tbp.b2.setRemote("b2machine", 1600, 1500);
+		tbp.s.setRemote("sellermachine", 1900, 1700);
+		tbp.invite();
+		
+		String wanted = "How to pass an MSc";
+		int mybudget = 20;
+		
+		tbp.s.send(wanted); 				// request quote for wanted book
+		int price = tbp.s.receiveInt();		// get quote
+			
+		tbp.b2.send(mybudget);				//	always contribute with entire budget			
+	} 
+}
+\end{lstlisting}
+
+
+\section*{Seller Code}
+
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
+// Seller.sj
+package twobuyer; 
+import sessionj.runtime.net.*;
+ 
+public class Seller1 {
+	
+	public static main (String[] args) {
+		TwoBuyerProt tbp = new TwoBuyerProt();
+		tbp.s.setLocal():
+		tbp.b1.setRemote("b1machine", 1700, 1900);
+		tbp.b2.setRemote("b2machine", 1800, 2000);
+		tbp.acceptInvite();
+		
+		String booktitle = tbp.b1.receive(); 				// request quote for wanted book
+		int price = databasequery(booktitle);				// query own database for price 
+				
+		tbp.b1.send(price);	
+		tbp.b2.send(price);									//	send price to both participants
+					
+		tbp.b2.inbranch() {
+			case OK: {
+				storeDeliveryAddress(tbp.b2.receive());			// store delivery address in order				
+				tbp.b2.send(checkDeliveryDate(booktitle));		// check delivery date of item
+			}
+			case QUIT: {
+			}
+		}
+	}							
+}
+\end{lstlisting}
