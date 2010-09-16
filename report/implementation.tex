@@ -83,7 +83,7 @@ The algorithm then proceeds recursively through all the global type elements' ch
 
 \subsection{Generating the Global Protocol Class}
 
-The global protocol class is built purely from the global session type. The \LST{SJGlobProtocolDecl} node extends the \LST{polyglot.ast.ClassDecl} node and passes the necessary arguments into the \LST{super} constructor.
+The global protocol class is built purely from the global session type. The \LST{SJGlobProtocol}\LST{Decl} node extends the \LST{polyglot.ast.ClassDecl} node and passes the necessary arguments into the \LST{super} constructor.
 
 The \LST{Id} and \LST{Flags} are transferred in directly and the superclass is set via a \textit{canonical type node} to the runtime class \LST{SJGlobSession}. \LST{SJGlobSession} provides the methods for inviting participants and accepting invitations.
 

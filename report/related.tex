@@ -45,26 +45,76 @@ The authors adopt an extended interaction syntax based on SJ, with additional sp
   \hline 
   Syntax					&	Description												\\
   \hline	 
-  \LST{ss.begin()}	 		&	initiates the protocol 										\\
-  \LST{ss.awaitBegin()}		&	waits for protocol begin								\\
+  \LST{ss.begin()}	 		&	initiate the protocol 									\\
+  \LST{ss.awaitBegin()}		&	wait for protocol begin									\\
   \LST{ss.send(A, obj)}		& 	send object to A										\\
   \LST{ss.receive(A)}		&	receive from A											\\
   \LST{ss.outbranch(L)}		&	controlled branch body of case L						\\
   \LST{ss.inbranch(L)}		& 	accepted branch body of case L							\\
-  \LST{ss.outwhile(bool)}	&	controlled loop by boolean expression					\\	  
-  \LST{ss.inwhile(A)}		& 	loop in control of participant A						\\
+  \LST{ss.outwhile(bool)}	&	outgoing loop controlled by boolean expression			\\	  
+  \LST{ss.inwhile(A)}		& 	incoming loop in control of participant A				\\
   \hline
 \end{tabular}
 \label{TBlafayettesyntax}
 \end{table} 
 
-The work by Sivaramakrishnan et al. also suggests several compiler and runtime performance enhancement strategies. These include batching consecutive sends together, changing the choice structure of branching operations and analysing the data flow in order to redesign the global session type in a more efficient way.
+The work by Sivaramakrishnan et al. also suggests several compiler and runtime performance enhancement strategies. These include batching consecutive sends together, chaining and analysing the data flow in order to redesign the global session type in a more efficient way.
 
-It appears that for many of these enhancements the compiler and runtime are redefining the global session type according to some interpretation of the source code specified in the implementation of these very same session types. Despite the questionable techniques the authors report good performance improvements during testing.   
+Batching sends can be illustrated with the following example. Given a type \LST{\{a->b: <T1>; a->b <T2>;\}} the types T1 and T2 are not sent seperately but batched together and sent in one message. The program on the other end disassembles the message into two, so the data can be processed locally. 
+
+Chaining on the other hand is described as remove unnecessary intermediaries from the sequence of sends. Given the session type \LST{\{a->b <T>; b->c <T>\}} and the condition that \LST{b} does not perform any operations on \LST{T} between receiving it from \LST{a} and sending it to \LST{c}, the session type is rewritten to \LST{\{a->c <T>;\}}. This eliminates one send and one receive operation, hence resulting in better performance. 
+
+It appears however, that for these and other enhancements listed in \cite{sess_type_guided_distr_interact} the compiler and runtime are redefining the global session type according to some interpretation of the source code specified in the implementation of these very same session types.
+
+Despite the questionable techniques of disassembling the session types, the authors report good performance improvements during testing.   
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%   AREA OF MULTIPARTY SESSION TYPES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Work in the Area of Multiparty Session Types}
+\label{sec:mpstarea}
+
+\subsection*{Scribble Protocol Definition Language}
+
+\textit{Scribble} \cite{scribble} is a language for describing multiparty application-level protocols, developed by researchers and industry practitioners for structuring conversation patters. As other protocol definition systems, Scribble is based on session types. Its implementation is designed around three layers.
+
+\begin{packed_description}
+\item [Type Layer] Describes the bare skeleton of interactions including the structure and types of messages exchanged. The Layer is responsible for ensuring communication safety and sequencing of interactions according to the session type
+
+\item [Assertion Layer] Allows assertions on values and branches by ellaborating descriptions in the type layers. This layer ensures that the actual messages sent and received are of the expected types as well as complying with the specified sequencing. 
+
+\item [Protocol Document Layer] Enables assertions over multiple protocols and is responsible for the behaviour of an agent or a set of agents as a whole. This is to ensure compliance with global constraints specified in the protocol decoument. 
+\end{packed_description}
+
+Scribble is effectively designed as an aid for distributed interaction programmers to validate their programs both statically and at compile time and dynamically at runtime. Its implementation is currently not bound to a specific development language.
+
+\subsection*{Dynamic Multirole Sessions}
+
+One of the main problems with multiparty session types in \cite{multiparty_sess_types} is the need for defining a complete set of participants and the interactions between them statically before the initiation of the session. In many applications a more relaxed, yet type safe implementation is needed as the number of participants and the exact interactions may not be known.
+
+\cite{param_mpst} therefore introduces a parameterised version of multiparty session types that uses indices in type definitions. The work discusses a type-system for such session types which permits them to be checked for dead-locks and guarantee type-safety. Specialised decidable projection methods are also discussed for projecting such session types onto indexed participants.
+
+These extended session types are found especially useful for specifying the interaction structures of web services and parallel algorithms in vehicular networks. 
+
+
+\subsection*{Multiparty Symmetric Sum Types for Branching}
+
+The standard multiparty session type theory defines a choice for branching as a choice of a single participant accepted by all other participants. In some situation however, an agreement may be needed from all parties to proceed with interactions specified in a certain branch of the protocol.
+
+The work in \cite{symmetric_sum} presents an extended multiparty session type theory, which allows to specify such a behaviour rigorously and enforce typeability, correctness and soundness upon such types.
+
+The motivation for this theory comes from healthcare systems' guidelines according to which practitioners need to agree on a certain course of action before the action can be taken. The situation however, can be easily transferred into a different setting, applicable to other areas of programming.
+
+\subsection*{Security Extensions for Multiparty Sessions}
+
+Although the data streams between parties involved in a multiparty session can be easily secured using SSL encryption, security concerns arise with respect to the actual identity of the parties. In a adversarial environment other parties cannot be trusted and the securing of interactions in such a setting involves low level protocols which remove the benefit of high level session interaction programming. 
+
+To rectify this problem \cite{crypto_mpst1, crypto_mpst2} suggest a compiler which can generate custom cryptograpic protocols given a multiparty session type. The compiler has the ability to generate ML code and verify its security using a type-system for cryptography.
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%   PROGRAMMING ALTERNATIVES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
 %\section{Distributed Programming Alternatives}
 %\label{sec:alternatives}
 %

@@ -167,7 +167,7 @@ Upon the method call \LST{acceptInvite()} the party sets all of the participants
 
 When the method \LST{invite()} is called all participant sockets are set to initiating sockets and an attempt is made to establish a connection with each of the remaining participants in the session. Once the connection is established, the other participants receive a list of participants they have to connect to, to complete the session. This is referred to as \textit{invitation delegation}.
 
-In the session example used above \LST{p1} establishes connections with \LST{p2}, \LST{p3} and \LST{p4}. It then delegates \LST{p2} to establish its own connections with \LST{p3} and \LST{p4}. It also tells \LST{p3} to establish its own channel with \LST{p4}. The order of invitations is always dictated by the order in which the participants appear in the global protocol. The connection protocol always results in the participants being connected in a star-like fashion as shown in \autoref{fig:connprotresult} and works for any number $n$ of participants.
+In the session example used above \LST{p1} establishes connections with \LST{p2}, \LST{p3} and \LST{p4}. It then delegates \LST{p2} to establish its own connections with \LST{p3} and \LST{p4}. It also tells \LST{p3} to establish its own channel with \LST{p4}. The order of invitations is always dictated by the order in which the participants appear in the global protocol. The connection protocol works for any number $n$ of participants and always results in the participants being connected in a star-like fashion as shown in \autoref{fig:connprotresult}.
 
 \begin{figure}[H]
 \begin{center}

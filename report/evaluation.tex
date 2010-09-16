@@ -21,5 +21,20 @@ In general the majority of design aims have been achieved to a large extent and 
 
 \section{Evaluation Against the Implementation in \cite{sess_type_guided_distr_interact}}
 
+The recently published paper \textit{Efficient Session Type Guided Distributed Interaction} provides a very similar implementation of multiparty session type guided interactions to the one presented in this report. 
+
+The global session type definition syntax differs in that only the outgoing action can be specified. \LST{P1->P2: <T>;} therefore means that \LST{P1} sends an object of type \LST{T} to \LST{P2}. This implicitly means that \LST{P2} receives the object from \LST{P1}. MPSJ offers more flexibility as the action could be specified as \LST{|P1, P2| !<T>} or equally as \LST{|P2, P1| ?(T)}. 
+
+It is arguable whether any of these solutions is better, as the former is closer coupled with the original multiparty session type theory, whereas the latter closer with SJ. We decided to leave it up to the programmer whether she wants to specify all actions from the outgoing perspective or whether in some cases the incoming perspective may better represent the real world process model.
+
+MPSJ global protocols do not specify the participants or the initiating party in the protocol, as opposed to the discussed implementation. We suggest that there is no need to specify the participants as these can be inferred from the global session type. Our solution therefore removes the additional burden put on the programmers. With respect to specifying the initiating party, we decided to put trust into programmers on agreeing elsewhere who should initiate the interaction. This provides more scope for protocol reuse as some global session types' correctness may not necessarily depend on which participants begin the session.
+
+Compared with \cite{sess_type_guided_distr_interact} it may seem that MPSJ requires more calls to initiate a session. However, it is unclear how the other solution obtains the addresses and ports of other participants (MPSJ does so in \LST{setRemote(..)}), which may be cause the difference. Other session operations are almost identical, with the subtle difference of MPSJ calling the methods \textit{on} participant objects, as opposed to putting through as \textit{arguments} of session operation methods.
+
+The main advantage of the discussed paper over MPSJ is its type checking routine - a large component that is not implemented in this project. It ensures that interactions adhere to the specific session types and that these session types are correct themselves.
+
+Finally, a range of performance enhancements are suggested that could find place in MPSJ, too. Batching sequential sends together, as well as chaining operations (as discussed in \autoref{sec:mpstjava}) are two solutions that could be of particular interest for MPSJ. However, extra care has to be taken not to break the session types. The data flow analysis, that is performed to check that for example there are no local operations affecting the data in the two sequential sends, has to be carefully implemented. Only following reasonable, well documented design can these compiler methods be accepted.
+
+In summary the programming paradigm suggested in \cite{sess_type_guided_distr_interact} is very similar to MPSJ. However, the solution is more complete and some of the performance enhancement ideas could be adopted to enhance MPSJ. On the other hand, we suggest that \cite{sess_type_guided_distr_interact} could possibly benefit from integrating some of the design from MPSJ, such as the global participant inference or session initiation code structure. 
 
 \section{Evaluation Against Other Programming Alternatives}
