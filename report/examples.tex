@@ -16,7 +16,7 @@ global_protocol HelloWorldProt {|you, world| !<String>}
 
 The global protocol declaration can be defined in a seperate file (called \LST{HelloWorldProt.sj} in this example) and exchanged between programmers who implement the interactions for the specific parties. Notice, that because the resulting global protocol is a class, the capital letter notation has been adopted for its name.
 
-The next fragment shows the implementation for the paticipant \LST{you} who is the session initiator in the given example. The implementation of this is very straightforward, with the global protocol being initiated first and the roles defined and parameterised. Following that the session invitation is sent out and the interaction between the participants may begin.
+The next fragment shows the implementation for the paticipant \LST{you} who is the session initiator in the given example. The implementation of this is very straightforward, with the global protocol being initiated first and the roles defined and parameterised. Following that, the session invitation is sent out and the interaction between the participants may begin.
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Implementation for participant \textit{you}]
 // You.sj
@@ -36,14 +36,14 @@ public class You {
 }
 \end{lstlisting}
 
-Finally the final code fragment implements the interactions for the participant \LST{world}. The session setup is similar to that of participant \LST{you}, however now that participants accepts the connection. The ports are now in reversed order, which is to support initiation from both parties. If \LST{world} was to invite \LST{you}, \LST{you} would be listening on port 1100 and therefore, 1100 is specified as the first port in the following \LST{setRemote(..)} call. Once the session is established \LST{world} receives the \textit{Hello World!} message and prints it to the screen.
+Finally the final code fragment implements the interactions for the \LST{world} participant. The session setup is similar to that of participant \LST{you}, however now that participants accepts the connection. The ports are now in reversed order, which is to support initiation from both parties. If \LST{world} was to invite \LST{you}, \LST{you} would be listening on port 1100 and therefore, 1100 is specified as the first port in the following \LST{setRemote(..)} call. Once the session is established \LST{world} receives the \textit{Hello World!} message and prints it to the screen.
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Implementation for participant \textit{world}]
 // World.sj
 package helloworld; 
 import sessionj.runtime.net.*;
  
-public class You {
+public class World {
 	
 	public static main (String[] args) {
 		HelloWorldProt hwp = new HelloWorldProt();
@@ -58,9 +58,9 @@ public class You {
 
 \section{Two-Buyer Protocol}
 
-This example is adapted from \cite{multiparty_sess_types} and defines a protocol and interactions in which as one buyer1 asks a seller for the price of a book. The seller responds with a quote, sent to buyer1 and his cooperating partner, buyer2. Buyer1 then sends to buyer2 the amount she is prepared to contribute. If buyer2 is happy to contribute the rest, the branch with label \textit{ok} is entered and buyer2 sends the delivery address to the seller. The seller then responds with a delivery date.
+This example is adapted from \cite{multiparty_sess_types} and defines a protocol and interactions in which as one buyer1 asks a seller for the price of a book. The seller responds with a quote, sent to buyer1 and his cooperating partner, buyer2. Buyer1 then sends to buyer2 the amount she is prepared to contribute. If buyer2 is happy to contribute the rest, the branch with label \LST{OK} is entered and buyer2 sends the delivery address to the seller. The seller then responds with a delivery date. In any other case the label \LST{QUIT} is sent and no other interactions take place.
 
-\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Global Declaration of \textit{HelloWorldProt}]
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Global Declaration of \textit{TwoBuyerProt}]
 // TwoBuyerProt.sj
 package twobuyer; 
 import sessionj.runtime.net.*;
@@ -78,11 +78,11 @@ global_protocol TwoBuyerProt {
 }
 \end{lstlisting}
 
-The structure of this protocol is more complicated than in the case of the \textit{HelloWorldProt}, nonetheless it can still be represented using our syntax in a legible and clear fashion. Note that as example of integrating the receive type into the multiparty session types in lines 7, 8 and 12 have been replaced with dual types compared to the original definition in \cite{multiparty_sess_types}. In our opinion, this better represents the seller as a service provider.  
+The structure of this protocol is more complicated than in the case of the \textit{HelloWorldProt}, nonetheless it can still be represented using our syntax in a legible and clear fashion. Note that as an example of integrating the receive type into the multiparty session types in lines 7, 8 and 12 have been replaced with dual types compared to the original definition in \cite{multiparty_sess_types}. In our opinion, this better represents the seller as a service provider for the two buyers.  
 
 For brevity we will only demonstrate the most interesting implementation for the \LST{b2} participant. We assume that the session is initiated by \LST{b1}. 
 
-\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Global Declaration of \textit{HelloWorldProt}]
+\begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left, caption=Implementation of the \textit{buyer2} participant]
 // Buyer2.sj
 package twobuyer; 
 import sessionj.runtime.net.*;
@@ -109,6 +109,8 @@ public class Buyer2 {
 }
 \end{lstlisting}
 
-Participant \LST{b2} decides to only buy the book of the she has to contribute less than \pounds 20 towards the book. The interesting feature of this protocol and its implementation is the branching. Once \LST{b2} deems the offer as appropriate it sends its address and receieves the delivery date for the book, which the program prints to the screen.
+Participant \LST{b2} decides to only buy the book if she has to contribute less than \pounds 20. The interesting feature of this protocol and its implementation is the branching. Once \LST{b2} deems the offer as appropriate it sends its address and receives the delivery date for the book, which the program prints to the screen.
+
+The branching is implemented by \LST{outbranch(LABEL)} methods, that let the other party know which session branch to continue the interaction on. Therefore, after internal calculations the program can select to either send the \LST{OK} or the \LST{QUIT} labels.  
 
 The implementations for other parties follow a similar pattern and can be found in \autoref{appendixA}.

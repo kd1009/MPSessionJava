@@ -40,7 +40,7 @@ public class Buyer1 {
 package twobuyer; 
 import sessionj.runtime.net.*;
  
-public class Seller1 {
+public class Seller {
 	
 	public static main (String[] args) {
 		TwoBuyerProt tbp = new TwoBuyerProt();
@@ -60,7 +60,7 @@ public class Seller1 {
 				storeDeliveryAddress(tbp.b2.receive());			// store delivery address in order				
 				tbp.b2.send(checkDeliveryDate(booktitle));		// check delivery date of item
 			}
-			case QUIT: {
+			case QUIT: {										// do nothing
 			}
 		}
 	}							

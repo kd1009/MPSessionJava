@@ -7,7 +7,7 @@
 \section{Session Type Guided Distributed Multiparty Interaction in Java}
 \label{sec:mpstjava}
 
-The paper \textit{Efficient Session Type Guided Distributed Interaction} \cite{sess_type_guided_distr_interact} published in June, 2010 discusses a very similar session type assisted distributed object orientated framework for Java. It is the first paper to utilise multiparty session types for global communications.
+The paper \textit{Efficient Session Type Guided Distributed Interaction} \cite{sess_type_guided_distr_interact} published in June, 2010 discusses a very similar session type assisted distributed object-oriented framework for Java. It is the first paper to utilise multiparty session types for global communications.
 
 The authors present the following protocol definition syntax from which the protocol projections are created for the type checking of specific parties. The projection follows the rules set out by \cite{multiparty_sess_types}.
 
@@ -27,9 +27,9 @@ protocol name {
 } 
 \end{lstlisting}
 
-In the given example first the participants are specified followed by designating the initiating participant. The interaction begins with b sending a message of a specific type to c. Participant a then takes the control over a loop in which two other sending actions are executed. Finally, participant c decides on one of the branch cases and the interaction follows as per the specifics of each case label.  
+In the given example, first the participants are specified followed by designating the initiating participant. The interaction begins with \LST{b} sending a message of a specific type to \LST{c}. Participant \LST{a} then takes the control over a loop in which two other sending actions are executed. Finally, participant \LST{c} decides on one of the branch cases and the interaction follows as per the specifics of each case label.  
 
-After specifying the protocol the global session type is registered with a \textit{session resgistry}, giving the protocol name and an instance name. Multiple instances of the same protocol are therfore allowed to run simultanously within the same registry. The instantiation is followed by any participant registering with the session by providing the protocol name, instance and its own role.
+After specifying the protocol the global session type is registered with a \textit{session resgistry}, giving the protocol name and an instance name. Multiple instances of the same protocol are therefore allowed to run simultanously within the same registry. The instantiation is followed by any participant registering with the session by providing the protocol name, instance and its own role.
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE]
 SessionRegistry.instantiate(name, "instance_name")
@@ -58,13 +58,13 @@ The authors adopt an extended interaction syntax based on SJ, with additional sp
 \label{TBlafayettesyntax}
 \end{table} 
 
-The work by Sivaramakrishnan et al. also suggests several compiler and runtime performance enhancement strategies. These include batching consecutive sends together, chaining and analysing the data flow in order to redesign the global session type in a more efficient way.
+The work by Sivaramakrishnan et al. also suggests several compiler and runtime performance enhancement strategies. These include batching consecutive sends together, chaining as well as analysing the data flow in order to redesign the global session type in a more efficient way.
 
 Batching sends can be illustrated with the following example. Given a type \LST{\{a->b: <T1>; a->b <T2>;\}} the types T1 and T2 are not sent seperately but batched together and sent in one message. The program on the other end disassembles the message into two, so the data can be processed locally. 
 
 Chaining on the other hand is described as remove unnecessary intermediaries from the sequence of sends. Given the session type \LST{\{a->b <T>; b->c <T>\}} and the condition that \LST{b} does not perform any operations on \LST{T} between receiving it from \LST{a} and sending it to \LST{c}, the session type is rewritten to \LST{\{a->c <T>;\}}. This eliminates one send and one receive operation, hence resulting in better performance. 
 
-It appears however, that for these and other enhancements listed in \cite{sess_type_guided_distr_interact} the compiler and runtime are redefining the global session type according to some interpretation of the source code specified in the implementation of these very same session types.
+It appears however, that for these and other enhancements listed in \cite{sess_type_guided_distr_interact} the compiler and runtime are redefining the global session types according to some interpretation of the source code data flow specified in the implementation of these very same session types.
 
 Despite the questionable techniques of disassembling the session types, the authors report good performance improvements during testing.   
 
@@ -79,14 +79,14 @@ Despite the questionable techniques of disassembling the session types, the auth
 \textit{Scribble} \cite{scribble} is a language for describing multiparty application-level protocols, developed by researchers and industry practitioners for structuring conversation patters. As other protocol definition systems, Scribble is based on session types. Its implementation is designed around three layers.
 
 \begin{packed_description}
-\item [Type Layer] Describes the bare skeleton of interactions including the structure and types of messages exchanged. The Layer is responsible for ensuring communication safety and sequencing of interactions according to the session type
+\item [Type Layer] Describes the bare skeleton of interactions including the structure and types of messages exchanged. The layer is responsible for ensuring communication safety and sequencing of interactions according to the session type.
 
 \item [Assertion Layer] Allows assertions on values and branches by ellaborating descriptions in the type layers. This layer ensures that the actual messages sent and received are of the expected types as well as complying with the specified sequencing. 
 
 \item [Protocol Document Layer] Enables assertions over multiple protocols and is responsible for the behaviour of an agent or a set of agents as a whole. This is to ensure compliance with global constraints specified in the protocol decoument. 
 \end{packed_description}
 
-Scribble is effectively designed as an aid for distributed interaction programmers to validate their programs both statically and at compile time and dynamically at runtime. Its implementation is currently not bound to a specific development language.
+Scribble is effectively designed as an aid for distributed interaction programmers to validate their programs both statically at compile time and dynamically at runtime. Its implementation is currently not bound to a specific development language.
 
 \subsection*{Dynamic Multirole Sessions}
 
@@ -94,7 +94,7 @@ One of the main problems with multiparty session types in \cite{multiparty_sess_
 
 \cite{param_mpst} therefore introduces a parameterised version of multiparty session types that uses indices in type definitions. The work discusses a type-system for such session types which permits them to be checked for dead-locks and guarantee type-safety. Specialised decidable projection methods are also discussed for projecting such session types onto indexed participants.
 
-These extended session types are found especially useful for specifying the interaction structures of web services and parallel algorithms in vehicular networks. 
+These extended session types are found especially useful for specifying the interaction structures of web services and interactions in vehicular networks with an unknown number $n$ of nodes. 
 
 
 \subsection*{Multiparty Symmetric Sum Types for Branching}

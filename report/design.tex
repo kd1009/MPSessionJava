@@ -40,23 +40,26 @@ MPSJ follows a mixture of SJ syntax and multiparty session type syntax which is 
 \caption{Global Protocol Declaration Syntax}
 \begin{tabular}{|l|l|}
   \hline 
-  Syntax				&	Description												\\
+  Syntax								&	Description												\\
   \hline	 
-  \LST{global_protocol} &	protocol declaration keyword 							\\
-  \LST{\{...\}}			&	global session type delimiter							\\
-  \LST{a, b, ...}		& 	participant names										\\
-  \LST{.}				&	session operation concatenation							\\
-  \LST{|a,b|}			&	session operation prefix								\\
-  \LST{|a,b|!<int>}		& 	participant \LST{a} sends \LST{int} to \LST{b}			\\
-  \LST{|b,a|?(int)}		&	participant \LST{b} receives \LST{int} from \LST{a}		\\	  
+  \LST{global_protocol} 				&	protocol declaration keyword 							\\
+  \LST{\{...\}}							&	global session type delimiter							\\
+  \LST{a, b, ...}						& 	participant names										\\
+  \LST{.}								&	session operation concatenation							\\
+  \LST{|a,b|}							&	session operation prefix								\\
+  \LST{|a,b|!<T>}						& 	participant \LST{a} sends type \LST{T} to \LST{b}		\\
+  \LST{|b,a|?(T)}						&	participant \LST{b} receives type \LST{T} from \LST{a}	\\
+  \LST{|a,b| \{LABEL1: .., LABEL2: ..\}}& 	branching controlled by label from participant a		\\
   \hline
 \end{tabular}
 \label{TBglobprotsynt}
 \end{table} 
 
-The declaration \LST{global_protocol InteractionProtocol \{|a,b|!<int>. |b,c|!<int>. |a,b|?(int) \} } therefore implies that the interaction starts with participant \LST{a} sends an integer value to \LST{b}. Participant \LST{b} then sends an integer value to particpant \LST{c} and the interaction finishes with participant \LST{b} receiving an integer from participant \LST{c}. 
+The declaration \LST{global_protocol InteractionProtocol \{|a,b|!<int>. |b,c|!<int>. |a,b|?(int) \} } therefore implies that the interaction starts with participant \LST{a} sends an integer value to \LST{b}. Participant \LST{b} then senings an integer value to particpant \LST{c} and the interaction finishes with participant \LST{b} receiving an integer from participant \LST{c}. 
 
-Note that this design of global protocols uses a sense of duality, as the last interaction in the above example could be rewritten to \LST{|b,a|!<int>} without changing its the structure of interactions. This has been provided for better integration and compatibility with SJ as well as more user freedom in the presentation of the protocols. It may be desired to represent some parts of the interactions from the receiving end especially in large protocols to maintain clarity and similarity to the desired process models. This could not always be achieved if MPSJ fully adhered to \cite{multiparty_sess_types}.
+Note that this design of global protocols uses a sense of duality, as the last interaction in the above example could be rewritten to \LST{|b,a|!<int>} without changing the structure of interactions. This has been provided for better integration and compatibility with SJ as well as more user freedom in the presentation of the protocols. It may be desired to represent some parts of the interactions from the receiving end, especially in large protocols to maintain clarity and similarity to the desired process models. This could not always be achieved if MPSJ fully adhered to \cite{multiparty_sess_types}.
+
+The session type \LST{|a,b|\{LABEL1: |a,b|!<int>, LABEL2: |b,a|!<String>\}} says that whenever \LST{a} sends \LST{LABEL1} to participant \LST{b}, it will immediately send an integer, too. If \LST{LABEL2} is sent, then \LST{b} will send a String to \LST{a}. 
 
 \subsection{Programming in Multiparty SJ}
 
@@ -80,15 +83,15 @@ public class Interaction {
 }
 \end{lstlisting}
 
-The methods \LST{setLocal()} and \LST{setRemote(String remoteName, int remotePort, int localPort)} are used to assign roles to the participants. They are invoked on the protocol variable and the participant to which the role is to be assigned. There are two ports to be set in the \LST{setRemote(..)} of which the first one is used for connecting to that participant, the latter to accept connections on. 
+The methods \LST{setLocal()} and \LST{setRemote(String remoteName, int remotePort, int localPort)} are used to assign roles to the participants. They are invoked on the protocol variable and the participant to which the role is to be assigned. There are two ports to be set in the \LST{setRemote(..)} of which the first one is used for connecting to that participant, the latter to accept connections coming from that participant. 
 
 \LST{invite()} can only be called by one of the participants and it is important for all the other participants to have their ports open for incoming connections. To create all necessary links between the participants the inviting party delegates further invitations to other parties. All further interactions are similar to those of SessionJava with the difference that they are invoked on the protocol variable and participant as in the initial \LST{set...()} calls.
 
-For other parties, which are on the receiving end of the session initiation the code fragment differs in the session setup method. The parties on the receiving end have to make a call to \LST{acceptInvite()} to initiate the session. The call has to be made before the \LST{invite()} is made on the initialising end. This is to ensure that the incoming connection port is open and ready to receive the session initiation call.
+For other parties, which are on the receiving end of the session initiation the code fragment differs in the session setup method. The parties on the receiving end have to make a call to \LST{acceptInvite()} to initiate the session. The call has to be made before the \LST{invite()} call is made on the initialising end. This is to ensure that the incoming connection port is open and ready to receive the session initiation call.
 
 \section{Compiler Design Modifications}
 
-The syntax and program design discussed in the previous sections impose several modifications onto the compiler. The syntax modifications need to be reflected in the langauge-indpendent grammar, additional AST nodes are necessary. An intelligent design has to be used to utilise the global protocol and the participants as the centres of interaction.
+The syntax and program design discussed in the previous sections impose several modifications onto the compiler. The syntax modifications need to be reflected in the langauge-independent grammar, additional AST nodes are necessary. An intelligent design has to be used to utilise the global protocol and the participants as the centres of interaction.
 
 \subsection{Extending the Parser Generator for Global Session Types}
 \label{subsec:extendingparsegen}
@@ -107,7 +110,7 @@ Lexically, a class definition is identified as a type declaration. The parser ge
 
 The parser generator also had to be extended to correctly recognise a global session operation of the structure \LST{|a,b|!<int>} of which a global session type consists. \autoref{fig:globsesstypelement} shows the structure of a \textit{global session type}. For a global session type to be valid, it has to have at least one \textit{global session type element}, which in turn consists of a \textit{global session type element prefix} and a standard \textit{SJ type element}. This construct together is interpreted as one global operation. Any number $n$ of subsequent operations can be defined as children of previous operations as in the figure. 
 
-The discussed design permits MPSJ to use the SJ code efficiently as it follows similar patterns and provides enough flexibility for future extensions. The specific implementation of the syntax discussed in \autoref{subsec:ppgimpl} ensures safe permformance of lexical analysis so that the majority of structural mistakes can be recognised at the initial stages of the compilation process.
+The discussed design permits MPSJ to use the SJ code efficiently as it follows similar patterns and provides enough flexibility for future extensions. The specific implementation of the syntax discussed in \autoref{subsec:ppgimpl} ensures safe performance of lexical analysis so that the majority of structural mistakes can be recognised at the initial stages of the compilation process.
 
 
 \subsection{Modifying the AST Node Structure}
@@ -131,12 +134,12 @@ Finally all the information about the session is enclosed in the \LST{SJGlobProt
 \end{center}
 \end{figure}
 
-If methods such as \LST{invite()} or \LST{acceptInvite()} relate to the session as a whole, the operations are performed on the global protocol. Other methods concerning specific session participants such as \LST{send()} or \LST{receive()} are performed on the participant objects. Invoking the send method on participant \LST{P1} will therefore asynchronously send the \LST{Object} to participant, whereas the method \LST{receive()} will cause the program to wait until the \LST{Object} from \LST{P1} is received.
+If methods such as \LST{invite()} or \LST{acceptInvite()} relate to the session as a whole, the operations are performed on the global protocol. Other methods concerning specific session participants such as \LST{send()} or \LST{receive()} are performed on the participant objects. Invoking the \LST{send} method on participant \LST{P1} will therefore asynchronously send the \LST{Object} to participant \LST{P1}, whereas the method \LST{receive()} will cause the program to wait until the object from \LST{P1} is received.
 
 
 \subsection{Projection Algorithm for Global Session Types}
 
-Global session type projection onto specific participants is necessary for validating the interactions of that participant against the defined global protocol. The projection is intuitive and onvolves defining a new local session type that is only valid for the participant in question. The following algorithm given in pseudo-code would be used to achieve that projection. 
+Global session type projection onto specific participants is necessary for validating the interactions of that participant against the defined global protocol. The projection is intuitive and involves defining a new local session type that is only valid for the participant in question. The following algorithm given in pseudo-code would be used to achieve that projection. 
 
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
@@ -155,7 +158,7 @@ PROJECT(globalType, @p) {
 }
 \end{lstlisting}
 
-First a new local type is created that will be returned as the local type projected for participant \LST{p}, written \LST{localType@p}. Then, for each element in the global type, its prefix is analysed in order to the determine whether one of the participants is the particpant for which the projection is executed. If the participant is the principal, meaning the element is written from his perspective, then the session type element is appended to the local projection. If in turn the participant is the partner, the dual type is taken. 
+First a new local type is created that will be returned as the local type projected for participant \LST{p}, written \LST{localType}@\LST{p}. Then, for each element in the global type, its prefix is analysed in order to the determine whether one of the participants is the participant for which the projection is executed. If the participant is the principal, meaning the element is written from his perspective, then the session type element is appended to the local projection. If in turn the participant is the partner, the dual type is taken. 
 
 The procedure is the same for the child of the session type, the child of the child, etc. This is to ensure that the entire sequence of session type elements that build up the session type is analysed. Once the child is null, it means the end of the sequence was reached and the local projection for \LST{p} is returned as the result.
 

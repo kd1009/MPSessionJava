@@ -10,11 +10,11 @@ Global type specification syntax is closely related to binary session type defin
 
 The suggested interaction syntax is very intuitive and all methods that need to be called by the programmer have clearly defined and self-explanatory names. By providing a single point of programming interaction in form of the global protocol and the global participants defined therein, an extra level of code clarity is introduced.
 
-The transfer of the majority of session setup operations into the background increases ease of programming by reducing the burden put on the programmers. This also reduces the risk of failure due to bad coding practices. However, on the other hand the user is denied some flexibility, which may be desired by more experienced developers.
+The transfer of the majority of session setup operations into the background increases ease of programming by reducing the burden put on the programmers. This also minimises the risk of failure due to bad coding practices. However, on the other hand the user is denied some flexibility, which may be desired by more experienced developers.
 
 The MPSJ codebase was designed to integrate well into SJ and by following this paradigm code duplication was avoided at many stages. An additional benefit of this approach is the availability of solid, well defined methods and techniques that enhance the implementation of MPSJ.
 
-Due to time constraints we could not implement type checking, however safety is ensured at a selection of places in the code. Example of that can be found in the generated parser as well as constructors for some AST nodes. However, because type checking is not implemented widely and successively througout the project it is still possible for interactions not to adhere to the specified protocols. This could be rectified by implementing MPSJ Runtime Monitoring.
+Due to time constraints we could not implement type checking, however safety is ensured at a selection of places in the code. Examples of that can be found in the generated parser as well as constructors for some AST nodes. However, because type checking is not implemented widely and successively througout the project it is still possible for interactions not to adhere to the specified protocols. This could be rectified by implementing type-checking in the compiler as well as in MPSJ Runtime Monitoring.
 
 In general the majority of design aims have been achieved to a large extent and a well defined foundation is available for further work on the project, which could benefit greatly from several extension to it. These will be discussed in detail in \autoref{ch:futurework}.
 
@@ -23,13 +23,13 @@ In general the majority of design aims have been achieved to a large extent and 
 
 SessionJava is a very well developed and established extension that supports binary session types in order to realise sessions safely. It has been a source of inspiration for MPSJ as well as given the codebase including many underlying methods which perform the session communications.  
 
-MPSJ adds to this implementation by incorporating the support for multiparty sessions, including the additional syntax, compiler transformations and runtime methods for their support of global protocols. This constitutes a significant advance, but additional work is required in order to fully integrate MPSJ code into SJ and provide similar levels of functionality for both..
+MPSJ adds greatly to this implementation by incorporating the support for multiparty sessions, including the additional syntax, compiler transformations and runtime methods for their support of global protocols. This constitutes a significant advance, but additional work is required in order to fully integrate MPSJ code into SJ and provide similar levels of functionality for both.
 
 It is clear that the depth of the core SessionJava is superior to that of MPSJ, as it provides a greater set of session operations. Session delegation, is an additional feature that could be very beneficial if included in MPSJ. Another aid given to SJ programmers is the class downloader and error handling constructs, which are not implemented in MPSJ. Its main advantage over MPSJ however, is the implemented type-checking and runtime monitoring, which together ensure the safe execution of the interactions in accordance to the negotiated protocols.
 
 On the other hand however, SJ could possibly profit from a session participant oriented approach, even if only adapted for binary types. This could potentially attract less advanced programmers who may find session sockets somewhat discouraging.
 
-Another advantage that we deem MPSJ has over SJ is the ability to specify the protocols externally. Keeping the protocol declaration in seperate decomuents reduces the potential for errors when copying from a different source, such as emails, after having agreed on a protocol with programming peers.
+Another advantage that we deem MPSJ has over SJ is the ability to specify the protocols externally. Keeping the protocol declaration in seperate documents reduces the potential for errors when copying from a different source, such as emails, after having agreed on a protocol with programming peers.
 
 With respect to the implementation techniques, both use a similar set of tools as well as programming paradigms. There are therefore only minor differences in the code design, mainly depending on coding preferences. 
 
@@ -37,7 +37,7 @@ Finally, SJ has the advantage of being researched in terms of its performance co
 
 \section{Evaluation Against a Similar Multiparty Implementation}
 
-The recently published paper \textit{Efficient Session Type Guided Distributed Interaction} provides a very similar implementation of multiparty session type guided interactions to the one presented in this report. 
+The recently published work in \cite{sess_type_guided_distr_interact} provides a very similar implementation of multiparty session type guided interactions to the one presented in this report. 
 
 The global session type definition syntax differs in that only the outgoing action can be specified. \LST{P1->P2: <T>;} therefore means that \LST{P1} sends an object of type \LST{T} to \LST{P2}. This implicitly means that \LST{P2} receives the object from \LST{P1}. MPSJ offers more flexibility as the action could be specified as \LST{|P1, P2| !<T>} or equally as \LST{|P2, P1| ?(T)}. 
 
@@ -45,7 +45,7 @@ It is arguable whether any of these solutions is better, as the former is closer
 
 MPSJ global protocols do not specify the participants or the initiating party in the protocol, as opposed to the discussed implementation. We suggest that there is no need to specify the participants as these can be inferred from the global session type. Our solution therefore removes the additional burden put on the programmers. With respect to specifying the initiating party, we decided to put trust into programmers on agreeing elsewhere who should initiate the interaction. This provides more scope for protocol reuse as some global session types' correctness may not necessarily depend on which participants begin the session.
 
-Compared with \cite{sess_type_guided_distr_interact} it may seem that MPSJ requires more calls to initiate a session. However, it is unclear how the other solution obtains the addresses and ports of other participants (MPSJ does so in \LST{setRemote(..)}), which may be cause the difference. Other session operations are almost identical, with the subtle difference of MPSJ calling the methods \textit{on} participant objects, as opposed to putting through as \textit{arguments} of session operation methods.
+Compared with \cite{sess_type_guided_distr_interact} it may seem that MPSJ requires more calls to initiate a session. However, it is unclear how the other solution obtains the addresses and ports of other participants (MPSJ does so in \LST{setRemote(..)}), which may be causing the difference. Other session operations are almost identical, with the subtle difference of MPSJ calling the methods \textit{on} participant objects, as opposed to putting them through as \textit{arguments} of session operation methods.
 
 The main advantage of the discussed paper over MPSJ is its type checking routine - a large component that is not implemented in this project. It ensures that interactions adhere to the specific session types and that these session types are correct themselves.
 

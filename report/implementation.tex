@@ -9,7 +9,7 @@
 
 As discussed in \autoref{subsec:extendingparsegen} the parser generator needs to be extended to handle the additional syntax of MPSJ. The code fragment in \autoref{LSTparsegen} shows how the type declaration is extended. 
 
-The declaration of the global protocol is defined as a type declaration in lines 1-3. Lines 5-9 define the structure of the global protocol as a set of optional modifiers such as \LST{private} or \LST{public}, the \LST{global_protocol} keyword and an identifier, which can be any expression normally used for variable names. The rest of the definition is the global session type itself enclose in braces. 
+The declaration of the global protocol is defined as a type declaration in lines 1-3. Lines 5-9 define the structure of the global protocol as a set of optional modifiers such as \LST{private} or \LST{public}, the \LST{global_protocol} keyword and an identifier, which can be any expression normally used for variable names. The rest of the definition is the global session type itself enclosed in braces. 
 
 The main purpose of the parser is to parse the syntax and build the Abstract Syntax Tree. The tree is built from AST Nodes, which get created through the node factory. The call to the node factory is made in line 8 and the information from each of the syntactic elements is passed into the method in form of arguments.  
 
@@ -58,7 +58,7 @@ Two types of list are required for the inference of all participants in a global
 
 The list of \LST{Id}s stores the unique set of participants, whereas the list of \LST{String}s holds their names. This is necessary due to the fact that the same participants at different points in the global type will have different \LST{Id} nodes. They can therefore only be compared in terms of their names.
 
-The participant inference algorithm adds both participants in the prefix of the first element to both lists by default, as actions as reflexive operations are not permitted, i.e. the two participants will always be distinct. 
+The participant inference algorithm adds both participants in the prefix of the first element to both lists by default, as reflexive operations (i.e. operations from \LST{a} to \LST{a}) are not permitted, i.e. the two participants will always be distinct. 
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
 while(child != null) {
@@ -89,7 +89,7 @@ The \LST{Id} and \LST{Flags} are transferred in directly and the superclass is s
 
 The superclass constructor also takes in a \LST{ClassBody} parameter. This is the challenging element of the global protocol class creation, where the session participants are added. The class body members are created by the static method \LST{makeGlobProtocolMembers} which in turn calls the \LST{createParticipantList} method discussed in \autoref{subsec:inference}. All members are made \LST{public} by the compiler in order to be accessible by the MPSJ code from outside the protocol. The newly created body is then fed into the \LST{ClassDecl} constructor. 
 
-The \LST{SJGlobParticipant} fields are then initialised during the \LST{SJProtocolDeclTranslator} compiler pass. Throughout the entire compilation process all nodes are immutable. Any changes to a node are performed on its copy and the modified copy is then returned to replace the original.
+The \LST{SJGlobParticipant} fields are initialised during the \LST{SJProtocolDeclTranslator} compiler pass. Throughout the entire compilation process all nodes are immutable. Any changes to a node are performed on its copy and the modified copy is then returned to replace the original.
 
 \begin{lstlisting}[basicstyle=\LISTINGSTYLE, numbers=left]
 	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
@@ -114,7 +114,7 @@ The \LST{SJGlobParticipant} fields are then initialised during the \LST{SJProtoc
 	}
 \end{lstlisting}
 
-The method uses the QuasiQuoter library from \LST{polyglot.qq} which allows parsing Strings into AST nodes. This technique involves replacing the expression placeholder \LST{\%E} in line 12 by the name of the participant and parsing the complete expression into a \LST{New} node in line 15. The \LST{New} node corresponds to a \LST{SJGlobParticipant} constructor call, which takes in a \LST{String} argument to assign to the name of field of the participant class. The node is then addes as the initialiser field to the member via the method \LST{init} in line 16. The \LST{return} statement replaces the body of the original protocol by a new body with the modified members and returns the modified copy back to the compiler pass. The node is then replaced in the AST. 
+The method uses the QuasiQuoter library from \LST{polyglot.qq} which allows parsing Strings into AST nodes. This technique involves replacing the expression placeholder \LST{\%E} in line 12 by the name of the participant and parsing the complete expression into a \LST{New} node in line 15. The \LST{New} node corresponds to a \LST{SJGlobParticipant} constructor call, which takes in a String argument to be assigned to the \textit{name} field of the participant class. The node is then addes as the initialiser field to the member via the method \LST{init} in line 16. The \LST{return} statement replaces the body of the original protocol by a new body with the modified members and returns the modified copy back to the compiler pass. The node is therefore replaced in the AST. 
 
 \section{Implementing the Multiparty SJ Runtime}
 
@@ -130,14 +130,14 @@ The UML diagram in \autoref{fig:runtimeuml} effectively pictures the implementat
 \end{center}
 \end{figure}
 
-The MPSJ Runtime reuses some of the compiler classes, such as the information about the session type of a session. As depicted, the \LST{SJGlobProtocol} class has a minimum number of two \LST{SJGlobParticipant} class members. These members implement the \LST{SJSocket} interface and delegate all their session operations to the \LST{SJAbstractSocket}. The information about the session is encoded in the \LST{SJGlobSessionType} and its child, the child of the child, etc. As discussed an \LST{SJGlobSessionType} consists of a standard \LST{SJSessionType} and an \LST{SJGlobSessionTypeElementPrefix} from which the participants of that operation can be obtained.
+The MPSJ Runtime reuses some of the compiler classes, such as the information about the session type of a session. As depicted, the \LST{SJGlobProtocol} class has a minimum number of two \LST{SJGlobParticipant} class members. These members implement the \LST{SJSocket} interface and delegate all their session operations to the \LST{SJAbstractSocket}. The information about the session is encoded in the \LST{SJGlobSessionType} and its child, the child of the child, etc. As discussed, an \LST{SJGlobSessionType} consists of a standard \LST{SJSessionType} and an \LST{SJGlobSessionTypeElementPrefix} from which the participants of that operation can be obtained.
 
 
 \subsection{Global Participants as Session Sockets}
 
 The use of global participants as session sockets is one of the essential features of MPSJ which enhances the programming experience.
 
-This achieved in the class \LST{SJGlobParticipant} which implements the \LST{SJSocket} interface. It would be possible to implement all the methods of this interface, however delegating the tasks to the \LST{SJAbstractSocket} member variable makes more efficient use of the exisiting code base.
+This is achieved in the class \LST{SJGlobParticipant} which implements the \LST{SJSocket} interface. It would be possible to implement all the methods of this interface, however delegating the tasks to the \LST{SJAbstractSocket} member variable makes more efficient use of the exisiting code base.
 
 Such an implementation also removes the need to specify seperate participant classes for accepting and initiating sockets as the \LST{SJAbstractSocket} behaves as an abstract superclass of all sockets. The socket is therefore inititated once the role of the participant is known, i.e. during session initiation.
 
@@ -176,9 +176,9 @@ The invitation and acceptance methods are both implemented in the \LST{SJGlobSes
 
 The code fragment from line 7 onwards iterates through all members of the class and checks if the member is of type \LST{SJGlobParticipant} and whether it has not been set to local by the programmer. When found, global participants are grouped into a list and a copy of the list is made for future reference.
 
-For every remote participant in the list the \LST{invite()} method creates a connection with the participant's hostname and its port, both assigned earlier through the \LST{setRemote(..)} method. The method \LST{setDel(..)} in line 16 requests the connection with the remote participant and set the \LST{SJAbstractSocket} to the socket returned be the \LST{request(..)} method. This procedure is similar to the session establishment in SJ.
+For every remote participant in the list, the \LST{invite()} method creates a connection with the participant's hostname and its port, both assigned earlier through the \LST{setRemote(..)} method. The method \LST{setDel(..)} in line 16 requests the connection with the remote participant and sets the \LST{SJAbstractSocket} to the socket returned be the \LST{request(..)} method. This procedure is similar to the session establishment in SJ.
 
-Following that the participant is removed from the copy of the list but all other participants remain on it. By sending the modified list (line 19) to the participant who just accepted the connection, we delegate further invitations of connections he has to establish to fullfil the circle. Note, that with every iteration through the original list, the \LST{delegationList} is shortened. Finally, when we reach the last element that list will be empty, as the last participant in the sequence does not have to establish connections with anyone. The initiating participant's role in the protocol from \autoref{fig:sessioncreation} is completed. 
+Following that, the participant is removed from the copy of the list but all other participants remain on it. By sending the modified list (line 19) to the participant who just accepted the connection, we delegate all further invitations of connections he has to establish to fullfil the circle. Note, that with every iteration through the original list, the \LST{delegationList} is shortened. Finally, when we reach the last element that list will be empty, as the last participant in the sequence does not have to establish connections with anyone. The initiating participant's role in the protocol from \autoref{fig:sessioncreation} is completed. 
 
 
 \paragraph*{The \LST{acceptInvite()} method} This procedure is responsible for preparing all sockets for the acceptance of incoming connections. The main difference from the \LST{invite()} method is in lines 15-16. Additionally, no copy of the obtained participants' list is made or used.
@@ -195,6 +195,6 @@ After establishing the connection the participant receives a list of all other p
 
 \paragraph*{The \LST{inviteOthers(..)} background method}
 
-This method takes in an argument of type \LST{LinkedList<SJGlobParticipant>} and iterates through the list performing very similar actions to the \LST{invite()} method. The sockets on these participants, that have already been set to accepting sockets are now being overwritten to handle outgoing connections. Once the connection is established standards session operations may be performed via these channels.
+This method is invoked behind the scenes and takes in an argument of type \LST{LinkedList<SJGlobParticipant>} to iterate through the list performing very similar actions to the \LST{invite()} method. The sockets in these participants, that have already been set to accepting sockets by the \LST{acceptInvite()} method, are now being overwritten to handle outgoing connections. Once the connection is established standard session operations may be performed via these channels.
 
 Note that contrary to \LST{invite()} this method does not delegate any further invitations. The initialising party is the coordinator and therefore responsible for ensuring that all partners are linked to each other.
