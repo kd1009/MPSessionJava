@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="681.01251"
+   height="261.01132"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="debugging.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path3791"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 L 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="352.02182"
+     inkscape:cy="192.9105"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1793"
+     inkscape:window-height="894"
+     inkscape:window-x="5"
+     inkscape:window-y="49">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3272"
+       visible="true"
+       enabled="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-29.512014,-33.594483)">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.02905917;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2383"
+       width="189.81769"
+       height="100.00928"
+       x="30.194624"
+       y="34.109013" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Medium"
+       x="118.06337"
+       y="60.358448"
+       id="text3155"><tspan
+         sodipodi:role="line"
+         id="tspan3157"
+         x="120.40126"
+         y="60.358448">Check arguments passed </tspan><tspan
+         sodipodi:role="line"
+         x="120.40126"
+         y="77.858444"
+         id="tspan3159">into SJNodeFactory for </tspan><tspan
+         sodipodi:role="line"
+         x="120.40126"
+         y="95.358444"
+         id="tspan3161">coherence protocol </tspan><tspan
+         sodipodi:role="line"
+         x="120.40126"
+         y="112.85844"
+         id="tspan3163">definition </tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.02950966;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3165"
+       width="189.99831"
+       height="100.00169"
+       x="269.98694"
+       y="34.109238" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Bold"
+       x="366.05585"
+       y="60.358448"
+       id="text3167"><tspan
+         sodipodi:role="line"
+         x="366.05585"
+         y="60.358448"
+         id="tspan3175">Verify the list of participants</tspan><tspan
+         sodipodi:role="line"
+         x="366.05585"
+         y="77.858444"
+         id="tspan3186">created by the</tspan><tspan
+         sodipodi:role="line"
+         x="366.05585"
+         y="95.358444"
+         id="tspan3188">createParticipantList</tspan><tspan
+         sodipodi:role="line"
+         x="366.05585"
+         y="112.85844"
+         id="tspan3190">method</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.02264476;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3192"
+       width="189.39275"
+       height="98.987991"
+       x="520.62048"
+       y="35.115952" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Bold"
+       x="613.54321"
+       y="60.358452"
+       id="text3194"><tspan
+         sodipodi:role="line"
+         x="615.8811"
+         y="60.358452"
+         id="tspan3202">Analyse the </tspan><tspan
+         sodipodi:role="line"
+         x="613.54321"
+         y="77.858452"
+         id="tspan3213">makeGlobProtMembers</tspan><tspan
+         sodipodi:role="line"
+         x="613.54321"
+         y="95.358452"
+         id="tspan3215">method (in particular field</tspan><tspan
+         sodipodi:role="line"
+         x="613.54321"
+         y="112.85845"
+         id="tspan3217">disambiguation)</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.01377094;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3219"
+       width="190.01126"
+       height="96.960876"
+       x="30.0189"
+       y="196.59869" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Bold"
+       x="118.69296"
+       y="222.85577"
+       id="text3221"><tspan
+         sodipodi:role="line"
+         x="121.03085"
+         y="222.85577"
+         id="tspan3229">Ensure that the </tspan><tspan
+         sodipodi:role="line"
+         x="118.69296"
+         y="240.35577"
+         id="tspan3260">SJGlobSessionType field is</tspan><tspan
+         sodipodi:role="line"
+         x="118.69296"
+         y="257.85577"
+         id="tspan3262">initiated to the correct type</tspan><tspan
+         sodipodi:role="line"
+         x="118.69296"
+         y="275.35577"
+         id="tspan3264">and check its children</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.92717457px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       d="M 220,84.094482 L 269.90226,84.094482"
+       id="path3268" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       d="M 460,84.094482 L 518.58885,84.094482"
+       id="path3270" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       d="M 610,134.09448 L 610,154.09448 L 120,154.09448 L 120,194.09448 L 120,194.09448"
+       id="path3274" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.01381588;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5593"
+       width="190.02821"
+       height="96.960831"
+       x="269.95227"
+       y="196.62421" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Bold"
+       x="370"
+       y="204.09448"
+       id="text5595"><tspan
+         sodipodi:role="line"
+         x="370"
+         y="204.09448"
+         id="tspan5603" /><tspan
+         sodipodi:role="line"
+         x="372.33789"
+         y="221.59448"
+         id="tspan5630">Check the entire </tspan><tspan
+         sodipodi:role="line"
+         x="372.33789"
+         y="239.09448"
+         id="tspan5632">SJGlobProtocolDecl </tspan><tspan
+         sodipodi:role="line"
+         x="372.33789"
+         y="256.59448"
+         id="tspan5634">class at the end of the </tspan><tspan
+         sodipodi:role="line"
+         x="370"
+         y="274.09448"
+         id="tspan5636">constructor call</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.92730099px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       d="M 219.96365,244.09448 L 269.88975,244.09448"
+       id="path5605" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.02120817px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       d="M 459.96538,246.08928 L 521.22811,246.08928"
+       id="path5607" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.02264476;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5609"
+       width="189.39275"
+       height="98.987991"
+       x="520"
+       y="195.10649" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:cmr10;-inkscape-font-specification:cmr10 Bold"
+       x="613.77539"
+       y="220.09448"
+       id="text5611"><tspan
+         sodipodi:role="line"
+         x="613.77539"
+         y="220.09448"
+         id="tspan5619">Perform final check of the</tspan><tspan
+         sodipodi:role="line"
+         x="616.11328"
+         y="237.59448"
+         id="tspan5647">protocol after initialisation </tspan><tspan
+         sodipodi:role="line"
+         x="613.77539"
+         y="255.09448"
+         id="tspan5649">in the SJProtocolTranslator</tspan><tspan
+         sodipodi:role="line"
+         x="613.77539"
+         y="272.59448"
+         id="tspan5651">pass</tspan></text>
+  </g>
+</svg>
