@@ -1,7 +1,5 @@
 package sessionj.runtime.net;
 
-import java.io.Serializable;
-
 import sessionj.runtime.SJIOException;
 import sessionj.runtime.SJProtocol;
 import sessionj.runtime.session.SJSerializer;
@@ -15,6 +13,7 @@ public class SJGlobParticipant implements SJSocket {
 	private SJAbstractSocket del;
 	
 	public SJServerSocket servsocket;
+	public SJService serv;
 
 	private String name;
 	private String hostname;

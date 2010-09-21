@@ -1,6 +1,7 @@
 package sessionj.runtime.net;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.LinkedList;
 import sessionj.runtime.SJIOException;
 import sessionj.runtime.transport.SJTransportUtils;
@@ -86,17 +87,36 @@ public abstract class SJGlobSession
 		try {
 			SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
 			
-			for (SJGlobParticipant gp: acceptanceList) {
+			LinkedList<SJGlobParticipant> acceptanceList2 = new LinkedList<SJGlobParticipant>(acceptanceList);
+			
+			for (SJGlobParticipant gp: acceptanceList2) {
 				
 				if(delegatedInvitations.contains(gp.getName())) {
 					
 					if(gp.servsocket != null) {
-						System.out.println("(IO) TRYING TO CLOSE: " + gp.servsocket.toString());
 						gp.servsocket.close();
+						System.out.println("(IO) CLOSED: " + gp.servsocket.toString()  + "\n");
 					}
-					gp.setDel(null);
-					final SJService serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
-					gp.setDel(serv.request(params));
+				}	
+			}
+			
+			Collections.reverse(acceptanceList2);
+			
+			for (SJGlobParticipant gp: acceptanceList2) {
+				
+				if(delegatedInvitations.contains(gp.getName())) {
+					
+					if(gp.serv == null)
+						gp.setDel(null);
+						gp.serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
+				}	
+			}
+			
+			
+			for (SJGlobParticipant gp: acceptanceList2) {
+				
+				if(delegatedInvitations.contains(gp.getName())) {
+					gp.setDel(gp.serv.request(params));
 					LinkedList<String> dummy = new LinkedList<String>();
 					dummy.add("This is the dummy list");
 					gp.send(dummy);
