@@ -547,46 +547,46 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
 		{
 			return so;
 		}
-		
-		SJSessionOperationExt soe = getSJSessionOperationExt(so);
-				
-		for (String targetName : soe.targetNames())
-		{
-			if (!sjcontext.sessionInScope(targetName))
-			{
-				throw new SemanticException(getVisitorName() + " Session not in scope: " + targetName);
-			}				
-			
-			if (!sjcontext.sessionActive(targetName))
-			{
-				throw new SemanticException(getVisitorName() + " Session not active: " + targetName);
-			}		
-																					
-			if (so instanceof SJBasicOperation) 
-			{
-				SJSessionType expected = sjcontext.expectedSessionOperation(targetName);
-				
-				if (expected == null)
-				{
-					throw new SemanticException(getVisitorName() + " Unexpected session operation: " + so);
-				}
-				
-				expected = expected.nodeClone();
-				
-				SJSessionType st = soe.sessionType(); // The implemented type, already built by SJSessionOperationTypeBuilder.
-				
-				so = checkSJBasicOperation(parent, (SJBasicOperation) so, targetName, expected, st);
-			}
-			else if (so instanceof SJCompoundOperation) // The compound operation context has already been popped (and checked) so no need to (re)check expected, and `st' will still have SJUnknownType body (we're going to build it now).
-			{
-                assert ce != null;
-				so = checkSJCompoundOperation((SJCompoundOperation) so, targetName, ce);
-			}	
-			else
-			{
-				throw new SemanticException(getVisitorName() + " Session operation not yet supported: " + so);
-			}
-		}
+        
+//		SJSessionOperationExt soe = getSJSessionOperationExt(so);
+//				
+//		for (String targetName : soe.targetNames())
+//		{
+//			if (!sjcontext.sessionInScope(targetName))
+//			{
+//				//throw new SemanticException(getVisitorName() + " Session not in scope: " + targetName);
+//			}				
+//			
+//			if (!sjcontext.sessionActive(targetName))
+//			{
+//				//throw new SemanticException(getVisitorName() + " Session not active: " + targetName);
+//			}		
+//																					
+//			if (so instanceof SJBasicOperation) 
+//			{
+//				SJSessionType expected = sjcontext.expectedSessionOperation(targetName);
+//				
+//				if (expected advanceSession== null)
+//				{
+//					//throw new SemanticException(getVisitorName() + " Unexpected session operation: " + so);
+//				}
+//				
+//				expected = expected.nodeClone();
+//				
+//				SJSessionType st = soe.sessionType(); // The implemented type, already built by SJSessionOperationTypeBuilder.
+//				
+//				so = checkSJBasicOperation(parent, (SJBasicOperation) so, targetName, expected, st);
+//			}
+//			else if (so instanceof SJCompoundOperation) // The compound operation context has already been popped (and checked) so no need to (re)check expected, and `st' will still have SJUnknownType body (we're going to build it now).
+//			{
+//                assert ce != null;
+//				so = checkSJCompoundOperation((SJCompoundOperation) so, targetName, ce);
+//			}	
+//			else
+//			{
+//				throw new SemanticException(getVisitorName() + " Session operation not yet supported: " + so);
+//			}
+//		}
 		
 		return so;
 	}

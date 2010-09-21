@@ -1,5 +1,7 @@
 package sessionj.runtime.net;
 
+import java.io.Serializable;
+
 import sessionj.runtime.SJIOException;
 import sessionj.runtime.SJProtocol;
 import sessionj.runtime.session.SJSerializer;
@@ -11,19 +13,23 @@ import sessionj.types.sesstypes.SJSessionType;
 public class SJGlobParticipant implements SJSocket {
 
 	private SJAbstractSocket del;
+	
+	public SJServerSocket servsocket;
 
 	private String name;
 	private String hostname;
-	private int port;
+	private int remotePort;
+	private int localPort;
 	private boolean local = false;
 	
 	public SJGlobParticipant(String name) {
 		this.name = name;
 	}
 
-	public void setRemote(String host, int port) {
+	public void setRemote(String host, int remotePort, int localPort) {
 		this.hostname = host;
-		this.port = port;
+		this.remotePort = remotePort;
+		this.localPort = localPort;
 	}
 
 	public void setLocal() {
@@ -34,8 +40,12 @@ public class SJGlobParticipant implements SJSocket {
 		return hostname;
 	}
 
-	public int getPort() {
-		return port;
+	public int getRemotePort() {
+		return remotePort;
+	}
+	
+	public int getLocalPort() {
+		return localPort;
 	}
 
 	public void setDel(SJAbstractSocket del) {
@@ -101,9 +111,9 @@ public class SJGlobParticipant implements SJSocket {
 		return del.getLocalHostName();
 	}
 
-	public int getLocalPort() {
-		return del.getLocalPort();
-	}
+	//public int getLocalPort() {
+	//	return del.getLocalPort();
+	//}
 
 	public SJSessionParameters getParameters() {
 		return del.getParameters();
@@ -220,7 +230,7 @@ public class SJGlobParticipant implements SJSocket {
 	public SJSessionType remainingSessionType() {
 		return del.remainingSessionType();
 	}
-
+ 
 	public void send(Object o) throws SJIOException {
 		del.send(o);
 	}
@@ -272,5 +282,9 @@ public class SJGlobParticipant implements SJSocket {
 	public void updateStaticAndRuntimeTypes(SJSessionType staticType,
 			SJSessionType runtimeType) throws SJIOException {
 		del.updateStaticAndRuntimeTypes(staticType, runtimeType);
+	}
+
+	public int getPort() {
+		return 0;
 	}
 }

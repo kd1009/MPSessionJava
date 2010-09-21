@@ -603,18 +603,13 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 		return new SJGlobTypeNode_c(pos, prefix, operation);
 	}
 	
-//	public SJGlobSendNode SJGlobSendNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
-//	{
-//		return new SJGlobSendNode_c(pos, messageType, prefixType);
-//	}
-//	
-//	public SJGlobReceiveNode SJGlobReceiveNode(Position pos, TypeNode messageType, SJGlobElementPrefixNode prefixType)
-//	{
-//		return new SJGlobReceiveNode_c(pos, messageType, prefixType);
-//	}
-	
 	public SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJGlobTypeNode tn)
 	{
-		return new SJGlobProtocolDecl_c(pos,flags, name, CanonicalTypeNode(pos, SJ_GLOB_SESSION_TYPE), tn);
+		return new SJGlobProtocolDecl_c(pos, flags.Public(), name, CanonicalTypeNode(pos, SJ_GLOB_SESSION_TYPE), tn);
+	}
+	
+	public SJFieldSocket SJFieldSocket(Position pos, Receiver target, Id name) 
+	{
+		return new SJFieldSocket_c(pos, target, name);
 	}
 }

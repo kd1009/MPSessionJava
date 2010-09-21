@@ -472,21 +472,21 @@ public class SJNoAliasExprBuilder extends ContextVisitor
 //targets = c.arguments(); // Type checking will prevent these from being final.
 }*/
 
-        if (targets != null)
-        {
-            for (Object o : targets)
-            {
-                SJLocalSocket s = (SJLocalSocket) o;
-                
-                if (!s.localInstance().flags().isFinal() && locals.contains(s))
-                // Requires that the SJLocalSocket found in targets and the one in locals be equals.
-                // Had to implement equals in SJLocalSocket_c, as parent classes come from Polyglot.
-                // (the target of the session operation) and assumes that delegating a session over itself is illegal.
-                {
-                    locals.remove(s);
-                }
-            }
-        }
+//        if (targets != null)
+//        {
+//            for (Object o : targets)
+//            {
+//                SJLocalSocket s = (SJLocalSocket) o;
+//                
+//                if (!s.localInstance().flags().isFinal() && locals.contains(s))
+//                // Requires that the SJLocalSocket found in targets and the one in locals be equals.
+//                // Had to implement equals in SJLocalSocket_c, as parent classes come from Polyglot.
+//                // (the target of the session operation) and assumes that delegating a session over itself is illegal.
+//                {
+//                    locals.remove(s);
+//                }
+//            }
+//        }
     }
 
   private Node buildLit(Lit l) throws SemanticException

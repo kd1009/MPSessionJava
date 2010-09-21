@@ -424,7 +424,10 @@ sj_communication_type_elem ::=
 ;
 
 sj_session_type_element ::=
-	sj_communication_type_elem:e {: RESULT = e; :}
+	sj_communication_type_elem:e 
+	{: 
+		RESULT = e; 
+	:}
 | NOT:a LBRACE sj_branch_cases:b RBRACE:c
 	{:
 		RESULT = parser.nf.SJOutbranchNode(parser.pos(a, c), b);

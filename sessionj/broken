@@ -8,3 +8,6 @@ SJSessionProtocolImpl.java:85
 SJVariableParser.java:187
 SJNoAliasExprBuilder.java:472
 ??ExtensionInfo.java:302
+
+SJSessionTypeChecker.java:552
+SJAbstractSessionVisitor.java:139

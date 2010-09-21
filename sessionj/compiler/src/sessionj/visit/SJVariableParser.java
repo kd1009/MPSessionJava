@@ -91,7 +91,22 @@ public class SJVariableParser extends ContextVisitor
 //		}
 		
 		return f;
-	}		
+	}
+	
+	private static Field parseSJSocketField(ContextVisitor cv, Field f) throws SemanticException {
+		SJNodeFactory sjnf = (SJNodeFactory) cv.nodeFactory();
+		
+		SJVariable v = null;
+		
+		v = sjnf.SJFieldSocket(f.position(), f.target(),  f.id());
+		
+		if (v != null)
+		{
+			f = (Field) buildAndCheckTypes(cv, v);
+		}
+		
+		return  f;	
+	}
 	
 	private static final Local parseSJLocal(ContextVisitor cv, Local l) throws SemanticException // Doesn't attach extension objects (SJVariables are not SJTypeable).
 	{
@@ -183,8 +198,13 @@ public class SJVariableParser extends ContextVisitor
                 else {
                     throw new SemanticException("[SJVariableParser] Expected session socket or server variable, not: " + r);
                 }
-            } else {
-                //throw new SemanticException("[SJVariableParser] Expected local variable, not: " + r);
+            }
+            else if (r instanceof Field) {
+            	targets.add((SJVariable) parseSJSocketField(cv, (Field) r));
+            }
+            
+            else {
+                throw new SemanticException("[SJVariableParser] Expected local variable, not: " + r);
             }
         }
 		

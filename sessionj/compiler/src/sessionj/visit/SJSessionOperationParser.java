@@ -5,6 +5,7 @@ import polyglot.frontend.Job;
 import polyglot.types.LocalInstance;
 import polyglot.types.SemanticException;
 import polyglot.types.TypeSystem;
+import polyglot.types.VarInstance;
 import polyglot.visit.ContextVisitor;
 import polyglot.visit.NodeVisitor;
 import sessionj.ast.SJNodeFactory;
@@ -144,7 +145,7 @@ public class SJSessionOperationParser extends ContextVisitor
 	{
 		List targets = bo.targets(); // Already type built and checked by SJVariableParser.
 		
-		List<LocalInstance> seen = new LinkedList<LocalInstance>();
+		List<VarInstance> seen = new LinkedList<VarInstance>();
 
         for (Object target : targets) {
             Receiver r = (Receiver) target;
@@ -153,7 +154,7 @@ public class SJSessionOperationParser extends ContextVisitor
                 throw new SemanticException("[SJSessionOperationParser] Expected session socket target, not: " + r);
             }
 
-            LocalInstance li = ((SJLocalSocket) r).localInstance(); // SJLocalSocketInstance not built until SJSessionTypeChecker.
+           VarInstance li = (VarInstance) ((SJSocketVariable) r).varInstance(); // SJLocalSocketInstance not built until SJSessionTypeChecker.
 
             if (seen.contains(li)) {
                 throw new SemanticException("[SJSessionOperationParser] Repeated session target: " + li);

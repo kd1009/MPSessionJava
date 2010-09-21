@@ -136,18 +136,18 @@ abstract public class SJAbstractSessionVisitor extends ContextVisitor
 	
 	private Node recordSJSessionOperation(SJSessionOperation so) throws SemanticException
 	{
-		List<String> sjnames = getSJSessionOperationExt(so).targetNames();
-		SJSessionType st = getSessionType(so);
-		
-		for (String sjname : sjnames)
-		{
-			if (so instanceof SJPass) //FIXME: also do channel passing.
-			{
-                doDelegationForSjSocketArgments(so);
-			}
-			
-			sjcontext.advanceSession(sjname, st);
-		}
+//		List<String> sjnames = getSJSessionOperationExt(so).targetNames();
+//		SJSessionType st = getSessionType(so);
+//		
+//		for (String sjname : sjnames)
+//		{
+//			if (so instanceof SJPass) //FIXME: also do channel passing.
+//			{
+//                doDelegationForSjSocketArgments(so);
+//			}
+//			
+//			sjcontext.advanceSession(sjname, st);
+//		}
 		
 		return so;
 	}
@@ -286,7 +286,7 @@ abstract public class SJAbstractSessionVisitor extends ContextVisitor
 	private ProcedureCall recordProcedureCall(ProcedureCall pc) throws SemanticException // Based on SJSessionTypeChecker counterpart.
 	{
 		ProcedureInstance pi = pc.procedureInstance();
-		
+
 		if (pi instanceof SJProcedureInstance)
 		{		
 			List<Type> sft = ((SJProcedureInstance) pi).sessionFormalTypes();
@@ -314,7 +314,8 @@ abstract public class SJAbstractSessionVisitor extends ContextVisitor
 									sjcontext.advanceSession(sjname, ours.nodeClone());
 									
 									ours = ours.child();
-								}
+
+	}
 							}
 							else
 							{
@@ -382,6 +383,7 @@ abstract public class SJAbstractSessionVisitor extends ContextVisitor
 			}
 			else
 			{
+
 				sjcontext.pushTry();
 			}			
 		}

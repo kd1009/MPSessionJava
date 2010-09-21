@@ -11,6 +11,7 @@ import polyglot.visit.*;
 import sessionj.ast.*;
 import sessionj.ast.sessvars.*;
 import sessionj.ast.sessops.basicops.*;
+import sessionj.runtime.net.SJGlobParticipant;
 import sessionj.types.SJTypeSystem;
 import sessionj.types.sesstypes.*;
 import sessionj.util.*;
@@ -41,6 +42,11 @@ public class SJHigherOrderTranslator extends ContextVisitor
 			
 			if (t instanceof SJSessionType) 
 			{
+				//if (((SJBasicOperation) n).targets().get(0) instanceof SJFieldSocket_c)
+				//{
+				//	return n;
+				//}
+				
 				n = translateHOOperation((SJBasicOperation) n, (SJSessionType) t);
 			}
 		}		

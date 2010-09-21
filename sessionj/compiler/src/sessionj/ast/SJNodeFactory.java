@@ -86,6 +86,7 @@ public interface SJNodeFactory extends NodeFactory
 	SJLocalSocket SJLocalSocket(Position pos, Id name);
 	SJLocalServer SJLocalServer(Position pos, Id name);
 	SJLocalSelector SJLocalSelector(Position pos, Id name);
+	SJFieldSocket SJFieldSocket(Position pos, Receiver target, Id name);
 	
 	SJAmbiguousTry SJAmbiguousTry(Position pos, Block tryBlock, List catchBlocks, Block finallyBlock, List targets);
 	SJSessionTry SJSessionTry(Position pos, Block tryBlock, List catchBlocks, Block finallyBlock, List targets);

@@ -15,23 +15,22 @@ public class KacperAgent {
 	public static void main (String[] args) throws SJIOException {		
 
 		KacperProt ss = new KacperProt();
-
-	   System.out.println(ss.agency.toString());
-		System.out.println(ss.customer1.toString());
+		//System.out.println(ss.agency.toString());
+		//System.out.println(ss.customer1.toString());
 		
-		System.out.println("I am " + ss.getClass());
+		//System.out.println("I am " + ss.getClass());
 		
-		ss.agency.setLocal();
-		ss.customer1.setRemote("localhost", 1050);
-		ss.acceptInvite();
+		//ss.agency.setLocal();
+		//ss.customer1.setRemote("localhost", 1050);
+		//ss.acceptInvite();
 
-		Field[]  fields = ss.getClass().getDeclaredFields();	
+		//Field[]  fields = ss.getClass().getDeclaredFields();	
 
-		for(int i=0; i<fields.length; i++) {
-			System.out.println(((Field) fields[i]).getType());
-		}		
+		//for(int i=0; i<fields.length; i++) {
+		//	System.out.println(((Field) fields[i]).getType());
+		//}		
 
-		System.out.println(ss.customer1.receiveInt());
+		ss.customer1.receiveInt();
 	}
 }
 

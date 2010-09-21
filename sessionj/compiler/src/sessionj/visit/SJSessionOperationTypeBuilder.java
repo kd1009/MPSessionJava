@@ -29,6 +29,7 @@ import sessionj.ast.sessvars.SJVariable;
 import sessionj.ast.typenodes.SJProtocolNode;
 import sessionj.ast.typenodes.SJTypeNode;
 import sessionj.extension.SJExtFactory;
+import sessionj.runtime.net.SJGlobParticipant;
 import sessionj.types.SJTypeSystem;
 import sessionj.types.sesstypes.SJCBeginType;
 import sessionj.types.sesstypes.SJInbranchType;
@@ -182,7 +183,7 @@ public class SJSessionOperationTypeBuilder extends ContextVisitor
 	
 	private SJPass buildSJPassAux(SJPass p, SJSessionType st)
 	{
-		List<String> sjnames = getTargetNames(p.targets(), false);
+		List<String> sjnames = getTargetNames(p.targets(), true);
 		
 		p = (SJPass) setSJSessionOperationExt(sjef, p, st, sjnames);		
 		
@@ -351,7 +352,8 @@ public class SJSessionOperationTypeBuilder extends ContextVisitor
 
             if (v instanceof SJLocalChannel) {
                 if (channelsAllowed) sjnames.add(v.sjname());
-            } else {
+            } 	
+            else {
                 sjnames.add(v.sjname());
             }
         }

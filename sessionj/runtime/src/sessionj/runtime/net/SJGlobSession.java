@@ -17,22 +17,27 @@ public abstract class SJGlobSession
 		try {
 		
 		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
+		LinkedList<SJGlobParticipant> invitationList = new LinkedList<SJGlobParticipant>();
+		LinkedList<String> delegationList = new LinkedList<String>();
 		
 		for(Field f: getClass().getDeclaredFields()) {
 			
 			if (f.getType().equals(SJGlobParticipant.class) && (!((SJGlobParticipant) f.get(this)).isLocal())) {
-				SJGlobParticipant p = (SJGlobParticipant) f.get(this);;	
 				
-				String hostname = p.getHostname();
-				int port = p.getPort();
-				final SJService serv = SJService.create(null, hostname, port);
-				p.setDel(serv.request(params));
-				
-				f.set(this, p);
-				((SJGlobParticipant) f.get(this)).sendInt(10);
-				
+				invitationList.add((SJGlobParticipant) f.get(this));
+				delegationList.add(((SJGlobParticipant) f.get(this)).getName());
 			}
 		}
+		
+		for(SJGlobParticipant gp: invitationList){
+			
+			final SJService serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
+			gp.setDel(serv.request(params));
+			
+			delegationList.remove(gp.getName());
+			gp.send(delegationList);
+		}
+		
 		
 		} catch (Exception e) {e.printStackTrace();} 
 	}
@@ -42,28 +47,62 @@ public abstract class SJGlobSession
 //		SJIncompatibleSessionException, IllegalArgumentException, IllegalAccessException, 
 //		ClassNotFoundException 
 		
-		int c = 0;
-		
 		try {
-
-		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
-		
-		for(Field f: getClass().getDeclaredFields()) {
 			
-			if (f.getType().equals(SJGlobParticipant.class)&& (!((SJGlobParticipant) f.get(this)).isLocal())) {
-				SJGlobParticipant p = (SJGlobParticipant) f.get(this);
-				final SJServerSocket servsocket = SJServerSocketImpl.create(null, 1050+c, params);
-				p.setDel(servsocket.accept());
+			SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
+			LinkedList<SJGlobParticipant> acceptanceList = new LinkedList<SJGlobParticipant>();
+			
+			for(Field f: getClass().getDeclaredFields()) {
 				
-				f.set(this, p);
-				System.out.println("Receiving integer: " + ((SJGlobParticipant) f.get(this)).receiveInt()
-						+ " from " + ((SJGlobParticipant) f.get(this)).getName());
-				c++;
+				if (f.getType().equals(SJGlobParticipant.class) && (!((SJGlobParticipant) f.get(this)).isLocal())) {			
+					acceptanceList.add((SJGlobParticipant) f.get(this));
+				}
+			}	
+			
+			for(SJGlobParticipant gp: acceptanceList) {
+				
+				gp.servsocket = SJServerSocketImpl.create(null, gp.getLocalPort(), params);
+				System.out.println("(AI) WAITING: " + gp.servsocket.toString() + "\n");
+			}
+			
+			for(SJGlobParticipant gp: acceptanceList) {
+				
+				if(gp.servsocket.isOpen) {
+					System.out.println("(AI) TRYING TO ACCEPT: " + gp.servsocket.toString() + "\n");
+					gp.setDel(gp.servsocket.accept());	
+					System.out.println("(AI) ACTIVE: " + gp.servsocket.toString() + "\n");
+				
+					LinkedList<String> delegatedInvites = (LinkedList<String>) gp.receive();
+					System.out.println("Receiving delegationList : " + delegatedInvites + " from " + gp.getName()  + "\n");
+					this.inviteOthers(delegatedInvites, acceptanceList);
+				}
+			}
+		}		
+		catch (Exception e) {e.printStackTrace();}
+	}
+	
+	private void inviteOthers(LinkedList<String> delegatedInvitations, LinkedList<SJGlobParticipant> acceptanceList) {
+			
+		try {
+			SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
+			
+			for (SJGlobParticipant gp: acceptanceList) {
+				
+				if(delegatedInvitations.contains(gp.getName())) {
+					
+					if(gp.servsocket != null) {
+						System.out.println("(IO) TRYING TO CLOSE: " + gp.servsocket.toString());
+						gp.servsocket.close();
+					}
+					gp.setDel(null);
+					final SJService serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
+					gp.setDel(serv.request(params));
+					LinkedList<String> dummy = new LinkedList<String>();
+					dummy.add("This is the dummy list");
+					gp.send(dummy);
+				}	
 			}
 		}
-		
-		}
-		catch (Exception e) {e.printStackTrace();}
-		
+		catch (Exception e) {e.printStackTrace();}	
 	}
 }
