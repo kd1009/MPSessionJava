@@ -20,8 +20,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 		this.glob_session = glob_session;
 		this.participants = createParticipantList(glob_session);
 
-		System.out.println("Protocol class name: " + this.name);
-		System.out.println("Protocol Participants: " + this.participants);		
+		System.out.println("Inferred following participants: " + this.participants + "\n");		
 	}
 	
 	public SJGlobTypeNode sessionType()
@@ -38,7 +37,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 	
 	private static LinkedList<Id> createParticipantList(SJGlobTypeNode glob_session) 
 	{
-
+		System.out.println("\nInferring participant list.");
 		LinkedList<Id> participants = new LinkedList<Id>();
 		LinkedList<String> names = new LinkedList<String>();
 		
@@ -87,6 +86,7 @@ public class SJGlobProtocolDecl_c extends ClassDecl_c implements SJGlobProtocolD
 					id, 
 					new NullLit_c(pos));
 			members.add(mb);
+			System.out.println("Found and added raw participant member: " + mb);
 		}
 		
 		return (LinkedList<ClassMember>) members; 

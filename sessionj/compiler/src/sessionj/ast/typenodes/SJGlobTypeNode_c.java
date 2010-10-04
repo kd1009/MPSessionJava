@@ -1,11 +1,13 @@
 package sessionj.ast.typenodes;
 
+import java.io.Serializable;
+
 import polyglot.util.*;
 import polyglot.visit.ContextVisitor;
 
 import sessionj.types.SJTypeSystem;
 
-public class SJGlobTypeNode_c extends SJTypeNode_c implements SJGlobTypeNode
+public class SJGlobTypeNode_c extends SJTypeNode_c implements SJGlobTypeNode, SJTypeNode
 {
 	private SJGlobElementPrefixNode prefix;
 	private SJTypeNode operationNode;

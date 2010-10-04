@@ -88,15 +88,13 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 
 	private Node translateSJGlobProtocolDecl(SJGlobProtocolDecl pd) throws SemanticException
 	{
-		System.out.println("translateSJGlobProtocolDecl");
+		System.out.println("Translating global protocol: " + pd.name());
 		
 		Position pos = pd.position();
 		QQ qq = new QQ(sjts.extensionInfo(), pos);
 		
 		List<ClassMember> members = new LinkedList<ClassMember>();
 		members = pd.body().members();
-		
-		System.out.println(members);
 	
 		List<ClassMember> newMembers = new LinkedList<ClassMember>();	
 		
@@ -104,14 +102,12 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 			
 			if(mb instanceof FieldDecl) {
 			
-				System.out.println("Yes, I am a FieldDecl");
 				String translation ="";
 				List<Object> mapping = new LinkedList<Object>();
 				translation = "new SJGlobParticipant(%E)";
 				mapping.add(sjnf.StringLit(pos, ((FieldDecl) mb).name()));
 				
-				System.out.println(mapping);
-				System.out.println(((FieldDecl) mb).name());
+				System.out.println("Initialising participant: " + ((FieldDecl) mb).name());
 			
 				New n = (New) qq.parseExpr(translation, mapping);
 				//n = (New) buildAndCheckTypes(this, n);
@@ -119,6 +115,9 @@ public class SJProtocolDeclTranslator extends ContextVisitor // Subsequent Conte
 				newMembers.add(((FieldDecl) mb).init(n));
 			}
 		}
+		
+		System.out.println("\nReplaced participants with: " + newMembers);
+		System.out.println("Automatic disamiguation will follow.");
 		
 		return pd.body(pd.body().members(newMembers));
 	}

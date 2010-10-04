@@ -1,6 +1,7 @@
 package sessionj.runtime.net;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.util.Collections;
 import java.util.LinkedList;
 import sessionj.runtime.SJIOException;
@@ -35,6 +36,7 @@ public abstract class SJGlobSession
 			final SJService serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
 			gp.setDel(serv.request(params));
 			
+			gp.send(getClass());
 			delegationList.remove(gp.getName());
 			gp.send(delegationList);
 		}
@@ -69,9 +71,12 @@ public abstract class SJGlobSession
 			for(SJGlobParticipant gp: acceptanceList) {
 				
 				if(gp.servsocket.isOpen) {
-					System.out.println("(AI) TRYING TO ACCEPT: " + gp.servsocket.toString() + "\n");
 					gp.setDel(gp.servsocket.accept());	
 					System.out.println("(AI) ACTIVE: " + gp.servsocket.toString() + "\n");
+					
+					if (!getClass().equals(gp.receive())) {
+						System.out.println("NO. NOT SAME CLASS");
+					}
 				
 					LinkedList<String> delegatedInvites = (LinkedList<String>) gp.receive();
 					System.out.println("Receiving delegationList : " + delegatedInvites + " from " + gp.getName()  + "\n");
@@ -98,6 +103,7 @@ public abstract class SJGlobSession
 					
 					gp.serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
 					gp.setDel(gp.serv.request(params));
+					gp.send(getClass());
 					gp.send(new LinkedList<String>());
 				}	
 			}

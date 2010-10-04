@@ -605,6 +605,7 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 	
 	public SJGlobProtocolDecl SJGlobProtocolDecl(Position pos, Flags flags, Id name, SJGlobTypeNode tn)
 	{
+		System.out.println("Creating protocol from NodeFactory: " + name.id());
 		return new SJGlobProtocolDecl_c(pos, flags.Public(), name, CanonicalTypeNode(pos, SJ_GLOB_SESSION_TYPE), tn);
 	}
 	
