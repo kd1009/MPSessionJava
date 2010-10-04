@@ -12,31 +12,38 @@ public abstract class SJGlobSession
 	
 	public void invite() 
 	
+	//FIXME: do exception handling	
 	//throws SecurityException, NoSuchMethodException, 
 	//			IllegalArgumentException, IllegalAccessException, SJIOException, 
 	//			SJSessionParametersException, SJIncompatibleSessionException 
 		{
 		try {
 		
+		
 		SJSessionParameters params = SJTransportUtils.createSJSessionParameters("d", "d");
 		LinkedList<SJGlobParticipant> invitationList = new LinkedList<SJGlobParticipant>();
 		LinkedList<String> delegationList = new LinkedList<String>();
 		
+		// find all peers of the participant
 		for(Field f: getClass().getDeclaredFields()) {
 			
 			if (f.getType().equals(SJGlobParticipant.class) && (!((SJGlobParticipant) f.get(this)).isLocal())) {
 				
+				// add to lists
 				invitationList.add((SJGlobParticipant) f.get(this));
 				delegationList.add(((SJGlobParticipant) f.get(this)).getName());
 			}
 		}
 		
+		// for each participant: create SJService and set parameters for delegation to AbstractSocket
 		for(SJGlobParticipant gp: invitationList){
 			
 			final SJService serv = SJService.create(null, gp.getHostname(), gp.getRemotePort());
 			gp.setDel(serv.request(params));
 			
+			// do basic check
 			gp.send(getClass());
+			// remove this participant and send reduced delegation list
 			delegationList.remove(gp.getName());
 			gp.send(delegationList);
 		}
@@ -46,6 +53,7 @@ public abstract class SJGlobSession
 	}
 	
 	public void acceptInvite() {
+//FIXME: sort out excpetion handling
 //		throws SJIOException, SJSessionParametersException,
 //		SJIncompatibleSessionException, IllegalArgumentException, IllegalAccessException, 
 //		ClassNotFoundException 
